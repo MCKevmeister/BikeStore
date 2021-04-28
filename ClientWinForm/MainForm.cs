@@ -35,5 +35,10 @@ namespace ClientWinForm
         {
 
         }
+
+        private void MainLabel_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

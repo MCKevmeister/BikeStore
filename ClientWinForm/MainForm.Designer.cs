@@ -40,16 +40,16 @@ namespace ClientWinForm
             // categoryListView
             // 
             this.categoryListView.HideSelection = false;
-            this.categoryListView.Location = new System.Drawing.Point(45, 58);
+            this.categoryListView.Location = new System.Drawing.Point(12, 58);
             this.categoryListView.Name = "categoryListView";
-            this.categoryListView.Size = new System.Drawing.Size(306, 210);
+            this.categoryListView.Size = new System.Drawing.Size(730, 210);
             this.categoryListView.TabIndex = 0;
             this.categoryListView.UseCompatibleStateImageBehavior = false;
             this.categoryListView.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.categoryListView_MouseDoubleClick);
             // 
             // categoryButton
             // 
-            this.categoryButton.Location = new System.Drawing.Point(45, 284);
+            this.categoryButton.Location = new System.Drawing.Point(25, 274);
             this.categoryButton.Name = "categoryButton";
             this.categoryButton.Size = new System.Drawing.Size(171, 43);
             this.categoryButton.TabIndex = 1;
@@ -58,7 +58,7 @@ namespace ClientWinForm
             // 
             // closeButton
             // 
-            this.closeButton.Location = new System.Drawing.Point(45, 382);
+            this.closeButton.Location = new System.Drawing.Point(25, 372);
             this.closeButton.Name = "closeButton";
             this.closeButton.Size = new System.Drawing.Size(171, 43);
             this.closeButton.TabIndex = 1;
@@ -74,16 +74,19 @@ namespace ClientWinForm
             // 
             // MainLabel
             // 
-            this.MainLabel.AutoSize = true;
-            this.MainLabel.Location = new System.Drawing.Point(45, 22);
+            this.MainLabel.Dock = System.Windows.Forms.DockStyle.Top;
+            this.MainLabel.Font = new System.Drawing.Font("Segoe UI", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.MainLabel.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
+            this.MainLabel.Location = new System.Drawing.Point(0, 0);
             this.MainLabel.Name = "MainLabel";
-            this.MainLabel.Size = new System.Drawing.Size(125, 20);
+            this.MainLabel.Size = new System.Drawing.Size(754, 55);
             this.MainLabel.TabIndex = 3;
             this.MainLabel.Text = "Select a Category";
+            this.MainLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // manufacturerButton
             // 
-            this.manufacturerButton.Location = new System.Drawing.Point(45, 333);
+            this.manufacturerButton.Location = new System.Drawing.Point(25, 323);
             this.manufacturerButton.Name = "manufacturerButton";
             this.manufacturerButton.Size = new System.Drawing.Size(171, 43);
             this.manufacturerButton.TabIndex = 1;
@@ -94,7 +97,7 @@ namespace ClientWinForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(385, 447);
+            this.ClientSize = new System.Drawing.Size(754, 433);
             this.Controls.Add(this.MainLabel);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.closeButton);
@@ -105,7 +108,6 @@ namespace ClientWinForm
             this.Text = "Bike Store";
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
