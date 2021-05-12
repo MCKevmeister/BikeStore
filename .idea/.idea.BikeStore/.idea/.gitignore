@@ -4,8 +4,8 @@
 # Rider ignored files
 /modules.xml
 /contentModel.xml
+/.idea.BikeStore.iml
 /projectSettingsUpdater.xml
-/.idea.sdv701-s1-21-project-MCKevmeister.iml
 # Datasource local storage ignored files
 /dataSources/
 /dataSources.local.xml
