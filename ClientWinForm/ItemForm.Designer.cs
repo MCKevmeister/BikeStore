@@ -48,12 +48,11 @@ namespace ClientWinForm
             this.quantityLabel = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
-            this.label15 = new System.Windows.Forms.Label();
+            this.specificationsLabel = new System.Windows.Forms.Label();
             this.weightLabel = new System.Windows.Forms.Label();
-            this.manufacturerButton = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.closeButton = new System.Windows.Forms.Button();
+            this.viewCategoriesButton = new System.Windows.Forms.Button();
+            this.viewManufacturersButton = new System.Windows.Forms.Button();
+            this.orderButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.itemPicture)).BeginInit();
             this.SuspendLayout();
             // 
@@ -64,7 +63,7 @@ namespace ClientWinForm
             this.itemNameLabel.ForeColor = System.Drawing.SystemColors.ControlText;
             this.itemNameLabel.Location = new System.Drawing.Point(0, 0);
             this.itemNameLabel.Name = "itemNameLabel";
-            this.itemNameLabel.Size = new System.Drawing.Size(754, 703);
+            this.itemNameLabel.Size = new System.Drawing.Size(754, 702);
             this.itemNameLabel.TabIndex = 0;
             this.itemNameLabel.Text = "Merida eSpresso 500 EQ";
             this.itemNameLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -73,7 +72,7 @@ namespace ClientWinForm
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label1.Location = new System.Drawing.Point(320, 618);
+            this.label1.Location = new System.Drawing.Point(320, 632);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(110, 20);
             this.label1.TabIndex = 1;
@@ -83,7 +82,7 @@ namespace ClientWinForm
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label2.Location = new System.Drawing.Point(383, 638);
+            this.label2.Location = new System.Drawing.Point(400, 416);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(47, 20);
             this.label2.TabIndex = 1;
@@ -95,15 +94,15 @@ namespace ClientWinForm
             this.label6.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.label6.Location = new System.Drawing.Point(366, 658);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(64, 20);
+            this.label6.Size = new System.Drawing.Size(58, 20);
             this.label6.TabIndex = 1;
-            this.label6.Text = "Weight:";
+            this.label6.Text = "Motor:";
             // 
             // label7
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label7.Location = new System.Drawing.Point(577, 427);
+            this.label7.Location = new System.Drawing.Point(577, 441);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(52, 20);
             this.label7.TabIndex = 1;
@@ -111,7 +110,8 @@ namespace ClientWinForm
             // 
             // itemPicture
             // 
-            this.itemPicture.Location = new System.Drawing.Point(18, 63);
+            this.itemPicture.Location = new System.Drawing.Point(18, 62);
+            this.itemPicture.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.itemPicture.Name = "itemPicture";
             this.itemPicture.Size = new System.Drawing.Size(300, 300);
             this.itemPicture.TabIndex = 2;
@@ -119,30 +119,35 @@ namespace ClientWinForm
             // 
             // customerNameTextBox
             // 
-            this.customerNameTextBox.Location = new System.Drawing.Point(453, 458);
+            this.customerNameTextBox.Location = new System.Drawing.Point(453, 474);
+            this.customerNameTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.customerNameTextBox.Name = "customerNameTextBox";
             this.customerNameTextBox.Size = new System.Drawing.Size(255, 27);
             this.customerNameTextBox.TabIndex = 4;
+            this.customerNameTextBox.Text = "Mark";
             // 
             // quantity
             // 
-            this.quantity.Location = new System.Drawing.Point(453, 425);
+            this.quantity.Location = new System.Drawing.Point(453, 441);
+            this.quantity.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.quantity.Name = "quantity";
             this.quantity.Size = new System.Drawing.Size(73, 27);
             this.quantity.TabIndex = 5;
-            this.quantity.Text = "domainUpDown1";
+            this.quantity.Text = "1";
             // 
             // customerEmailTextBox
             // 
-            this.customerEmailTextBox.Location = new System.Drawing.Point(453, 491);
+            this.customerEmailTextBox.Location = new System.Drawing.Point(453, 506);
+            this.customerEmailTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.customerEmailTextBox.Name = "customerEmailTextBox";
             this.customerEmailTextBox.Size = new System.Drawing.Size(255, 27);
             this.customerEmailTextBox.TabIndex = 6;
+            this.customerEmailTextBox.Text = "markchristison@gmail.com";
             // 
             // descriptionLabel
             // 
             this.descriptionLabel.AutoSize = true;
-            this.descriptionLabel.Location = new System.Drawing.Point(324, 63);
+            this.descriptionLabel.Location = new System.Drawing.Point(324, 62);
             this.descriptionLabel.MaximumSize = new System.Drawing.Size(400, 0);
             this.descriptionLabel.Name = "descriptionLabel";
             this.descriptionLabel.Size = new System.Drawing.Size(399, 340);
@@ -152,25 +157,25 @@ namespace ClientWinForm
             // manufacturerLabel
             // 
             this.manufacturerLabel.AutoSize = true;
-            this.manufacturerLabel.Location = new System.Drawing.Point(436, 618);
+            this.manufacturerLabel.Location = new System.Drawing.Point(436, 632);
             this.manufacturerLabel.Name = "manufacturerLabel";
-            this.manufacturerLabel.Size = new System.Drawing.Size(133, 20);
+            this.manufacturerLabel.Size = new System.Drawing.Size(56, 20);
             this.manufacturerLabel.TabIndex = 8;
-            this.manufacturerLabel.Text = "manufacturerLabel";
+            this.manufacturerLabel.Text = "Merida";
             // 
             // priceLabel
             // 
             this.priceLabel.AutoSize = true;
-            this.priceLabel.Location = new System.Drawing.Point(436, 638);
+            this.priceLabel.Location = new System.Drawing.Point(453, 418);
             this.priceLabel.Name = "priceLabel";
-            this.priceLabel.Size = new System.Drawing.Size(42, 20);
+            this.priceLabel.Size = new System.Drawing.Size(52, 20);
             this.priceLabel.TabIndex = 8;
-            this.priceLabel.Text = "price";
+            this.priceLabel.Text = "$4,900";
             // 
             // stockLabel
             // 
             this.stockLabel.AutoSize = true;
-            this.stockLabel.Location = new System.Drawing.Point(635, 427);
+            this.stockLabel.Location = new System.Drawing.Point(635, 441);
             this.stockLabel.Name = "stockLabel";
             this.stockLabel.Size = new System.Drawing.Size(17, 20);
             this.stockLabel.TabIndex = 8;
@@ -180,7 +185,7 @@ namespace ClientWinForm
             // 
             this.quantityLabel.AutoSize = true;
             this.quantityLabel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.quantityLabel.Location = new System.Drawing.Point(373, 427);
+            this.quantityLabel.Location = new System.Drawing.Point(377, 441);
             this.quantityLabel.Name = "quantityLabel";
             this.quantityLabel.Size = new System.Drawing.Size(74, 20);
             this.quantityLabel.TabIndex = 9;
@@ -190,7 +195,7 @@ namespace ClientWinForm
             // 
             this.label13.AutoSize = true;
             this.label13.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label13.Location = new System.Drawing.Point(392, 461);
+            this.label13.Location = new System.Drawing.Point(396, 476);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(55, 20);
             this.label13.TabIndex = 10;
@@ -200,78 +205,71 @@ namespace ClientWinForm
             // 
             this.label14.AutoSize = true;
             this.label14.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label14.Location = new System.Drawing.Point(396, 494);
+            this.label14.Location = new System.Drawing.Point(400, 506);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(51, 20);
             this.label14.TabIndex = 11;
             this.label14.Text = "Email:";
             // 
-            // label15
+            // specificationsLabel
             // 
-            this.label15.AutoSize = true;
-            this.label15.Font = new System.Drawing.Font("Segoe UI", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label15.Location = new System.Drawing.Point(383, 570);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(198, 38);
-            this.label15.TabIndex = 12;
-            this.label15.Text = "Specifications";
+            this.specificationsLabel.AutoSize = true;
+            this.specificationsLabel.Font = new System.Drawing.Font("Segoe UI", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.specificationsLabel.Location = new System.Drawing.Point(383, 585);
+            this.specificationsLabel.Name = "specificationsLabel";
+            this.specificationsLabel.Size = new System.Drawing.Size(198, 38);
+            this.specificationsLabel.TabIndex = 12;
+            this.specificationsLabel.Text = "Specifications";
             // 
             // weightLabel
             // 
             this.weightLabel.AutoSize = true;
             this.weightLabel.Location = new System.Drawing.Point(436, 658);
             this.weightLabel.Name = "weightLabel";
-            this.weightLabel.Size = new System.Drawing.Size(56, 20);
+            this.weightLabel.Size = new System.Drawing.Size(155, 20);
             this.weightLabel.TabIndex = 13;
-            this.weightLabel.Text = "Weight";
+            this.weightLabel.Text = "Shimano E6100 60Nm";
             // 
-            // manufacturerButton
+            // viewCategoriesButton
             // 
-            this.manufacturerButton.Location = new System.Drawing.Point(18, 393);
-            this.manufacturerButton.Name = "manufacturerButton";
-            this.manufacturerButton.Size = new System.Drawing.Size(171, 43);
-            this.manufacturerButton.TabIndex = 14;
-            this.manufacturerButton.Text = "View Categories";
-            this.manufacturerButton.UseVisualStyleBackColor = true;
+            this.viewCategoriesButton.Location = new System.Drawing.Point(18, 392);
+            this.viewCategoriesButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.viewCategoriesButton.Name = "viewCategoriesButton";
+            this.viewCategoriesButton.Size = new System.Drawing.Size(171, 42);
+            this.viewCategoriesButton.TabIndex = 14;
+            this.viewCategoriesButton.Text = "View Categories";
+            this.viewCategoriesButton.UseVisualStyleBackColor = true;
             // 
-            // button3
+            // viewManufacturersButton
             // 
-            this.button3.Location = new System.Drawing.Point(18, 442);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(171, 43);
-            this.button3.TabIndex = 15;
-            this.button3.Text = "View Manufacturers";
-            this.button3.UseVisualStyleBackColor = true;
+            this.viewManufacturersButton.Location = new System.Drawing.Point(18, 442);
+            this.viewManufacturersButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.viewManufacturersButton.Name = "viewManufacturersButton";
+            this.viewManufacturersButton.Size = new System.Drawing.Size(171, 42);
+            this.viewManufacturersButton.TabIndex = 15;
+            this.viewManufacturersButton.Text = "View Manufacturers";
+            this.viewManufacturersButton.UseVisualStyleBackColor = true;
             // 
-            // button4
+            // orderButton
             // 
-            this.button4.Location = new System.Drawing.Point(453, 524);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(171, 43);
-            this.button4.TabIndex = 16;
-            this.button4.Text = "Order";
-            this.button4.UseVisualStyleBackColor = true;
-            // 
-            // closeButton
-            // 
-            this.closeButton.Location = new System.Drawing.Point(18, 491);
-            this.closeButton.Name = "closeButton";
-            this.closeButton.Size = new System.Drawing.Size(171, 43);
-            this.closeButton.TabIndex = 18;
-            this.closeButton.Text = "Main Menu";
-            this.closeButton.UseVisualStyleBackColor = true;
+            this.orderButton.Location = new System.Drawing.Point(453, 540);
+            this.orderButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.orderButton.Name = "orderButton";
+            this.orderButton.Size = new System.Drawing.Size(171, 42);
+            this.orderButton.TabIndex = 16;
+            this.orderButton.Text = "Order";
+            this.orderButton.UseVisualStyleBackColor = true;
             // 
             // ItemForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(754, 703);
-            this.Controls.Add(this.closeButton);
-            this.Controls.Add(this.button4);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.manufacturerButton);
+            this.ClientSize = new System.Drawing.Size(754, 702);
+            this.Controls.Add(this.orderButton);
+            this.Controls.Add(this.viewManufacturersButton);
+            this.Controls.Add(this.viewCategoriesButton);
             this.Controls.Add(this.weightLabel);
-            this.Controls.Add(this.label15);
+            this.Controls.Add(this.specificationsLabel);
             this.Controls.Add(this.label14);
             this.Controls.Add(this.label13);
             this.Controls.Add(this.quantityLabel);
@@ -288,9 +286,9 @@ namespace ClientWinForm
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.itemNameLabel);
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "ItemForm";
             this.Text = "Merida eSpresso 500 EQ";
-            this.Load += new System.EventHandler(this.ItemForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.itemPicture)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -315,11 +313,10 @@ namespace ClientWinForm
         private System.Windows.Forms.Label quantityLabel;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Label specificationsLabel;
         private System.Windows.Forms.Label weightLabel;
-        private System.Windows.Forms.Button manufacturerButton;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button closeButton;
+        private System.Windows.Forms.Button viewCategoriesButton;
+        private System.Windows.Forms.Button viewManufacturersButton;
+        private System.Windows.Forms.Button orderButton;
     }
 }

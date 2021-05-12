@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using System;
+using System.Windows.Forms;
 
 namespace ClientWinForm
 {
@@ -9,9 +10,5 @@ namespace ClientWinForm
             InitializeComponent();
         }
 
-        private void ItemForm_Load(object sender, System.EventArgs e)
-        {
-
-        }
     }
 }
