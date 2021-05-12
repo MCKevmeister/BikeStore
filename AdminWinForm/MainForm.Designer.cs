@@ -1,7 +1,7 @@
 ﻿
 namespace AdminWinForm
 {
-    partial class Form1
+    partial class MainForm
     {
         /// <summary>
         ///  Required designer variable.
@@ -29,34 +29,14 @@ namespace AdminWinForm
         /// </summary>
         private void InitializeComponent()
         {
-            this.MainLabel = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
             this.closeButton = new System.Windows.Forms.Button();
-            this.manufacturerButton = new System.Windows.Forms.Button();
-            this.categoryButton = new System.Windows.Forms.Button();
-            this.categoryListView = new System.Windows.Forms.ListView();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.viewItemButton = new System.Windows.Forms.Button();
+            this.itemListView = new System.Windows.Forms.ListView();
+            this.viewOrdersButton = new System.Windows.Forms.Button();
+            this.addItemButton = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.MainLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
-            // 
-            // MainLabel
-            // 
-            this.MainLabel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.MainLabel.Font = new System.Drawing.Font("Segoe UI", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.MainLabel.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.MainLabel.Location = new System.Drawing.Point(0, 0);
-            this.MainLabel.Name = "MainLabel";
-            this.MainLabel.Size = new System.Drawing.Size(800, 55);
-            this.MainLabel.TabIndex = 9;
-            this.MainLabel.Text = "Select a Category";
-            this.MainLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
-            // label1
-            // 
-            this.label1.Location = new System.Drawing.Point(0, 18);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(100, 23);
-            this.label1.TabIndex = 10;
             // 
             // closeButton
             // 
@@ -67,80 +47,91 @@ namespace AdminWinForm
             this.closeButton.Text = "Close";
             this.closeButton.UseVisualStyleBackColor = true;
             // 
-            // manufacturerButton
+            // viewItemButton
             // 
-            this.manufacturerButton.Location = new System.Drawing.Point(25, 341);
-            this.manufacturerButton.Name = "manufacturerButton";
-            this.manufacturerButton.Size = new System.Drawing.Size(171, 43);
-            this.manufacturerButton.TabIndex = 7;
-            this.manufacturerButton.Text = "View Manufacturers";
-            this.manufacturerButton.UseVisualStyleBackColor = true;
+            this.viewItemButton.Location = new System.Drawing.Point(25, 292);
+            this.viewItemButton.Name = "viewItemButton";
+            this.viewItemButton.Size = new System.Drawing.Size(171, 43);
+            this.viewItemButton.TabIndex = 8;
+            this.viewItemButton.Text = "View Item";
+            this.viewItemButton.UseVisualStyleBackColor = true;
+            this.viewItemButton.Click += new System.EventHandler(this.categoryButton_Click);
             // 
-            // categoryButton
+            // itemListView
             // 
-            this.categoryButton.Location = new System.Drawing.Point(25, 292);
-            this.categoryButton.Name = "categoryButton";
-            this.categoryButton.Size = new System.Drawing.Size(171, 43);
-            this.categoryButton.TabIndex = 8;
-            this.categoryButton.Text = "Open Category";
-            this.categoryButton.UseVisualStyleBackColor = true;
+            this.itemListView.HideSelection = false;
+            this.itemListView.Location = new System.Drawing.Point(12, 76);
+            this.itemListView.Name = "itemListView";
+            this.itemListView.Size = new System.Drawing.Size(730, 210);
+            this.itemListView.TabIndex = 5;
+            this.itemListView.UseCompatibleStateImageBehavior = false;
             // 
-            // categoryListView
+            // viewOrdersButton
             // 
-            this.categoryListView.HideSelection = false;
-            this.categoryListView.Location = new System.Drawing.Point(12, 76);
-            this.categoryListView.Name = "categoryListView";
-            this.categoryListView.Size = new System.Drawing.Size(730, 210);
-            this.categoryListView.TabIndex = 5;
-            this.categoryListView.UseCompatibleStateImageBehavior = false;
+            this.viewOrdersButton.Location = new System.Drawing.Point(202, 292);
+            this.viewOrdersButton.Name = "viewOrdersButton";
+            this.viewOrdersButton.Size = new System.Drawing.Size(171, 43);
+            this.viewOrdersButton.TabIndex = 8;
+            this.viewOrdersButton.Text = "View Orders";
+            this.viewOrdersButton.UseVisualStyleBackColor = true;
+            this.viewOrdersButton.Click += new System.EventHandler(this.viewOrdersButton_Click);
             // 
-            // button1
+            // addItemButton
             // 
-            this.button1.Location = new System.Drawing.Point(202, 292);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(171, 43);
-            this.button1.TabIndex = 8;
-            this.button1.Text = "View Orders";
-            this.button1.UseVisualStyleBackColor = true;
+            this.addItemButton.Location = new System.Drawing.Point(25, 341);
+            this.addItemButton.Name = "addItemButton";
+            this.addItemButton.Size = new System.Drawing.Size(171, 43);
+            this.addItemButton.TabIndex = 11;
+            this.addItemButton.Text = "Add Item";
+            this.addItemButton.UseVisualStyleBackColor = true;
+            this.addItemButton.Click += new System.EventHandler(this.addItemButton_Click);
             // 
-            // button2
+            // label1
             // 
-            this.button2.Location = new System.Drawing.Point(202, 341);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(171, 43);
-            this.button2.TabIndex = 11;
-            this.button2.Text = "Add Item";
-            this.button2.UseVisualStyleBackColor = true;
+            this.label1.Location = new System.Drawing.Point(0, -3);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(395, 62);
+            this.label1.TabIndex = 10;
             // 
-            // Form1
+            // MainLabel
+            // 
+            this.MainLabel.Dock = System.Windows.Forms.DockStyle.Top;
+            this.MainLabel.Font = new System.Drawing.Font("Segoe UI", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.MainLabel.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
+            this.MainLabel.Location = new System.Drawing.Point(0, 0);
+            this.MainLabel.Name = "MainLabel";
+            this.MainLabel.Size = new System.Drawing.Size(800, 73);
+            this.MainLabel.TabIndex = 9;
+            this.MainLabel.Text = "Current Stock";
+            this.MainLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.button2);
+            this.Controls.Add(this.addItemButton);
             this.Controls.Add(this.MainLabel);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.closeButton);
-            this.Controls.Add(this.manufacturerButton);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.categoryButton);
-            this.Controls.Add(this.categoryListView);
-            this.Name = "Form1";
+            this.Controls.Add(this.viewOrdersButton);
+            this.Controls.Add(this.viewItemButton);
+            this.Controls.Add(this.itemListView);
+            this.Name = "MainForm";
             this.Text = "Bike Store Admin";
             this.ResumeLayout(false);
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Label MainLabel;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button closeButton;
-        private System.Windows.Forms.Button manufacturerButton;
-        private System.Windows.Forms.Button categoryButton;
-        private System.Windows.Forms.ListView categoryListView;
+        private System.Windows.Forms.Button viewItemButton;
+        private System.Windows.Forms.ListView itemListView;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button addItemButton;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label MainLabel;
+        private System.Windows.Forms.Button viewOrdersButton;
     }
 }
 
