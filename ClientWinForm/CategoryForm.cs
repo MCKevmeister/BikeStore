@@ -24,22 +24,22 @@ namespace ClientWinForm
         private void UpdateBikeListView()
         {
             bikeListView.View = View.Details;
-            bikeListView.Columns.Add("Name", -2);
-            bikeListView.Columns.Add("Price", -2);
-            bikeListView.Columns.Add("Stock", -2);
+            bikeListView.Columns.Add("Name");
+            bikeListView.Columns.Add("Price");
+            bikeListView.Columns.Add("Stock");
 
 
-            ListViewItem item1 = new("Foo");
-            item1.SubItems.Add("$400");
+            ListViewItem item1 = new("Merida eSpresso 500 EQ");
+            item1.SubItems.Add("$2,299");
             item1.SubItems.Add("3");
-            ListViewItem item2 = new("Bar");
-            item2.SubItems.Add("$300");
-            item2.SubItems.Add("2");
-            ListViewItem item3 = new("Baz");
-            item3.SubItems.Add("$100");
-            item3.SubItems.Add("23");
+            ListViewItem item2 = new("Velectrix Urban Hybrid Electric Bike Blue");
+            item2.SubItems.Add("$5,250.00");
+            item2.SubItems.Add("7");
+            ListViewItem item3 = new("Norco Sight VLT C3 Electric All-Mountain Bike ");
+            item3.SubItems.Add("$8,899");
+            item3.SubItems.Add("5");
             
-            int x = bikeListView.Width / 3;
+            var x = bikeListView.Width / 3;
 
             foreach (ColumnHeader column in bikeListView.Columns)
             {
@@ -48,6 +48,17 @@ namespace ClientWinForm
 
 
             bikeListView.Items.AddRange(new[] { item1, item2, item3 });
+        }
+
+        private void viewItemButton_Click(object sender, EventArgs e)
+        {
+            var newForm = new ItemForm();
+            newForm.Show();;
+        }
+
+        private void currentStockLabel_Click(object sender, EventArgs e)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }
