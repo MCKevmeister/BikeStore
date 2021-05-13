@@ -1,15 +1,16 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
-namespace Models
+namespace BikeStoreServer.Models
 {
     public class OrderModel
     {
         [BsonId] 
-        public int OrderId { get; set; }
+        public ObjectId OrderId { get; set; }
         [Required] 
-        public int BikeId { get; set; }
+        public Bike BikeId { get; set; }
         [Required] 
         public char CustomerName { get; set; }
         [Required] 
