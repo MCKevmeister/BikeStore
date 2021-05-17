@@ -1,9 +1,9 @@
-﻿using BikeStoreServer.Models;
+﻿using System.Collections.Generic;
+using BikeStore.Models;
 using MongoDB.Driver;
-using System.Collections.Generic;
-using System.Linq;
+using Server.Models;
 
-namespace BikeStoreServer.Services
+namespace BikeStore.Server.Services
 {
     public class BikeService
     {

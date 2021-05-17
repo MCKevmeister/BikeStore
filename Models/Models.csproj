@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net5.0</TargetFramework>
+        <AssemblyName>BikeStore.Models</AssemblyName>
+        <RootNamespace>BikeStore.Models</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="MongoDB.Bson" Version="2.13.0-beta1" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Remove="AppDbContext.cs" />
+    </ItemGroup>
+
+</Project>

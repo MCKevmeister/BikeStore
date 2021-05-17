@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
-using BikeStoreServer.Models;
-using BikeStoreServer.Services;
+using BikeStore.Models;
+using BikeStore.Server.Services;
+using Server.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BikeStoreServer.Controllers
+namespace Server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

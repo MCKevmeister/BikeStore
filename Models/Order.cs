@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
-namespace BikeStoreServer.Models
+namespace BikeStore.Models
 {
     public class OrderModel
     {

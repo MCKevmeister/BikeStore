@@ -1,4 +1,6 @@
-﻿namespace BikeStoreServer.Models
+﻿using Server.Models;
+
+namespace BikeStore.Models
 {
     public class BikeStoreDatabaseSettings : IBikeStoreDatabaseSettings
     {

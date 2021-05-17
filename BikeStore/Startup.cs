@@ -1,5 +1,5 @@
-using BikeStoreServer.Models;
-using BikeStoreServer.Services;
+using BikeStore.Models;
+using BikeStore.Server.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -7,7 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 
-namespace BikeStoreServer
+namespace BikeStore.Server
 {
     public class Startup
     {
@@ -31,7 +31,7 @@ namespace BikeStoreServer
             services.AddControllers();
         }
         
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public static void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {

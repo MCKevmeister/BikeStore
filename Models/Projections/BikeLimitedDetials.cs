@@ -1,7 +1,7 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
-namespace BikeStoreServer.Models.Projections
+namespace Server.Models.Projections
 {
     public class BikeLimitedDetialsProjection
     {

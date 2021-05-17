@@ -1,40 +1,40 @@
 ﻿using System.Collections.Generic;
-using BikeStoreServer.Models;
+using BikeStore.Models;
 using MongoDB.Driver;
 
-namespace BikeStoreServer.Services
+namespace BikeStore.Server.Services
 {
-    public class BookService
+    public class ManufacturerService
     {
         private readonly IMongoCollection<Manufacturer> _manufacturers;
 
-        public BookService(IBookstoreDatabaseSettings settings)
+        public ManufacturerService(IBikeStoreDatabaseSettings settings)
         {
             var client = new MongoClient(settings.ConnectionString);
             var database = client.GetDatabase(settings.DatabaseName);
 
-            _books = database.GetCollection<Book>(settings.BooksCollectionName);
+            _manufacturers = database.GetCollection<Manufacturer>(settings.ManufacturerCollectionName);
         }
 
-        public List<Book> Get() =>
-            _books.Find(book => true).ToList();
+        public List<Manufacturer> Get() =>
+            _manufacturers.Find(manufacturer => true).ToList();
 
-        public Book Get(string id) =>
-            _books.Find<Book>(book => book.Id == id).FirstOrDefault();
+        public Manufacturer Get(string id) =>
+            _manufacturers.Find<Manufacturer>(manufacturer => manufacturer.Id == id).FirstOrDefault();
 
-        public Book Create(Book book)
+        public Manufacturer Create(Manufacturer manufacturer)
         {
-            _books.InsertOne(book);
-            return book;
+            _manufacturers.InsertOne(manufacturer);
+            return manufacturer;
         }
 
-        public void Update(string id, Book bookIn) =>
-            _books.ReplaceOne(book => book.Id == id, bookIn);
+        public void Update(string id, Manufacturer manufacturerIn) =>
+            _manufacturers.ReplaceOne(manufacturer => manufacturer.Id == id, manufacturerIn);
 
-        public void Remove(Book bookIn) =>
-            _books.DeleteOne(book => book.Id == bookIn.Id);
+        public void Remove(Manufacturer manufacturerIn) =>
+            _manufacturers.DeleteOne(manufacturer => manufacturer.Id == manufacturerIn.Id);
 
         public void Remove(string id) =>
-            _books.DeleteOne(book => book.Id == id);
+            _manufacturers.DeleteOne(manufacturer => manufacturer.Id == id);
     }
 }

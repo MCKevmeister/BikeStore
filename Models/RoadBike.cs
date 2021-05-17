@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace BikeStoreServer.Models
+namespace BikeStore.Models
 {
     public class RoadBike : Bike
     {

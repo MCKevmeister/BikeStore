@@ -1,9 +1,10 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
+using Server;
 
-namespace BikeStoreServer
+namespace BikeStore.Server
 {
-    public class Program
+    public static class Program
     {
         public static void Main(string[] args)
         {

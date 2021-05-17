@@ -1,8 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using BikeStore.Models;
+using Microsoft.EntityFrameworkCore;
 
-namespace BikeStoreServer.Models
+namespace Server.Models
 {
-    public class AppDbContext: DbContext
+    public classAppDbContext: DbContext
     {
         private readonly DbContextOptions _options;
         public AppDbContext(DbContextOptions options) : base(options)
