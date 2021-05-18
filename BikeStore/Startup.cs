@@ -1,4 +1,5 @@
 using BikeStore.Models;
+using BikeStore.Server.Repositories;
 using BikeStore.Server.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -20,13 +21,13 @@ namespace BikeStore.Server
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.Configure<BikeStoreDatabaseSettings>(
-                Configuration.GetSection(nameof(BikeStoreDatabaseSettings)));
-
-            services.AddSingleton<IBikeStoreDatabaseSettings>(sp =>
-                sp.GetRequiredService<IOptions<BikeStoreDatabaseSettings>>().Value);
+            services.RegisterMongoDbRepositories();
             
+            services.AddScoped<IMongoContext, MongoContext>();
+            services.AddSingleton<IMongoDbContext>(x => new MongoContext());
             services.AddSingleton<BikeService>();
+
+            //services.AddScoped<IMongoDbContext, MongoDbContext>();
 
             services.AddControllers();
         }

@@ -2,7 +2,7 @@
 
 namespace BikeStore.Models
 {
-    public class BikeStoreDatabaseSettings : IBikeStoreDatabaseSettings
+    public abstract class BikeStoreDatabaseSettings : IBikeStoreDatabaseSettings
     {
         public string OrderCollectionName { get; set; }
         public string ManufacturerCollectionName { get; set; }
