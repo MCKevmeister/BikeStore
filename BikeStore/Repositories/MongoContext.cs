@@ -6,22 +6,16 @@ using MongoDB.Driver;
 
 namespace BikeStore.Server.Repositories
 {
-    public abstract class MongoContext: IMongoContext
+    public abstract class MongoContext : IMongoContext
     {
         private IMongoDatabase Database { get; set; }
         private MongoClient MongoClient { get; set; }
         public IClientSessionHandle Session { get; set; }
-        protected MongoContext(IOptions<IBikeStoreDatabaseSettings> configuration)
+        public MongoContext(IOptions<IBikeStoreDatabaseSettings> configuration)
         {
             MongoClient = new MongoClient(configuration.Value.ConnectionString);
             Database = MongoClient.GetDatabase(configuration.Value.DatabaseName);
         }
-
-        public void AddCommand(Func<Task> func)
-        {
-            throw new NotImplementedException();
-        }
-
         public Task<int> SaveChanges()
         {
             throw new NotImplementedException();

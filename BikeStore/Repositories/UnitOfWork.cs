@@ -4,9 +4,9 @@ namespace BikeStore.Server.Repositories
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private readonly IMongoContext _context;
+        private readonly MongoContext _context;
 
-        public UnitOfWork(IMongoContext context)
+        public UnitOfWork(MongoContext context)
         {
             _context = context;
         }
@@ -14,7 +14,6 @@ namespace BikeStore.Server.Repositories
         public async Task<bool> Commit()
         {
             var changeAmount = await _context.SaveChanges();
-
             return changeAmount > 0;
         }
 

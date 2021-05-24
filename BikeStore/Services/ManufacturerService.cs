@@ -4,7 +4,7 @@ using MongoDB.Driver;
 
 namespace BikeStore.Server.Services
 {
-    public class ManufacturerService
+    public class ManufacturerService : IManufacturerService
     {
         private readonly IMongoCollection<Manufacturer> _manufacturers;
 
@@ -16,7 +16,7 @@ namespace BikeStore.Server.Services
             _manufacturers = database.GetCollection<Manufacturer>(settings.ManufacturerCollectionName);
         }
 
-        public List<Manufacturer> Get() =>
+        public List<Manufacturer> GetAll() =>
             _manufacturers.Find(manufacturer => true).ToList();
 
         public Manufacturer Get(string id) =>

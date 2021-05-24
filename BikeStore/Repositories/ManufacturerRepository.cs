@@ -6,35 +6,10 @@ using MongoDB.Driver;
 
 namespace BikeStore.Server.Repositories
 {
-    public class ManufacturerRepository : MongoContext, IManufacturerRepository
+    public class ManufacturerRepository : Repository<Manufacturer>
     {
-        public ManufacturerRepository(IOptions<IBikeStoreDatabaseSettings> configuration) : base(configuration)
+        public ManufacturerRepository(MongoContext context) : base(context)
         {
-        }
-
-        public void Create(Manufacturer obj)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void Update(Manufacturer obj)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void Delete(string id)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public Task<Manufacturer> GetById(string id)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public Task<IEnumerable<Manufacturer>> GetAll()
-        {
-            throw new System.NotImplementedException();
         }
     }
 }

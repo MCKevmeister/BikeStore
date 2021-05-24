@@ -6,32 +6,29 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BikeStore.Server.Controllers
 {
-    public class ManufacturerController
-    {
-        [Microsoft.AspNetCore.Components.Route("api/manufacturer")]
-        [ApiController]
-        public class BookController : ControllerBase
+[Microsoft.AspNetCore.Components.Route("api/manufacturer")]
+[ApiController]
+public class ManufacturerController : ControllerBase
+{
+    private readonly ManufacturerRepository _manufacturerRepository;
+
+        public ManufacturerController(ManufacturerRepository manufacturerRepository)
         {
-            private readonly ManufacturerRepository _manufacturerRepository;
+            _manufacturerRepository = manufacturerRepository;
+        }
 
-            public BookController(ManufacturerRepository manufacturerRepository)
-            {
-                _manufacturerRepository = manufacturerRepository;
-            }
-
-            [HttpGet]
-            public async Task<ActionResult<IEnumerable<Manufacturer>>> Get()
-            {
-                var manufacturers = await _manufacturerRepository.GetByID();
-                return Ok(manufacturers);
-            }
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Manufacturer>>> Get()
+        {
+            var manufacturers = await _manufacturerRepository.GetAll();
+            return Ok(manufacturers);
+        }
  
-            [HttpGet("{id}")]
-            public async Task<ActionResult<Manufacturer>> Get(string id)
-            {
-                var manufacturer = await _manufacturerRepository.GetByID(id);
-                return Ok(manufacturer);
-            }
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Manufacturer>> Get(string id)
+        {
+            var manufacturer = await _manufacturerRepository.GetById(id);
+            return Ok(manufacturer);
         }
     }
 }

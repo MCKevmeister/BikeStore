@@ -21,10 +21,9 @@ namespace BikeStore.Server
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.RegisterMongoDbRepositories();
             
             services.AddScoped<IMongoContext, MongoContext>();
-            services.AddSingleton<IMongoDbContext>(x => new MongoContext());
+            services.RegisterMongoDbRepositories();
             services.AddSingleton<BikeService>();
 
             //services.AddScoped<IMongoDbContext, MongoDbContext>();
