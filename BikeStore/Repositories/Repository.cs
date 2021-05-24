@@ -7,10 +7,10 @@ namespace BikeStore.Server.Repositories
 {
     public abstract class Repository<TEntity> : IRepository<TEntity> where TEntity : class,IEntity
     {
-        private readonly MongoContext _context;
+        private readonly IMongoContext _context;
         protected IMongoCollection<TEntity> Collection { get; }
 
-        protected Repository(MongoContext context)
+        protected Repository(IMongoContext context)
         {
             _context = context; 
             Collection = context.GetCollection<TEntity>(typeof(TEntity).Name);

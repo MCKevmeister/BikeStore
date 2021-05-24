@@ -6,9 +6,9 @@ using MongoDB.Driver;
 
 namespace BikeStore.Server.Repositories
 {
-    public class ManufacturerRepository : Repository<Manufacturer>
+    public class ManufacturerRepository : Repository<Manufacturer>, IManufacturerRepository
     {
-        public ManufacturerRepository(MongoContext context) : base(context)
+        public ManufacturerRepository(IMongoContext context) : base(context)
         {
         }
     }

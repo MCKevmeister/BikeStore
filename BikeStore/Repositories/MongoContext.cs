@@ -6,11 +6,13 @@ using MongoDB.Driver;
 
 namespace BikeStore.Server.Repositories
 {
-    public abstract class MongoContext : IMongoContext
+    public class MongoContext : IMongoContext
     {
-        private IMongoDatabase Database { get; set; }
+        public IMongoDatabase Database { get; }
+
         private MongoClient MongoClient { get; set; }
         public IClientSessionHandle Session { get; set; }
+        
         public MongoContext(IOptions<IBikeStoreDatabaseSettings> configuration)
         {
             MongoClient = new MongoClient(configuration.Value.ConnectionString);

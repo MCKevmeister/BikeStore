@@ -1,3 +1,4 @@
+using System.IO;
 using BikeStore.Models;
 using BikeStore.Server.Repositories;
 using BikeStore.Server.Services;
@@ -21,12 +22,18 @@ namespace BikeStore.Server
 
         public void ConfigureServices(IServiceCollection services)
         {
-            
-            services.AddScoped<IMongoContext, MongoContext>();
-            services.RegisterMongoDbRepositories();
-            services.AddSingleton<BikeService>();
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
 
-            //services.AddScoped<IMongoDbContext, MongoDbContext>();
+            var configuration = builder.Build();
+            
+            services.Configure<BikeStoreDatabaseSettings>(configuration.GetSection("BikeStoreDatabaseSettings"));
+            services.AddSingleton<IBikeStoreDatabaseSettings>(x => x.GetRequiredService<IOptions<BikeStoreDatabaseSettings>>().Value);
+            services.AddSingleton<IMongoContext, MongoContext>();
+            services.RegisterMongoDbRepositories();
+            services.AddSingleton<IManufacturerService, ManufacturerService>();
+            //services.AddSingleton<BikeService>();
 
             services.AddControllers();
         }

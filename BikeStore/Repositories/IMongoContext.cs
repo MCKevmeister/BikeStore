@@ -9,6 +9,7 @@ namespace BikeStore.Server.Repositories
         {
             // void AddCommand(Func<Task> func);
             Task<int> SaveChanges();
+            IMongoDatabase Database { get; }
             //MongoCollectionBase<T> GetCollection<T>(string name);
             IMongoCollection<T> GetCollection<T>(string name);
         }

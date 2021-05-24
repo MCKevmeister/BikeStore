@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using BikeStore.Models;
+using BikeStore.Server.Repositories;
 using MongoDB.Driver;
 
 namespace BikeStore.Server.Services
@@ -7,13 +8,15 @@ namespace BikeStore.Server.Services
     public class ManufacturerService : IManufacturerService
     {
         private readonly IMongoCollection<Manufacturer> _manufacturers;
+        private IMongoContext Context { get; }
 
-        public ManufacturerService(IBikeStoreDatabaseSettings settings)
+        public ManufacturerService(IMongoContext mongoContext)
         {
-            var client = new MongoClient(settings.ConnectionString);
-            var database = client.GetDatabase(settings.DatabaseName);
+            // var client = new MongoClient(settings.ConnectionString);
+            // var database = client.GetDatabase(settings.DatabaseName);
+            Context = mongoContext;
 
-            _manufacturers = database.GetCollection<Manufacturer>(settings.ManufacturerCollectionName);
+            _manufacturers = Context.Database.GetCollection<Manufacturer>((nameof(Manufacturer) + "s").ToLower());
         }
 
         public List<Manufacturer> GetAll() =>
