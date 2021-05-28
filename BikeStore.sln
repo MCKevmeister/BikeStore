@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestApiClient", "RestApiCli
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp1", "ConsoleApp1\ConsoleApp1.csproj", "{5F5DE192-5B8A-4A12-937A-52A3C2F91E67}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProvingThatIAmNotInsaneConsoleApplication", "ProvingThatIAmNotInsaneConsoleApplication\ProvingThatIAmNotInsaneConsoleApplication.csproj", "{200B6AB9-0044-4BCA-A1C4-FE6AB97F2D19}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{5F5DE192-5B8A-4A12-937A-52A3C2F91E67}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5F5DE192-5B8A-4A12-937A-52A3C2F91E67}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5F5DE192-5B8A-4A12-937A-52A3C2F91E67}.Release|Any CPU.Build.0 = Release|Any CPU
+		{200B6AB9-0044-4BCA-A1C4-FE6AB97F2D19}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{200B6AB9-0044-4BCA-A1C4-FE6AB97F2D19}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{200B6AB9-0044-4BCA-A1C4-FE6AB97F2D19}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{200B6AB9-0044-4BCA-A1C4-FE6AB97F2D19}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

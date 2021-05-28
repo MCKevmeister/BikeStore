@@ -20,6 +20,7 @@ namespace test1
             {
                 Console.WriteLine(manufacturer.Name);
             }
+
             Console.ReadKey();
         }
     }

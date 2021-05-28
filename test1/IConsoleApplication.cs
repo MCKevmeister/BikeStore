@@ -1,4 +1,6 @@
-﻿namespace test1
+﻿using System.Text;
+
+namespace test1
 {
     public interface IConsoleApplication
     {

@@ -13,10 +13,10 @@ namespace BikeStore.Server.Repositories
         private MongoClient MongoClient { get; set; }
         public IClientSessionHandle Session { get; set; }
         
-        public MongoContext(IOptions<IBikeStoreDatabaseSettings> configuration)
+        public MongoContext(IBikeStoreDatabaseSettings configuration)
         {
-            MongoClient = new MongoClient(configuration.Value.ConnectionString);
-            Database = MongoClient.GetDatabase(configuration.Value.DatabaseName);
+            MongoClient = new MongoClient(configuration.ConnectionString);
+            Database = MongoClient.GetDatabase(configuration.DatabaseName);
         }
         public Task<int> SaveChanges()
         {
