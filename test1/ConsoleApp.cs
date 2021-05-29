@@ -4,23 +4,22 @@ using BikeStore.Server.Services;
 
 namespace test1
 {
-    public class ConsoleApp : IConsoleApplication
+    public class ConsoleApp : IConsoleApp
     {
-        private static IManufacturerService _manufacturerService;
+        private readonly IManufacturerService _manufacturerService;
 
         public ConsoleApp(IManufacturerService manufacturerService)
         {
             _manufacturerService = manufacturerService;
         }
 
-        public static void Run()
+        public void Run()
         {
             var manufacturers = _manufacturerService.GetAll();
             foreach (var manufacturer in manufacturers)
             {
                 Console.WriteLine(manufacturer.Name);
             }
-
             Console.ReadKey();
         }
     }

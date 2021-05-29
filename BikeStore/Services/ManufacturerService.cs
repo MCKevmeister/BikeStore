@@ -12,10 +12,7 @@ namespace BikeStore.Server.Services
 
         public ManufacturerService(IMongoContext mongoContext)
         {
-            // var client = new MongoClient(settings.ConnectionString);
-            // var database = client.GetDatabase(settings.DatabaseName);
             Context = mongoContext;
-
             _manufacturers = Context.Database.GetCollection<Manufacturer>((nameof(Manufacturer) + "s").ToLower());
         }
 
@@ -23,7 +20,7 @@ namespace BikeStore.Server.Services
             _manufacturers.Find(manufacturer => true).ToList();
 
         public Manufacturer Get(string id) =>
-            _manufacturers.Find<Manufacturer>(manufacturer => manufacturer.Id == id).FirstOrDefault();
+            _manufacturers.Find(manufacturer => manufacturer.Id == id).FirstOrDefault();
 
         public Manufacturer Create(Manufacturer manufacturer)
         {
