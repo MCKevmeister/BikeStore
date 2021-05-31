@@ -25,8 +25,7 @@ namespace test1
                 .AddScoped<IManufacturerRepository, ManufacturerRepository>()
                 .AddScoped<IManufacturerService, ManufacturerService>()
                 .AddSingleton<IConsoleApp, ConsoleApp>()
-                //.RegisterRepositories()
-                //.RegisterServices()
+
                 .BuildServiceProvider();
 
             serviceProvider.GetRequiredService<IConsoleApp>().Run();

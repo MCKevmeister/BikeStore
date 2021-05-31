@@ -1,13 +1,11 @@
-using System.IO;
-using BikeStore.Models;
-using BikeStore.Server.Repositories;
-using BikeStore.Server.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
+using System.IO;
+using MongoDB.Driver.Core.Configuration;
 
 namespace BikeStore.Server
 {
@@ -22,22 +20,31 @@ namespace BikeStore.Server
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.RegisterMongoDbRepositories();
+            
             var builder = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
 
             var configuration = builder.Build();
+
+            services.Configure<IBikeStoreDatabaseSettings>(options =>
+            {
+                options.ConnectionString = Configuration.GetSection("BikeStoreDatabaseSettings:MongoUri").Value;
+                options.DatabaseName = Configuration.GetSection("BikeStoreDatabaseSettings:DatabaseName").Value;
+            });
+                
+                
+            //services.Configure<BikeStoreDatabaseSettings>(configuration.GetSection("BikeStoreDatabaseSettings"));
+            //services.AddSingleton<IBikeStoreDatabaseSettings>(x => x.GetRequiredService<BikeStoreDatabaseSettings>());GetRequiredService<IConfiguration>()["MongoUri"]
+            //services.AddSingleton<IBikeStoreDatabaseSettings>(x => x.GetRequiredService<IOptions<BikeStoreDatabaseSettings>>().Value);
+            //services.AddSingleton<IBikeStoreDatabaseSettings>(x => x.GetRequiredService<IConfiguration>()["MongoUri"]);
+            services.AddTransient<IMongoContext, MongoContext>();
             
-            services.Configure<BikeStoreDatabaseSettings>(configuration.GetSection("BikeStoreDatabaseSettings"));
-            services.AddSingleton<IBikeStoreDatabaseSettings>(x => x.GetRequiredService<IOptions<BikeStoreDatabaseSettings>>().Value);
-            services.AddSingleton<IMongoContext, MongoContext>();
-            services.RegisterMongoDbRepositories();
-            services.AddSingleton<IManufacturerService, ManufacturerService>();
-            //services.AddSingleton<BikeService>();
 
             services.AddControllers();
         }
-        
+
         public static void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
