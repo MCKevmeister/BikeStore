@@ -5,7 +5,7 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace BikeStore.Models
 {
-    public class OrderModel
+    public class Order : IEntity
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
