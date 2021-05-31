@@ -5,7 +5,7 @@ namespace BikeStoreApi.Services
 {
     public interface IManufacturerService
     {
-        List<Manufacturer> GetAll();
+        IEnumerable<Manufacturer> GetAll();
         Manufacturer Get(string id);
         Manufacturer Create(Manufacturer manufacturer);
         void Update(string id, Manufacturer manufacturerIn);

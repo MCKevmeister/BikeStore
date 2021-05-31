@@ -1,12 +1,13 @@
-﻿using System.Collections.Generic;
+﻿/*
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using BikeStore.Models;
 using BikeStore.Server.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BikeStore.Server.Controllers
+namespace BikeStoreApi.Controllers
 {
-[Route("api/manufacturer[controller]")]
+[Route("api/manufacturer/[controller]")]
 [ApiController]
 public class ManufacturerController : ControllerBase
 {
@@ -17,7 +18,7 @@ public class ManufacturerController : ControllerBase
             _manufacturerRepository = manufacturerRepository;
         }
 
-        [HttpGet]
+        [HttpGet("GetAll")]
         public async Task<ActionResult<IEnumerable<Manufacturer>>> Get()
         {
             var manufacturers = await _manufacturerRepository.GetAll();
@@ -32,3 +33,4 @@ public class ManufacturerController : ControllerBase
         }
     }
 }
+*/

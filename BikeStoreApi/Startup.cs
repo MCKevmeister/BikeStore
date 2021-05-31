@@ -9,6 +9,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
+using IManufacturerService = BikeStoreApi.Services.IManufacturerService;
+using ManufacturerService = BikeStoreApi.Services.ManufacturerService;
 
 namespace BikeStoreApi
 {

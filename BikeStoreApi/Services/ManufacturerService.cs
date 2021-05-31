@@ -1,40 +1,52 @@
 ﻿using System.Collections.Generic;
 using BikeStore.Models;
+using BikeStore.Server.Repositories;
+using BikeStore.Server.Services;
 using MongoDB.Driver;
 
 namespace BikeStoreApi.Services
 {
     public class ManufacturerService : IManufacturerService
     {
-        private readonly IMongoCollection<Manufacturer> _manufacturer;
+        private readonly IMongoCollection<Manufacturer> _manufacturers;
 
-        public ManufacturerService(IBikeStoreDatabaseSettings settings)
+        public ManufacturerService(IMongoContext context)
         {
-            var client = new MongoClient(settings.ConnectionString);
-            var database = client.GetDatabase(settings.DatabaseName);
-
-            _manufacturer = database.GetCollection<Manufacturer>(settings.ManufacturerCollectionName);
+            Context = context;
+            _manufacturers = Context.Database.GetCollection<Manufacturer>(nameof(Manufacturer));
         }
 
-        public List<Manufacturer> GetAll() =>
-            _manufacturer.Find(book => true).ToList();
+        private IMongoContext Context { get; }
 
-        public Manufacturer Get(string id) =>
-            _manufacturer.Find<Manufacturer>(manufacturer => manufacturer.Id == id).FirstOrDefault();
+        public IEnumerable<Manufacturer> GetAll()
+        {
+            return _manufacturers.Find(manufacturer => true).ToList();
+        }
+
+        public Manufacturer Get(string id)
+        {
+            return _manufacturers.Find(manufacturer => manufacturer.Id == id).FirstOrDefault();
+        }
 
         public Manufacturer Create(Manufacturer manufacturer)
         {
-            _manufacturer.InsertOne(manufacturer);
+            _manufacturers.InsertOne(manufacturer);
             return manufacturer;
         }
 
-        public void Update(string id, Manufacturer manufacturerIn) =>
-            _manufacturer.ReplaceOne(manufacturer => manufacturer.Id == id, manufacturerIn);
+        public void Update(string id, Manufacturer manufacturerIn)
+        {
+            _manufacturers.ReplaceOne(manufacturer => manufacturer.Id == id, manufacturerIn);
+        }
 
-        public void Remove(Manufacturer manufacturerIn) =>
-            _manufacturer.DeleteOne(manufacturer => manufacturer.Id == manufacturerIn.Id);
+        public void Remove(Manufacturer manufacturerIn)
+        {
+            _manufacturers.DeleteOne(manufacturer => manufacturer.Id == manufacturerIn.Id);
+        }
 
-        public void Remove(string id) => 
-            _manufacturer.DeleteOne(manufacturer => manufacturer.Id == id);
+        public void Remove(string id)
+        {
+            _manufacturers.DeleteOne(manufacturer => manufacturer.Id == id);
+        }
     }
 }

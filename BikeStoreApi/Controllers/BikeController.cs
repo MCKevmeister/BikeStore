@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿/*using System.Collections.Generic;
 using BikeStore.Models;
 using BikeStoreApi.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -71,4 +71,4 @@ namespace BikeStoreApi.Controllers
             return NoContent();
         }
     }
-}
+}*/
