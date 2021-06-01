@@ -1,5 +1,6 @@
 using System.IO;
 using BikeStore.Models;
+using BikeStoreApi.Controllers;
 using BikeStoreApi.Repositories;
 using BikeStoreApi.Services;
 using Microsoft.AspNetCore.Builder;

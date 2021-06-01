@@ -1,36 +1,45 @@
-﻿/*
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using BikeStore.Models;
-using BikeStore.Server.Repositories;
+using BikeStoreApi.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BikeStoreApi.Controllers
 {
-[Route("api/manufacturer/[controller]")]
-[ApiController]
-public class ManufacturerController : ControllerBase
-{
-    private readonly ManufacturerRepository _manufacturerRepository;
+    [Route("api/[controller]")]
+    [ApiController]
+    public class ManufacturerController : ControllerBase
+    {
+        private readonly IManufacturerService _manufacturerService;
 
-        public ManufacturerController(ManufacturerRepository manufacturerRepository)
+        public ManufacturerController(IManufacturerService manufacturerService)
         {
-            _manufacturerRepository = manufacturerRepository;
+            _manufacturerService = manufacturerService;
         }
 
-        [HttpGet("GetAll")]
-        public async Task<ActionResult<IEnumerable<Manufacturer>>> Get()
+        [HttpGet]
+        public ActionResult<List<Manufacturer>> Get() =>
+            _manufacturerService.Get();
+
+        [HttpPost]
+        public ActionResult<Manufacturer> Create(Manufacturer manufacturer)
         {
-            var manufacturers = await _manufacturerRepository.GetAll();
-            return Ok(manufacturers);
+            _manufacturerService.Create(manufacturer);
+
+            return CreatedAtRoute("GetManufacturer", new {id = manufacturer.Id}, manufacturer);
         }
- 
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Manufacturer>> Get(string id)
+
+        [HttpPut("{id:length(24)}")]
+        public IActionResult Update(string id, Manufacturer manufacturerIn)
         {
-            var manufacturer = await _manufacturerRepository.GetById(id);
-            return Ok(manufacturer);
+            var manufacturer = _manufacturerService.Get(id);
+
+            if (manufacturer == null)
+            {
+                return NotFound();
+            }
+            _manufacturerService.Update(id, manufacturerIn);
+            return NoContent(); 
         }
     }
 }
-*/
