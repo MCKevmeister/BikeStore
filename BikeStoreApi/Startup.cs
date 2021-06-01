@@ -1,7 +1,7 @@
 using System.IO;
 using BikeStore.Models;
-using BikeStore.Server.Repositories;
-using BikeStore.Server.Services;
+using BikeStoreApi.Repositories;
+using BikeStoreApi.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -9,8 +9,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
-using IManufacturerService = BikeStoreApi.Services.IManufacturerService;
-using ManufacturerService = BikeStoreApi.Services.ManufacturerService;
 
 namespace BikeStoreApi
 {

@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using BikeStore.Models;
-using BikeStore.Server.Repositories;
-using BikeStore.Server.Services;
+using BikeStoreApi.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Driver;
 

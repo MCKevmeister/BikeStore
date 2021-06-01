@@ -1,5 +1,4 @@
 ﻿using BikeStore.Models;
-using BikeStore.Server.Repositories;
 
 namespace BikeStoreApi.Repositories
 {

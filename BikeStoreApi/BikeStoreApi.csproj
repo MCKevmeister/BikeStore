@@ -15,7 +15,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\BikeStore\Server.csproj" />
       <ProjectReference Include="..\Models\Models.csproj" />
     </ItemGroup>
 

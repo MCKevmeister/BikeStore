@@ -1,23 +1,20 @@
 ﻿using System;
 using System.Threading.Tasks;
 using BikeStore.Models;
-using BikeStore.Server.Repositories;
 using MongoDB.Driver;
 
 namespace BikeStoreApi.Repositories
 {
     public class MongoContext : IMongoContext
     {
-        private readonly MongoClient _mongoClient;
-
         public IMongoDatabase Database { get; }
 
         public IClientSessionHandle Session { get; set; }
 
         public MongoContext(IBikeStoreDatabaseSettings configuration)
         {
-            _mongoClient = new MongoClient(configuration.ConnectionString);
-            Database = _mongoClient.GetDatabase(configuration.DatabaseName);
+            var mongoClient = new MongoClient(configuration.ConnectionString);
+            Database = mongoClient.GetDatabase(configuration.DatabaseName);
         }
 
         public Task<int> SaveChanges()
