@@ -1,15 +1,18 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using BikeStore.Models;
+using Microsoft.AspNetCore.Mvc;
+using MongoDB.Driver;
 
 namespace BikeStoreApi.Services
 {
     public interface IManufacturerService
     {
-        IEnumerable<Manufacturer> GetAll();
-        Manufacturer Get(string id);
+        ActionResult<List<Manufacturer>> Get();
+        Task<Manufacturer> Get(string id);
         Manufacturer Create(Manufacturer manufacturer);
-        void Update(string id, Manufacturer manufacturerIn);
-        void Remove(Manufacturer manufacturerIn);
-        void Remove(string id);
+        Task<ReplaceOneResult> Update(string id, Manufacturer manufacturerIn);
+        Task<DeleteResult> Remove(Manufacturer manufacturerIn);
+        Task<DeleteResult> Remove(string id);
     }
 }
