@@ -9,8 +9,8 @@ namespace BikeStoreApi.Repositories
         public static void RegisterMongoDbRepositories(this IServiceCollection servicesBuilder)
         {
             servicesBuilder.AddSingleton<IManufacturerRepository, ManufacturerRepository>();
-            //servicesBuilder.AddSingleton<BikeRepository>();
-            //servicesBuilder.AddSingleton<OrderRepository>();
+            servicesBuilder.AddSingleton<IBikeRepository, BikeRepository>();
+            servicesBuilder.AddSingleton<OrderRepository>();
         }
     }
 }
