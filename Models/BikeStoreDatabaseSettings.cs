@@ -1,6 +1,4 @@
-﻿using Server.Models;
-
-namespace BikeStore.Models
+﻿namespace BikeStore.Models
 {
     public class BikeStoreDatabaseSettings : IBikeStoreDatabaseSettings
     {
