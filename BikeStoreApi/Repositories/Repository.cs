@@ -7,7 +7,7 @@ using MongoDB.Driver;
 
 namespace BikeStoreApi.Repositories
 {
-    public abstract class Repository<TEntity> : IRepository<TEntity> where TEntity : class,IEntity
+    public class Repository<TEntity> : IRepository<TEntity> where TEntity : class,IEntity
     {
         private IMongoCollection<TEntity> Collection { get; }
 
@@ -25,10 +25,9 @@ namespace BikeStoreApi.Repositories
             await Collection.InsertOneAsync(obj);
         }
         
-        public async Task<TEntity> GetById(string id)
+        public async Task<TEntity> GetById(ObjectId id)
         {
-            var objectId = new ObjectId(id);
-            var filter = Builders<TEntity>.Filter.Eq("_id", objectId);
+            var filter = Builders<TEntity>.Filter.Eq("_id", id);
             return await Collection.FindAsync(filter).Result.FirstOrDefaultAsync();
         }
 
@@ -42,11 +41,10 @@ namespace BikeStoreApi.Repositories
         {
             await Collection.ReplaceOneAsync(Builders<TEntity>.Filter.Eq("_id", obj.Id), obj);
         }
-        
-        public async Task Delete(string id)
+
+        public async Task Delete(ObjectId id)
         {
-            var objectId = new ObjectId(id);
-            await Collection.DeleteOneAsync(Builders<TEntity>.Filter.Eq("_id", objectId));
+            await Collection.DeleteOneAsync(Builders<TEntity>.Filter.Eq("_id", id));
         }
 
         public void Dispose ()

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using MongoDB.Bson;
 
 namespace BikeStoreApi.Repositories
 {
@@ -8,9 +9,8 @@ namespace BikeStoreApi.Repositories
     {
         Task Create(TEntity obj);
         Task Update(TEntity obj);
-        Task Delete(string id);
-        Task<TEntity> GetById(string id);
+        Task Delete(ObjectId id);
+        Task<TEntity> GetById(ObjectId id);
         Task<IEnumerable<TEntity>> GetAll();
     }
 }
-//https://bryanavery.co.uk/asp-net-core-mongodb-repository-pattern-unit-of-work/ 2 June 21
