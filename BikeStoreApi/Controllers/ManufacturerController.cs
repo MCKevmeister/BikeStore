@@ -18,10 +18,15 @@ namespace BikeStoreApi.Controllers
             _manufacturerRepository = manufacturerRepository;
         }
 
-        [HttpGet ("{id:length(24)}")]
+        [HttpGet("{id:length(24)}")]
         [ActionName(nameof(GetManufacturerAsync))]
-        public Task<Manufacturer> GetManufacturerAsync(ObjectId id) =>
-            _manufacturerRepository.GetById(id);
+        public async Task<Manufacturer> GetManufacturerAsync(string id)
+        {
+            var objId = new ObjectId(id);
+            var manufacturer = await _manufacturerRepository.GetById(objId);
+            return manufacturer;
+        }
+           
 
         [HttpGet("GetAll")]
         
@@ -29,11 +34,11 @@ namespace BikeStoreApi.Controllers
             await _manufacturerRepository.GetAll();
 
         [HttpPost]
-        public ActionResult<Manufacturer> Create(Manufacturer manufacturer)
+        public async Task<ActionResult<Manufacturer>>Create(Manufacturer manufacturer)
         {
-            _manufacturerRepository.Create(manufacturer);
+            await _manufacturerRepository.Create(manufacturer);
 
-            return CreatedAtRoute(nameof(GetManufacturerAsync), new {id = manufacturer.Id}, manufacturer);
+            return CreatedAtRoute(nameof(GetManufacturerAsync), new {id = manufacturer.Id.ToString()}, manufacturer);
         }
 
         [HttpPut("{id:length(24)}")]

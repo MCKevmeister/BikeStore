@@ -23,9 +23,11 @@ namespace BikeStoreApi.Controllers
             await _bikeService.Get();
 
         [HttpGet("{id:length(24)}", Name = "GetBike")]
-        public async Task<ActionResult<Bike>> Get(ObjectId id)
+        public async Task<ActionResult<Bike>> Get(string id)
         {
-            var bike = await _bikeService.Get(id);
+            var objId = new ObjectId(id);
+            
+            var bike = await _bikeService.Get(objId);
 
             if (bike == null)
             {
@@ -39,28 +41,32 @@ namespace BikeStoreApi.Controllers
         {
             await _bikeService.Create(bike);
 
-            return CreatedAtRoute("GetBike", new { id = bike.Id }, bike);
+            return CreatedAtRoute("GetBike", new { id = bike.Id.ToString() }, bike);
         }
 
         [HttpPut("{id:length(24)}")]
-        public async Task<IActionResult> Update(ObjectId id)
+        public async Task<IActionResult> Update(string id)
         {
-            var bike = await _bikeService.Get(id);
-
+            var objId = new ObjectId(id);
+            
+            var bike = await _bikeService.Get(objId);
+            
             if (bike == null)
             {
                 return NotFound();
             }
 
-            await _bikeService.Update(id, bike);
+            await _bikeService.Update(objId, bike);
 
             return NoContent();
         }
         
         [HttpDelete("{id:length(24)}")]
-        public async Task<IActionResult> Delete(ObjectId id)
+        public async Task<IActionResult> Delete(string id)
         {
-            var bike = await _bikeService.Get(id);
+            var objId = new ObjectId(id);
+            
+            var bike = await _bikeService.Get(objId);
 
             if (bike == null)
             {
