@@ -1,9 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using BikeStore.Models;
+using BikeStore.Models.Responses;
 using BikeStoreApi.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
+using MongoDB.Driver;
 
 namespace BikeStoreApi.Controllers
 {
@@ -11,20 +15,29 @@ namespace BikeStoreApi.Controllers
     [ApiController]
     public class ManufacturerController : ControllerBase
     {
-        private readonly IManufacturerRepository _manufacturerRepository;
+        private readonly ManufacturerRepository _manufacturerRepository;
 
-        public ManufacturerController(IManufacturerRepository manufacturerRepository)
+        public ManufacturerController(ManufacturerRepository manufacturerRepository)
         {
             _manufacturerRepository = manufacturerRepository;
         }
 
-        [HttpGet("{id:length(24)}")]
+        [HttpGet]
         [ActionName(nameof(GetManufacturerAsync))]
-        public async Task<Manufacturer> GetManufacturerAsync(string id)
+        public async Task<ActionResult> GetManufacturerAsync(string name)
         {
-            var objId = new ObjectId(id);
-            var manufacturer = await _manufacturerRepository.GetById(objId);
-            return manufacturer;
+            var matchedManufacturer = await _manufacturerRepository.GetByName(name);
+            if (matchedManufacturer == null) 
+                return BadRequest(new ArgumentException(($"Can not find {name}")));
+            return Ok(new ManufacturerResponse(matchedManufacturer));
+
+            // var filter = Builders<Manufacturer>.Filter.Eq("name", name);
+            // var result = await _manufacturerCollection.FindAsync(filter);
+            // return result;
+            //
+            // var objId = new ObjectId(id.ToString());
+            // var manufacturer = await _manufacturerRepository.GetByName(objId);
+            // return manufacturer;
         }
            
 
@@ -42,9 +55,9 @@ namespace BikeStoreApi.Controllers
         }
 
         [HttpPut("{id:length(24)}")]
-        public async Task<IActionResult> Update(ObjectId id)
+        public async Task<IActionResult> Update(string id)
         {
-            var manufacturer = await _manufacturerRepository.GetById(id);
+            var manufacturer = await _manufacturerRepository.GetByName(id);
 
             if (manufacturer == null)
             {
@@ -58,8 +71,7 @@ namespace BikeStoreApi.Controllers
         [HttpDelete("{id:length(24)}")]
         public async Task<IActionResult> Delete(string id)
         {
-            var objId = new ObjectId(id);
-            var manufacturer = await _manufacturerRepository.GetById(objId);
+            var manufacturer = await _manufacturerRepository.GetByName(id);
 
             if (manufacturer == null)
             {
