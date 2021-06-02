@@ -25,9 +25,9 @@ namespace BikeStoreApi.Repositories
             await Collection.InsertOneAsync(obj);
         }
         
-        public async Task<TEntity> GetById(ObjectId id)
+        public async Task<TEntity> GetByName(string name)
         {
-            var filter = Builders<TEntity>.Filter.Eq("_id", id);
+            var filter = Builders<TEntity>.Filter.Eq("name", name);
             return await Collection.FindAsync(filter).Result.FirstOrDefaultAsync();
         }
 
