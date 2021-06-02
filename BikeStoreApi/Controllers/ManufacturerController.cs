@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using BikeStore.Models;
+using BikeStoreApi.Repositories;
 using BikeStoreApi.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,36 +11,57 @@ namespace BikeStoreApi.Controllers
     [ApiController]
     public class ManufacturerController : ControllerBase
     {
-        private readonly IManufacturerService _manufacturerService;
+        private readonly IManufacturerRepository _manufacturerRepository;
 
-        public ManufacturerController(IManufacturerService manufacturerService)
+        public ManufacturerController(IManufacturerRepository manufacturerRepository)
         {
-            _manufacturerService = manufacturerService;
+            _manufacturerRepository = manufacturerRepository;
         }
 
-        [HttpGet]
-        public ActionResult<List<Manufacturer>> Get() =>
-            _manufacturerService.Get();
+        [HttpGet ("Get")]
+        [ActionName(nameof(GetManufacturerAsync))]
+        public Task<Manufacturer> GetManufacturerAsync(string id) =>
+            _manufacturerRepository.GetById(id);
+
+        [HttpGet("GetAll")]
+        
+        public async Task<IEnumerable<Manufacturer>> GetAll() =>
+            await _manufacturerRepository.GetAll();
 
         [HttpPost]
         public ActionResult<Manufacturer> Create(Manufacturer manufacturer)
         {
-            _manufacturerService.Create(manufacturer);
+            _manufacturerRepository.Create(manufacturer);
 
-            return CreatedAtRoute("GetManufacturer", new {id = manufacturer.Id}, manufacturer);
+            return CreatedAtRoute(nameof(GetManufacturerAsync), new {id = manufacturer.Id}, manufacturer);
         }
 
         [HttpPut("{id:length(24)}")]
         public IActionResult Update(string id, Manufacturer manufacturerIn)
         {
-            var manufacturer = _manufacturerService.Get(id);
+            var manufacturer = _manufacturerRepository.GetById(id);
 
             if (manufacturer == null)
             {
                 return NotFound();
             }
-            _manufacturerService.Update(id, manufacturerIn);
+            _manufacturerRepository.Update(manufacturerIn);
             return NoContent(); 
+        }
+        
+        [HttpDelete("{id:length(24)}")]
+        public async Task<IActionResult> Delete(string id)
+        {
+            var manufacturer = await _manufacturerRepository.GetById(id);
+
+            if (manufacturer == null)
+            {
+                return NotFound();
+            }
+
+            await _manufacturerRepository.Delete(manufacturer.Id.ToString());
+
+            return NoContent();
         }
     }
 }

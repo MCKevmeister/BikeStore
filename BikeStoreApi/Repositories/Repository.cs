@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using BikeStore.Models;
+using MongoDB.Bson;
 using MongoDB.Driver;
 
 namespace BikeStoreApi.Repositories
@@ -17,29 +18,35 @@ namespace BikeStoreApi.Repositories
 
         public async Task Create(TEntity obj)
         {
+            if(obj == null)
+            {
+                throw new ArgumentNullException(typeof(TEntity).Name + " object is null");
+            }
             await Collection.InsertOneAsync(obj);
         }
         
         public async Task<TEntity> GetById(string id)
         {
-            var data = await Collection.FindAsync(Builders<TEntity>.Filter.Eq("_id", id));
-            return await data.SingleOrDefaultAsync();
+            var objectId = new ObjectId(id);
+            var filter = Builders<TEntity>.Filter.Eq("_id", objectId);
+            return await Collection.FindAsync(filter).Result.FirstOrDefaultAsync();
         }
 
         public async Task<IEnumerable<TEntity>> GetAll()
         {
             var all = await Collection.FindAsync(Builders<TEntity>.Filter.Empty);
-            return await all.ToListAsync();
+            return all.ToList();
         }
 
         public async Task Update(TEntity obj)
         {
-            await Collection.ReplaceOneAsync(e=> e.Id == obj.Id, obj);
+            await Collection.ReplaceOneAsync(Builders<TEntity>.Filter.Eq("_id", obj.Id), obj);
         }
         
         public async Task Delete(string id)
         {
-            await Collection.DeleteOneAsync(Builders<TEntity>.Filter.Eq("_id", id));
+            var objectId = new ObjectId(id);
+            await Collection.DeleteOneAsync(Builders<TEntity>.Filter.Eq("_id", objectId));
         }
 
         public void Dispose ()

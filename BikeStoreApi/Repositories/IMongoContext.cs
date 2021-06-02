@@ -8,8 +8,6 @@ namespace BikeStoreApi.Repositories
     {
         IMongoDatabase Database { get; }
         IClientSessionHandle Session { get; set; }
-
-        // void Dispose();
         IMongoCollection<T> GetCollection<T>(string name);
         Task<int> SaveChanges();
     }
