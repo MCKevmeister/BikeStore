@@ -48,7 +48,7 @@ namespace BikeStoreApi.Repositories
                 var updateOptions =  new UpdateOptions { IsUpsert = false};
                 var updatedResult = await Collection.UpdateOneAsync(filter, update, updateOptions, cancellationToken);
                 return updatedResult.MatchedCount == 0
-                    ? new ManufacturerResponse(false, "No manufacturer found with those detials")
+                    ? new ManufacturerResponse(false, "No manufacturer found with those details")
                     : new ManufacturerResponse(true, updatedResult.IsAcknowledged.ToString());
             }
             catch (Exception e)
