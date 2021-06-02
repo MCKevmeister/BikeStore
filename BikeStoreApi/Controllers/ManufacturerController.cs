@@ -15,9 +15,9 @@ namespace BikeStoreApi.Controllers
     [ApiController]
     public class ManufacturerController : ControllerBase
     {
-        private readonly ManufacturerRepository _manufacturerRepository;
+        private readonly IManufacturerRepository _manufacturerRepository;
 
-        public ManufacturerController(ManufacturerRepository manufacturerRepository)
+        public ManufacturerController(IManufacturerRepository manufacturerRepository)
         {
             _manufacturerRepository = manufacturerRepository;
         }
