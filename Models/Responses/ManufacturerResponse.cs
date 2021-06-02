@@ -9,8 +9,16 @@ namespace BikeStore.Models.Responses
             if (manufacturer == null) return;
             Manufacturer = manufacturer;
         }
-        
-        [JsonProperty("movie", NullValueHandling = NullValueHandling.Ignore)]
+
+        public ManufacturerResponse(bool success, string message)
+        {
+            Success = success;
+            if (success) SuccessMessage = message;
+            else ErrorMessage = message;
+        }
+        public bool Success { get; set; }
+        public string SuccessMessage { get; set; }
+        public string ErrorMessage { get; set; }
         public Manufacturer Manufacturer { get; set; }
     }
 }

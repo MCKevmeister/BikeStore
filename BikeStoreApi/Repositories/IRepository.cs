@@ -8,10 +8,10 @@ namespace BikeStoreApi.Repositories
 {
     public interface IRepository<TEntity>: IDisposable where TEntity : class
     {
-        Task<TEntity> Create(TEntity obj);
-        Task<TEntity> Update(TEntity obj, TEntity newObj);
-        Task Delete(string id);
-        Task<TEntity> GetByName(string name);
-        Task<IEnumerable<TEntity>> GetAll();
+        // Task<TEntity> Create(TEntity obj);
+        // Task<UpdateResult> Update(TEntity obj, TEntity updatedDetails);
+        // Task Delete(string id);
+        // Task<TEntity> GetByName(string name);
+        // Task<IEnumerable<TEntity>> GetAll();
     }
 }

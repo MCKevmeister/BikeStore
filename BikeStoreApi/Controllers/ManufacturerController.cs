@@ -24,7 +24,7 @@ namespace BikeStoreApi.Controllers
 
         [HttpGet]
         [ActionName(nameof(GetManufacturerAsync))]
-        public async Task<IActionResult> GetManufacturerAsync(string name)
+        public async Task<IActionResult> GetManufacturerAsync(string name, CancellationToken cancellationToken = default)
         {
             var matchedManufacturer = await _manufacturerRepository.GetByName(name);
             if (matchedManufacturer == null) 
@@ -33,11 +33,11 @@ namespace BikeStoreApi.Controllers
         }
         
         [HttpGet("GetAll")]
-        public async Task<IEnumerable<Manufacturer>> GetAll() =>
+        public async Task<IEnumerable<Manufacturer>> GetAll(CancellationToken cancellationToken = default) =>
             await _manufacturerRepository.GetAll();
 
         [HttpPost("Create")]
-        public async Task<ActionResult<Manufacturer>>Create(string name)
+        public async Task<ActionResult<Manufacturer>>Create(string name, CancellationToken cancellationToken = default)
         {
             var newManufacturer = new Manufacturer(name);
             
@@ -51,24 +51,25 @@ namespace BikeStoreApi.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> Update(string name, string newName)
+        public async Task<IActionResult> UpdateManufacturerAsync(string name,[FromBody] PreferencesObject preferences, CancellationToken cancellationToken = default)
         {
             var manufacturer = await _manufacturerRepository.GetByName(name);
-            
             if (manufacturer == null)
             {
                 return NotFound();
             }
-
-            var manufacturerUpdate = new Manufacturer(newName);
             
-            var updatedManufacturer = await _manufacturerRepository.Update(manufacturer, manufacturerUpdate);
-            
-            return Ok(updatedManufacturer);
+            var response = await _manufacturerRepository.Update(manufacturer, preferences.Preferences, cancellationToken);
+            if (response.Success)
+            {
+                var updatedManufacturer = await _manufacturerRepository.GetByName(manufacturer.Name);
+                return Ok(new ManufacturerResponse(updatedManufacturer));
+            }
+            return BadRequest(new ManufacturerResponse(false, ""));
         }
         
         [HttpDelete]
-        public async Task<IActionResult> Delete(string name)
+        public async Task<IActionResult> Delete(string name, CancellationToken cancellationToken = default)
         {
             var manufacturer = await _manufacturerRepository.GetByName(name);
             
@@ -76,9 +77,13 @@ namespace BikeStoreApi.Controllers
             {
                 return NotFound();
             }
-            await _manufacturerRepository.Delete(manufacturer.Id);
+            await _manufacturerRepository.Delete(manufacturer);
             
             return Ok();
         }
+    }
+    public class PreferencesObject
+    {
+        public Dictionary<string, string> Preferences { get; set; }
     }
 }
