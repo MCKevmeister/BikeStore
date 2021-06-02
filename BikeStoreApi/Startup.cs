@@ -35,7 +35,7 @@ namespace BikeStoreApi
                 x.GetRequiredService<IOptions<BikeStoreDatabaseSettings>>().Value);
             services.AddSingleton<IMongoContext, MongoContext>();
             services.RegisterMongoDbRepositories();
-            services.AddSingleton<IManufacturerService, ManufacturerService>();
+            services.RegisterMongoDbServices();
 
             services.AddSwaggerDocument();
             services.AddSwaggerGen(c =>
