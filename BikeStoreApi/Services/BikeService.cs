@@ -20,7 +20,7 @@ namespace BikeStoreApi.Services
         public async Task<ActionResult<List<Bike>>> Get() =>
             await _bikes.Find(bike => true).ToListAsync();
 
-        public async Task<Bike> Get(ObjectId id) =>
+        public async Task<Bike> Get(string id) =>
             await _bikes.Find(bike => bike.Id == id).FirstOrDefaultAsync();
 
         public async Task<Bike> Create(Bike bike)
@@ -29,13 +29,13 @@ namespace BikeStoreApi.Services
             return bike;
         }
         
-        public async Task<ReplaceOneResult> Update(ObjectId id, Bike bikeIn) =>
+        public async Task<ReplaceOneResult> Update(string id, Bike bikeIn) =>
             await _bikes.ReplaceOneAsync(bike => bike.Id == id, bikeIn);
 
         public async Task<DeleteResult> Remove(Bike bikeIn) =>
             await _bikes.DeleteOneAsync(bike => bike.Id == bikeIn.Id);
 
-        public async Task<DeleteResult> Remove(ObjectId id) => 
+        public async Task<DeleteResult> Remove(string id) => 
             await _bikes.DeleteOneAsync(bike => bike.Id == id);
     }
 }

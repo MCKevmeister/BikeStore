@@ -22,12 +22,10 @@ namespace BikeStoreApi.Controllers
         public async Task<ActionResult<List<Bike>>> Get() =>
             await _bikeService.Get();
 
-        [HttpGet("{id:length(24)}", Name = "GetBike")]
-        public async Task<ActionResult<Bike>> Get(string id)
+        [HttpGet(Name = "GetBike")]
+        public async Task<ActionResult<Bike>> Get(string name)
         {
-            var objId = new ObjectId(id);
-            
-            var bike = await _bikeService.Get(objId);
+            var bike = await _bikeService.Get(name);
 
             if (bike == null)
             {
@@ -41,32 +39,28 @@ namespace BikeStoreApi.Controllers
         {
             await _bikeService.Create(bike);
 
-            return CreatedAtRoute("GetBike", new { id = bike.Id.ToString() }, bike);
+            return CreatedAtRoute("GetBike", new { id = bike.Id }, bike);
         }
 
-        [HttpPut("{id:length(24)}")]
-        public async Task<IActionResult> Update(string id)
+        [HttpPut]
+        public async Task<IActionResult> Update(string name)
         {
-            var objId = new ObjectId(id);
-            
-            var bike = await _bikeService.Get(objId);
+            var bike = await _bikeService.Get(name);
             
             if (bike == null)
             {
-                return NotFound();
+                return NotFound(); //todo make better exception throw
             }
 
-            await _bikeService.Update(objId, bike);
+            await _bikeService.Update(name, bike);
 
             return NoContent();
         }
         
-        [HttpDelete("{id:length(24)}")]
-        public async Task<IActionResult> Delete(string id)
+        [HttpDelete]
+        public async Task<IActionResult> Delete(string name)
         {
-            var objId = new ObjectId(id);
-            
-            var bike = await _bikeService.Get(objId);
+            var bike = await _bikeService.Get(name);
 
             if (bike == null)
             {

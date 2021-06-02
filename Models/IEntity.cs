@@ -7,6 +7,6 @@ namespace BikeStore.Models
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
-        ObjectId Id { get; set; }
+        string Id { get; set; }
     };
 }

@@ -39,10 +39,11 @@ namespace BikeStoreApi.Repositories
 
         public async Task Update(TEntity obj)
         {
-            await Collection.ReplaceOneAsync(Builders<TEntity>.Filter.Eq("_id", obj.Id), obj);
+            await Collection.FindOneAndReplaceAsync(Builders<TEntity>.Filter.Eq("_id", obj.Id), obj); 
+            // TODO make a better return, possibly return the whole object
         }
 
-        public async Task Delete(ObjectId id)
+        public async Task Delete(string id)
         {
             await Collection.DeleteOneAsync(Builders<TEntity>.Filter.Eq("_id", id));
         }

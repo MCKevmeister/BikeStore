@@ -9,7 +9,7 @@ namespace BikeStoreApi.Repositories
     {
         Task Create(TEntity obj);
         Task Update(TEntity obj);
-        Task Delete(ObjectId id);
+        Task Delete(string id);
         Task<TEntity> GetByName(string name);
         Task<IEnumerable<TEntity>> GetAll();
     }

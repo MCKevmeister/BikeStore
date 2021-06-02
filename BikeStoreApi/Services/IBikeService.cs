@@ -10,10 +10,10 @@ namespace BikeStoreApi.Services
     public interface IBikeService
     {
         Task<ActionResult<List<Bike>>> Get();
-        Task<Bike> Get(ObjectId id);
+        Task<Bike> Get(string id);
         Task<Bike> Create(Bike bike);
-        Task<ReplaceOneResult> Update (ObjectId id, Bike bikeIn);
+        Task<ReplaceOneResult> Update (string id, Bike bikeIn);
         Task<DeleteResult> Remove(Bike bikeIn);
-        Task<DeleteResult> Remove(ObjectId id);
+        Task<DeleteResult> Remove(string id);
     }
 }

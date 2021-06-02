@@ -19,7 +19,7 @@ namespace BikeStoreApi.Services
         public List<Order> Get() =>
             _orders.Find(book => true).ToList();
 
-        public Order Get(ObjectId id) =>
+        public Order Get(string id) =>
             _orders.Find<Order>(order => order.Id == id).FirstOrDefault();
 
         public Order Create(Order order)
@@ -28,13 +28,13 @@ namespace BikeStoreApi.Services
             return order;
         }
 
-        public void Update(ObjectId id, Order orderIn) =>
+        public void Update(string id, Order orderIn) =>
             _orders.ReplaceOne(order => order.Id == id, orderIn);
 
         public void Remove(Order orderIn) =>
             _orders.DeleteOne(order => order.Id == orderIn.Id);
 
-        public void Remove(ObjectId id) => 
+        public void Remove(string id) => 
             _orders.DeleteOne(order => order.Id == id);
     }
 }

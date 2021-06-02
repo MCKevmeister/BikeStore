@@ -7,10 +7,10 @@ namespace BikeStoreApi.Services
     public interface IOrderService
     {
         List<Order> Get();
-        Order Get(ObjectId id);
+        Order Get(string id);
         Order Create(Order order);
-        void Update(ObjectId id, Order orderIn);
+        void Update(string id, Order orderIn);
         void Remove(Order orderIn);
-        void Remove(ObjectId id);
+        void Remove(string id);
     }
 }

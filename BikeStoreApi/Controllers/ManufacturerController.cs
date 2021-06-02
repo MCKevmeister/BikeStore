@@ -28,7 +28,7 @@ namespace BikeStoreApi.Controllers
         {
             var matchedManufacturer = await _manufacturerRepository.GetByName(name);
             if (matchedManufacturer == null) 
-                return BadRequest(new ArgumentException(($"Can not find {name}")));
+                return BadRequest(new ArgumentException($"Can not find {name}"));
             return Ok(new ManufacturerResponse(matchedManufacturer));
 
             // var filter = Builders<Manufacturer>.Filter.Eq("name", name);
@@ -54,14 +54,14 @@ namespace BikeStoreApi.Controllers
             return CreatedAtRoute(nameof(GetManufacturerAsync), new {id = manufacturer.Id.ToString()}, manufacturer);
         }
 
-        [HttpPut("{id:length(24)}")]
-        public async Task<IActionResult> Update(string id)
+        [HttpPut]
+        public async Task<IActionResult> Update(string name)
         {
-            var manufacturer = await _manufacturerRepository.GetByName(id);
+            var manufacturer = await _manufacturerRepository.GetByName(name);
 
             if (manufacturer == null)
             {
-                return NotFound();
+                return BadRequest(new ArgumentException($"{name} does not exist"));
             }
             await _manufacturerRepository.Update(manufacturer);
             

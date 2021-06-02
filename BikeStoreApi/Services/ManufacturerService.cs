@@ -20,7 +20,7 @@ namespace BikeStoreApi.Services
         public async Task<ActionResult<List<Manufacturer>>> GetAll() =>
             await _manufacturers.Find(manufacturer => true).ToListAsync();
 
-        public async Task<Manufacturer> Get(ObjectId id) =>
+        public async Task<Manufacturer> Get(string id) =>
             await _manufacturers.Find(manufacturer => manufacturer.Id == id).FirstOrDefaultAsync();
 
         public async Task<Manufacturer> Create(Manufacturer manufacturer)
@@ -29,13 +29,13 @@ namespace BikeStoreApi.Services
             return manufacturer;
         }
 
-        public async Task<ReplaceOneResult> Update(ObjectId id, Manufacturer manufacturerIn) =>
+        public async Task<ReplaceOneResult> Update(string id, Manufacturer manufacturerIn) =>
             await _manufacturers.ReplaceOneAsync(manufacturer => manufacturer.Id == id, manufacturerIn);
 
         public async Task<DeleteResult> Remove(Manufacturer manufacturerIn) =>
             await _manufacturers.DeleteOneAsync(manufacturer => manufacturer.Id == manufacturerIn.Id);
 
-        public async Task<DeleteResult> Remove(ObjectId id) =>
+        public async Task<DeleteResult> Remove(string id) =>
             await _manufacturers.DeleteOneAsync(manufacturer => manufacturer.Id == id);
     }
 }

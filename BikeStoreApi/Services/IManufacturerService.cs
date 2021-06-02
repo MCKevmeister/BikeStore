@@ -10,10 +10,10 @@ namespace BikeStoreApi.Services
     public interface IManufacturerService
     {
         Task<ActionResult<List<Manufacturer>>> GetAll();
-        Task<Manufacturer> Get(ObjectId id);
+        Task<Manufacturer> Get(string id);
         Task<Manufacturer> Create(Manufacturer manufacturer);
-        Task<ReplaceOneResult> Update(ObjectId id, Manufacturer manufacturerIn);
+        Task<ReplaceOneResult> Update(string id, Manufacturer manufacturerIn);
         Task<DeleteResult> Remove(Manufacturer manufacturerIn);
-        Task<DeleteResult> Remove(ObjectId id);
+        Task<DeleteResult> Remove(string id);
     }
 }

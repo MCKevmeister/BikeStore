@@ -9,7 +9,7 @@ namespace BikeStore.Models
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
-        public ObjectId Id { get; set; }
+        public string Id { get; set; }
         [Required] 
         public Bike BikeId { get; set; }
         [Required] 
