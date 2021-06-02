@@ -9,6 +9,11 @@ namespace BikeStore.Models
 {
     public class Manufacturer : IEntity
     {
+        public Manufacturer(string name)
+        {
+            Name = name;
+        }
+
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; }
