@@ -1,9 +1,9 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
-namespace Server.Models.Projections
+namespace BikeStore.Models.Projections
 {
-    public class BikeLimitedDetialsProjection
+    public class BikeLimitedDetailsProjection
     {
         [BsonId] 
         public ObjectId BikeId { get; set; }
