@@ -1,7 +1,6 @@
-﻿using BikeStoreApi.Services;
-using Microsoft.Extensions.Configuration;
+﻿using BikeStore.Models;
+using BikeStoreApi.Services;
 using Microsoft.Extensions.DependencyInjection;
-using MongoDB.Driver;
 
 namespace BikeStoreApi.Repositories
 {
