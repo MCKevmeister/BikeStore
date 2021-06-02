@@ -38,9 +38,9 @@ namespace BikeStoreApi.Repositories
             return all.ToList();
         }
 
-        public async Task<TEntity> Update(TEntity obj)
+        public async Task<TEntity> Update(TEntity obj, TEntity newDetails)
         {  
-            var updatedEntity = await Collection.FindOneAndReplaceAsync(Builders<TEntity>.Filter.Eq("_id", obj.Id), obj);
+            var updatedEntity = await Collection.FindOneAndReplaceAsync(Builders<TEntity>.Filter.Eq("_id", obj.Id), newDetails);
             return updatedEntity;
         }
 

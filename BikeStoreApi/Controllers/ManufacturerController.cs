@@ -51,7 +51,7 @@ namespace BikeStoreApi.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> Update(string name)
+        public async Task<IActionResult> Update(string name, string newName)
         {
             var manufacturer = await _manufacturerRepository.GetByName(name);
             
@@ -59,15 +59,18 @@ namespace BikeStoreApi.Controllers
             {
                 return NotFound();
             }
-            var updatedManufacturer = await _manufacturerRepository.Update(manufacturer);
+
+            var manufacturerUpdate = new Manufacturer(newName);
+            
+            var updatedManufacturer = await _manufacturerRepository.Update(manufacturer, manufacturerUpdate);
             
             return Ok(updatedManufacturer);
         }
         
         [HttpDelete]
-        public async Task<IActionResult> Delete(string id)
+        public async Task<IActionResult> Delete(string name)
         {
-            var manufacturer = await _manufacturerRepository.GetByName(id);
+            var manufacturer = await _manufacturerRepository.GetByName(name);
             
             if (manufacturer == null)
             {
