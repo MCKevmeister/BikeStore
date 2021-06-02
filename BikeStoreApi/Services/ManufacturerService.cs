@@ -14,28 +14,28 @@ namespace BikeStoreApi.Services
 
         public ManufacturerService(IMongoContext mongoContext)
         {
-            _manufacturers = mongoContext.Database.GetCollection<Manufacturer>(nameof(Manufacturer));
+            _manufacturers = mongoContext.GetCollection<Manufacturer>(nameof(Manufacturer));
         }
 
-        public ActionResult<List<Manufacturer>> GetAll() =>
-            _manufacturers.Find(manufacturer => true).ToList();
+        public async Task<ActionResult<List<Manufacturer>>> GetAll() =>
+            await _manufacturers.Find(manufacturer => true).ToListAsync();
 
-        public Task<Manufacturer> Get(ObjectId id) =>
-            _manufacturers.Find(manufacturer => manufacturer.Id == id).FirstOrDefaultAsync();
+        public async Task<Manufacturer> Get(ObjectId id) =>
+            await _manufacturers.Find(manufacturer => manufacturer.Id == id).FirstOrDefaultAsync();
 
-        public Manufacturer Create(Manufacturer manufacturer)
+        public async Task<Manufacturer> Create(Manufacturer manufacturer)
         {
-            _manufacturers.InsertOneAsync(manufacturer);
+            await _manufacturers.InsertOneAsync(manufacturer);
             return manufacturer;
         }
 
-        public Task<ReplaceOneResult> Update(ObjectId id, Manufacturer manufacturerIn) =>
-            _manufacturers.ReplaceOneAsync(manufacturer => manufacturer.Id == id, manufacturerIn);
+        public async Task<ReplaceOneResult> Update(ObjectId id, Manufacturer manufacturerIn) =>
+            await _manufacturers.ReplaceOneAsync(manufacturer => manufacturer.Id == id, manufacturerIn);
 
-        public Task<DeleteResult> Remove(Manufacturer manufacturerIn) =>
-            _manufacturers.DeleteOneAsync(manufacturer => manufacturer.Id == manufacturerIn.Id);
+        public async Task<DeleteResult> Remove(Manufacturer manufacturerIn) =>
+            await _manufacturers.DeleteOneAsync(manufacturer => manufacturer.Id == manufacturerIn.Id);
 
-        public Task<DeleteResult> Remove(ObjectId id) =>
-            _manufacturers.DeleteOneAsync(manufacturer => manufacturer.Id == id);
+        public async Task<DeleteResult> Remove(ObjectId id) =>
+            await _manufacturers.DeleteOneAsync(manufacturer => manufacturer.Id == id);
     }
 }
