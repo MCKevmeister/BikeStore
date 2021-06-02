@@ -17,19 +17,15 @@ namespace BikeStoreApi.Repositories
             Database = mongoClient.GetDatabase(configuration.DatabaseName);
         }
 
+        public IMongoCollection<T> GetCollection<T>(string name) =>
+            Database.GetCollection<T>(name);
+        
         public Task<int> SaveChanges()
         {
             throw new NotImplementedException();
         }
 
-        public IMongoCollection<T> GetCollection<T>(string name)
-        {
-            return Database.GetCollection<T>(name);
-        }
-        // https://www.thecodebuzz.com/mongodb-repository-implementation-unit-testing-net-core-example
-        // https://bryanavery.co.uk/asp-net-core-mongodb-repository-pattern-unit-of-work/
-
-        public virtual void Dispose()
+        public void Dispose()
         {
         }
     }
