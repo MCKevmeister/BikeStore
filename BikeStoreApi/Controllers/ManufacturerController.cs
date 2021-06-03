@@ -22,7 +22,7 @@ namespace BikeStoreApi.Controllers
             _manufacturerRepository = manufacturerRepository;
         }
 
-        [HttpGet]
+        [HttpGet("{name}", Name = "GetManufacturerAsync")]
         [ActionName(nameof(GetManufacturerAsync))]
         public async Task<IActionResult> GetManufacturerAsync(string name, CancellationToken cancellationToken = default)
         {
@@ -37,17 +37,18 @@ namespace BikeStoreApi.Controllers
             await _manufacturerRepository.GetAll();
 
         [HttpPost("Create")]
-        public async Task<ActionResult<Manufacturer>>Create(string name, CancellationToken cancellationToken = default)
+        public async Task<ActionResult<Manufacturer>> Create(string name, CancellationToken cancellationToken = default)
         {
-            var newManufacturer = new Manufacturer(name);
-            
             var manufacturer = await _manufacturerRepository.GetByName(name);
 
             if (manufacturer != null)
                 return BadRequest(manufacturer + " already exists");
+            
+            var newManufacturer = new Manufacturer(name);
+            
             await _manufacturerRepository.Create(newManufacturer);
 
-            return CreatedAtRoute("GetManufacturerAsync", new { newManufacturer.Name }, name);
+            return CreatedAtRoute("GetManufacturerAsync", new { newManufacturer.Name }, newManufacturer);
         }
 
         [HttpPut]
