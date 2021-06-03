@@ -21,11 +21,5 @@ namespace BikeStore.Models
         [BsonElement("name")] 
         [Required]
         public string Name { get; set; }
-        
-        public Dictionary<string, string> Details { get; set; }
-
-        // [BsonDictionaryOptions(DictionaryRepresentation.ArrayOfDocuments)]
-        // [Required]
-        // public Dictionary<string, int> BikeList { get; set; } //list or dictionary
     }
 }
