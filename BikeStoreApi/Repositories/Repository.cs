@@ -7,7 +7,7 @@ namespace BikeStoreApi.Repositories
 {
     public class Repository<TEntity> : IRepository<TEntity> where TEntity : class,IEntity
     {
-        protected IMongoCollection<TEntity> Collection { get; init; }
+        protected IMongoCollection<TEntity> Collection { get; }
 
         protected Repository(IMongoContext context)
         {
