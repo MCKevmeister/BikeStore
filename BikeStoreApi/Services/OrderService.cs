@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using BikeStore.Models;
-using MongoDB.Bson;
 using MongoDB.Driver;
 
 namespace BikeStoreApi.Services
@@ -17,10 +16,10 @@ namespace BikeStoreApi.Services
         }
 
         public List<Order> Get() =>
-            _orders.Find(book => true).ToList();
+            _orders.Find(order => true).ToList();
 
         public Order Get(string id) =>
-            _orders.Find<Order>(order => order.Id == id).FirstOrDefault();
+            _orders.Find(order => order.Id == id).FirstOrDefault();
 
         public Order Create(Order order)
         {
