@@ -1,11 +1,13 @@
 ﻿using System;
-
+using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 using BikeStore.Models;
 using MongoDB.Driver;
 
 namespace BikeStoreApi.Repositories
 {
-    public class Repository<TEntity> : IRepository<TEntity> where TEntity : class,IEntity
+    public class Repository<TEntity> /*: IRepository<TEntity>*/ where TEntity : class,IEntity
     {
         protected IMongoCollection<TEntity> Collection { get; }
 
