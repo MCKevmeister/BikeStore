@@ -21,7 +21,6 @@ namespace BikeStoreApi.Controllers
         }
 
         [HttpGet("{name}", Name = "GetManufacturerAsync")]
-        [ActionName(nameof(GetManufacturerAsync))]
         public async Task<IActionResult> GetManufacturerAsync(string name, CancellationToken cancellationToken = default)
         {
             var matchedManufacturer = await _manufacturerRepository.GetByName(name);
@@ -29,7 +28,7 @@ namespace BikeStoreApi.Controllers
                 return BadRequest(new ArgumentException($"Can not find {name}"));
             return Ok(new ManufacturerResponse(matchedManufacturer));
         }
-        
+
         [HttpGet("GetAll")]
         public async Task<IEnumerable<Manufacturer>> GetAll(CancellationToken cancellationToken = default) =>
             await _manufacturerRepository.GetAll();
@@ -40,24 +39,24 @@ namespace BikeStoreApi.Controllers
             var manufacturer = await _manufacturerRepository.GetByName(name);
 
             if (manufacturer != null)
-                return BadRequest(new ManufacturerResponse(false, manufacturer + " already exists"));
+                return BadRequest(new ManufacturerResponse(false, $"{manufacturer.Name} already exists"));
             
-            var newManufacturer = await _manufacturerRepository.Create(name);
-            
-            
+            var newManufacturer = await _manufacturerRepository.Create(name, cancellationToken);
 
-            return CreatedAtRoute("GetManufacturerAsync", new { newManufacturer.Name }, newManufacturer);
+            return Ok(new ManufacturerResponse(true,$"{newManufacturer.Name} created", newManufacturer));
         }
 
         [HttpPut]
         public async Task<IActionResult> UpdateManufacturerAsync(UpdateManufacturer updateManufacturer, CancellationToken cancellationToken = default)
         {
-            var oldManufacturerCheck = await _manufacturerRepository.GetByName(updateManufacturer.OldManufacturer.Name);
+            var oldManufacturerName = updateManufacturer.OldManufacturer.Name;
+            
+            var oldManufacturerCheck = await _manufacturerRepository.GetByName(oldManufacturerName);
             
             if (oldManufacturerCheck == null)
                 return NotFound();
 
-            var newManufacturerCheck = await _manufacturerRepository.GetByName(updateManufacturer.NewManufacturer.Name);
+            var newManufacturerCheck = await _manufacturerRepository.GetByName(oldManufacturerName);
 
             if (newManufacturerCheck != null)
             {
