@@ -11,9 +11,8 @@ namespace BikeStoreApi.Repositories
     {
         Task<Manufacturer> GetByName(string name);
         Task<IEnumerable<Manufacturer>> GetAll();
-        Task<Manufacturer> Create(Manufacturer newManufacturer);
-        Task<ManufacturerResponse> Update(Manufacturer obj, Dictionary<string, string> details,
-            CancellationToken cancellationToken = default);
+        Task<Manufacturer> Create(string manufacturerName);
+        Task<ManufacturerResponse> Update(UpdateManufacturer updateManufacturer, CancellationToken cancellationToken = default);
         Task Delete(Manufacturer manufacturer);
     }
 }

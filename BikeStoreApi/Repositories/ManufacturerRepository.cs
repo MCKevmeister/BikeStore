@@ -14,17 +14,13 @@ namespace BikeStoreApi.Repositories
         {
         }
 
-        public async Task<Manufacturer> Create(Manufacturer obj)
+        public async Task<Manufacturer> Create(string manufacturerName)
         {
-            if (obj == null)
-            {
-                throw new ArgumentNullException(typeof(Manufacturer) + "  is null");
-            }
-
-            await Collection.InsertOneAsync(obj);
-            return await Collection.Find(Builders<Manufacturer>.Filter.Eq("_id", obj.Id)).FirstOrDefaultAsync();
+            var newManufacturer = new Manufacturer(manufacturerName);
+            await Collection.InsertOneAsync(newManufacturer);
+            var manufacturer = await GetByName(newManufacturer.Name);
+            return manufacturer;
         }
-
 
         public async Task<Manufacturer> GetByName(string name)
         {
@@ -34,19 +30,19 @@ namespace BikeStoreApi.Repositories
 
         public async Task<IEnumerable<Manufacturer>> GetAll()
         {
-            var all = await Collection.Find(Builders<Manufacturer>.Filter.Empty).ToListAsync();
-            return all;
+            var manufacturers = await Collection.Find(Builders<Manufacturer>.Filter.Empty).ToListAsync();
+            return manufacturers;
         }
 
-        public async Task<ManufacturerResponse> Update(Manufacturer obj, Dictionary<string, string> details,
-            CancellationToken cancellationToken = default)
+        public async Task<ManufacturerResponse> Update(UpdateManufacturer updateManufacturer, CancellationToken cancellationToken = default)
         {
             try
             {
-                var filter = Builders<Manufacturer>.Filter.Eq("_id", obj.Id);
-                var update = Builders<Manufacturer>.Update.Set(entity => entity.Details, details);
+                var filter = Builders<Manufacturer>.Filter.Eq("name", updateManufacturer.OldManufacturer.Name);
+                var update = Builders<Manufacturer>.Update.Set(m => m.Name, updateManufacturer.NewManufacturer.Name);
                 var updateOptions =  new UpdateOptions { IsUpsert = false};
                 var updatedResult = await Collection.UpdateOneAsync(filter, update, updateOptions, cancellationToken);
+                
                 return updatedResult.MatchedCount == 0
                     ? new ManufacturerResponse(false, "No manufacturer found with those details")
                     : new ManufacturerResponse(true, updatedResult.IsAcknowledged.ToString());
@@ -60,7 +56,7 @@ namespace BikeStoreApi.Repositories
         
         public async Task Delete(Manufacturer manufacturer)
         {
-            await Collection.DeleteOneAsync(Builders<Manufacturer>.Filter.Eq("_id", manufacturer.Id));
+            await Collection.DeleteOneAsync(Builders<Manufacturer>.Filter.Where(m => m.Id == manufacturer.Id));
         }
     }
 }
