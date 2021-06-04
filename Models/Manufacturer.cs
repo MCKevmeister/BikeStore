@@ -7,6 +7,7 @@ using MongoDB.Bson.Serialization.Options;
 
 namespace BikeStore.Models
 {
+    [BsonIgnoreExtraElements]
     public class Manufacturer : IEntity
     {
         public Manufacturer(string name)
