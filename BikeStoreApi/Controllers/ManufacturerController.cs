@@ -6,8 +6,6 @@ using BikeStore.Models;
 using BikeStore.Models.Responses;
 using BikeStoreApi.Repositories;
 using Microsoft.AspNetCore.Mvc;
-using MongoDB.Bson;
-using MongoDB.Driver;
 
 namespace BikeStoreApi.Controllers
 {
@@ -42,49 +40,56 @@ namespace BikeStoreApi.Controllers
             var manufacturer = await _manufacturerRepository.GetByName(name);
 
             if (manufacturer != null)
-                return BadRequest(manufacturer + " already exists");
+                return BadRequest(new ManufacturerResponse(false, manufacturer + " already exists"));
             
-            var newManufacturer = new Manufacturer(name);
+            var newManufacturer = await _manufacturerRepository.Create(name);
             
-            await _manufacturerRepository.Create(newManufacturer);
+            
 
             return CreatedAtRoute("GetManufacturerAsync", new { newManufacturer.Name }, newManufacturer);
         }
 
         [HttpPut]
-        public async Task<IActionResult> UpdateManufacturerAsync(string name,[FromBody] PreferencesObject preferences, CancellationToken cancellationToken = default)
+        public async Task<IActionResult> UpdateManufacturerAsync(UpdateManufacturer updateManufacturer, CancellationToken cancellationToken = default)
         {
-            var manufacturer = await _manufacturerRepository.GetByName(name);
-            if (manufacturer == null)
-            {
+            var oldManufacturerCheck = await _manufacturerRepository.GetByName(updateManufacturer.OldManufacturer.Name);
+            
+            if (oldManufacturerCheck == null)
                 return NotFound();
+
+            var newManufacturerCheck = await _manufacturerRepository.GetByName(updateManufacturer.NewManufacturer.Name);
+
+            if (newManufacturerCheck != null)
+            {
+                return BadRequest(new ManufacturerResponse(false, updateManufacturer.NewManufacturer.Name + " already exists"));
             }
             
-            var response = await _manufacturerRepository.Update(manufacturer, preferences.Preferences, cancellationToken);
-            if (response.Success)
-            {
-                var updatedManufacturer = await _manufacturerRepository.GetByName(manufacturer.Name);
-                return Ok(new ManufacturerResponse(updatedManufacturer));
-            }
-            return BadRequest(new ManufacturerResponse(false, ""));
+            var response = await _manufacturerRepository.Update(updateManufacturer , cancellationToken);
+            
+            if (response.ErrorMessage != null)
+                return BadRequest(new ManufacturerResponse(false, response.ErrorMessage));
+            
+            var updatedManufacturer = await _manufacturerRepository.GetByName(updateManufacturer.NewManufacturer.Name);
+            
+            return Ok(new ManufacturerResponse(updatedManufacturer));
         }
         
         [HttpDelete]
         public async Task<IActionResult> Delete(string name, CancellationToken cancellationToken = default)
         {
             var manufacturer = await _manufacturerRepository.GetByName(name);
-            
-            if (manufacturer == null)
-            {
+
+            if (manufacturer == null) 
                 return NotFound();
-            }
             await _manufacturerRepository.Delete(manufacturer);
-            
-            return Ok();
+
+            var deletedManufacturer = await _manufacturerRepository.GetByName(name);
+            if (deletedManufacturer == null)
+            {
+                return Ok(new ManufacturerResponse(true, $"{name} has been deleted"));
+            }
+
+            return BadRequest(new ManufacturerResponse(false, $"{name} was not deleted"));
         }
-    }
-    public class PreferencesObject
-    {
-        public Dictionary<string, string> Preferences { get; set; }
     }
 }
