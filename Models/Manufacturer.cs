@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
-using MongoDB.Bson.Serialization.Options;
 
 namespace BikeStore.Models
 {
@@ -21,6 +18,6 @@ namespace BikeStore.Models
 
         [BsonElement("name")] 
         [Required]
-        public string Name { get; set; }
+        public string Name { get; }
     }
 }

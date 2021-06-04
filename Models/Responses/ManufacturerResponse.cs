@@ -1,6 +1,4 @@
-﻿using Newtonsoft.Json;
-
-namespace BikeStore.Models.Responses
+﻿namespace BikeStore.Models.Responses
 {
     public class ManufacturerResponse
     {
@@ -10,15 +8,21 @@ namespace BikeStore.Models.Responses
             Manufacturer = manufacturer;
         }
 
-        public ManufacturerResponse(bool success, string message)
+        public ManufacturerResponse(bool success, string message, Manufacturer manufacturer  = null)
         {
             Success = success;
-            if (success) SuccessMessage = message;
+            if (success)
+            {
+                Manufacturer = manufacturer;
+                SuccessMessage = message;
+                
+            }
             else ErrorMessage = message;
         }
-        public bool Success { get; set; }
-        public string SuccessMessage { get; set; }
+
+        private bool Success { get; set; }
+        private string SuccessMessage { get; set; }
         public string ErrorMessage { get; set; }
-        public Manufacturer Manufacturer { get; set; }
+        private Manufacturer Manufacturer { get; set; }
     }
 }

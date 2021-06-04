@@ -2,27 +2,39 @@
 using System.ComponentModel.DataAnnotations;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
+using MongoDB.Bson.Serialization.IdGenerators;
 
 namespace BikeStore.Models
 {
-    public class Bike : IEntity
+    public abstract class Bike : IEntity
     {
+        protected Bike(string name, string manufacturerId, decimal price, string description, int weight,
+            DateTime lastModified, int stockAmount)
+        {
+            Name = name;
+            ManufacturerId = manufacturerId;
+            Price = price;
+            Description = description;
+            Weight = weight;
+            LastModified = new DateTime();
+            StockAmount = stockAmount;
+        }
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; }
         [Required]
         public string Name { get; set; }
         [Required]
-        public string ManufacturerId { get; set; }
+        private string ManufacturerId { get; set; }
         [Required]
-        public decimal Price { get; set; }
+        private decimal Price { get; set; }
+        [Required] 
+        private string Description { get; set; }
         [Required]
-        public char Description { get; set; }
+        private int Weight { get; set; }
         [Required]
-        public int Weight { get; set; }
-        [Required]
-        public DateTime LastModified { get; set; }
-        [Required]
-        public int StockAmount { get; set; }
+        private DateTime LastModified { get; set; }
+        [Required] 
+        private int StockAmount { get; set; }
     }
 }
