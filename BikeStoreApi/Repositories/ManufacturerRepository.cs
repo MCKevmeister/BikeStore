@@ -14,10 +14,10 @@ namespace BikeStoreApi.Repositories
         {
         }
 
-        public async Task<Manufacturer> Create(string manufacturerName)
+        public async Task<Manufacturer> Create(string manufacturerName ,CancellationToken cancellationToken)
         {
             var newManufacturer = new Manufacturer(manufacturerName);
-            await Collection.InsertOneAsync(newManufacturer);
+            await Collection.InsertOneAsync(newManufacturer, null, cancellationToken);
             var manufacturer = await GetByName(newManufacturer.Name);
             return manufacturer;
         }
