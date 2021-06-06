@@ -2,7 +2,7 @@
 
 namespace BikeStoreApi.Repositories
 {
-    public interface IOrderRepository : IRepository<Order>
+    public interface IOrderRepository : IRepository
     {
     }
 }
