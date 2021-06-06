@@ -20,8 +20,8 @@ namespace BikeStoreApi.Repositories
         public MongoContext(IBikeStoreDatabaseSettings configuration)
         {
             _commands = new List<Func<Task>>();
-            var mongoClient = new MongoClient(configuration.ConnectionString);
-            Database = mongoClient.GetDatabase(configuration.DatabaseName);
+            MongoClient = new MongoClient(configuration.ConnectionString);
+            Database = MongoClient.GetDatabase(configuration.DatabaseName);
         }
         public IMongoCollection<T> GetCollection<T>(string name)
         {

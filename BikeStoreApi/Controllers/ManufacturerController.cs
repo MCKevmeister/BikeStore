@@ -15,14 +15,17 @@ namespace BikeStoreApi.Controllers
     [ApiController]
     public class ManufacturerController : ControllerBase
     {
-        private readonly IMongoContext _context;
+        //private readonly IMongoContext _context;
+        private readonly IManufacturerRepository _manufacturerRepository;
+        private readonly IUnitOfWork _unitOfWork;
         
-        public ManufacturerController(IMongoContext context)
+        public ManufacturerController(IUnitOfWork unitOfWork, IManufacturerRepository manufacturerRepository)
         {
-            _context = context;
+            _manufacturerRepository = manufacturerRepository;
+            _unitOfWork = unitOfWork;
         }
 
-        [HttpGet(Name = "GetManufacturerAsync")]
+        /*[HttpGet(Name = "GetManufacturerAsync")]
         public async Task<IActionResult> GetManufacturerAsync(Manufacturer manufacturer)
         {
             using var unitOfWork = new UnitOfWork(_context);
@@ -36,19 +39,17 @@ namespace BikeStoreApi.Controllers
                 }
                 return Ok(new ManufacturerResponse(createdManufacturer));
             }
-        }
+        }*/
 
         [HttpGet("GetAll")]
-        public async Task<IEnumerable<Manufacturer>> GetAll()
+        public async Task<List<Manufacturer>> GetAll()
         {
-            using var unitOfWork = new UnitOfWork(_context);
-            {
-                var service = new ManufacturerService(unitOfWork);
-                return await service.GetAll();
-            }
+            var manufacturers = await _manufacturerRepository.GetAll();
+            await _unitOfWork.Commit();
+            return manufacturers;
         }
         
-        [HttpPost("Create")]
+        /*[HttpPost("Create")]
         public async Task<ActionResult<Manufacturer>> Create(Manufacturer manufacturer)
         {
             using var unitOfWork = new UnitOfWork(_context);
@@ -110,6 +111,6 @@ namespace BikeStoreApi.Controllers
                 }
                 return BadRequest(new ManufacturerResponse(false, $"{manufacturer.Name} was not deleted"));
             }
-        }
+        }*/
     }
 }
