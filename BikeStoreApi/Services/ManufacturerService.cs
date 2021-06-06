@@ -1,41 +1,40 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using BikeStore.Models;
-using BikeStoreApi.Repositories;
-using Microsoft.AspNetCore.Mvc;
-using MongoDB.Bson;
-using MongoDB.Driver;
+using BikeStore.Models.Responses;
 
 namespace BikeStoreApi.Services
 {
     public class ManufacturerService : IManufacturerService
     {
-        private readonly IMongoCollection<Manufacturer> _manufacturers;
+        private static IUnitOfWork _unitOfWork;
 
-        public ManufacturerService(IMongoContext mongoContext)
+        public ManufacturerService(IUnitOfWork unitOfWork)
         {
-            _manufacturers = mongoContext.GetCollection<Manufacturer>(nameof(Manufacturer));
+            _unitOfWork = unitOfWork;
         }
 
-        public async Task<ActionResult<List<Manufacturer>>> GetAll() =>
-            await _manufacturers.Find(manufacturer => true).ToListAsync();
-
-        public async Task<Manufacturer> Get(string id) =>
-            await _manufacturers.Find(manufacturer => manufacturer.Id == id).FirstOrDefaultAsync();
-
+        public async Task<List<Manufacturer>> GetAll()
+        {
+            var manufacturers = await _unitOfWork.ManufacturerRepository.GetAll();
+            return manufacturers;
+        }
+        public async Task<Manufacturer> Get(Manufacturer manufacturer)
+        {
+            return await _unitOfWork.ManufacturerRepository.GetByName(manufacturer.Name);
+        }
         public async Task<Manufacturer> Create(Manufacturer manufacturer)
         {
-            await _manufacturers.InsertOneAsync(manufacturer);
+            await _unitOfWork.ManufacturerRepository.Create(manufacturer);
             return manufacturer;
         }
-
-        public async Task<ReplaceOneResult> Update(string id, Manufacturer manufacturerIn) =>
-            await _manufacturers.ReplaceOneAsync(manufacturer => manufacturer.Id == id, manufacturerIn);
-
-        public async Task<DeleteResult> Remove(Manufacturer manufacturerIn) =>
-            await _manufacturers.DeleteOneAsync(manufacturer => manufacturer.Id == manufacturerIn.Id);
-
-        public async Task<DeleteResult> Remove(string id) =>
-            await _manufacturers.DeleteOneAsync(manufacturer => manufacturer.Id == id);
+        public async Task<ManufacturerResponse> Update(UpdateManufacturer updateManufacturer)
+        {
+            return await _unitOfWork.ManufacturerRepository.Update(updateManufacturer);
+        }
+        public async Task Remove(Manufacturer manufacturer)
+        {
+            await _unitOfWork.ManufacturerRepository.Delete(manufacturer);
+        }
     }
 }
