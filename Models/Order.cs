@@ -7,8 +7,7 @@ namespace BikeStore.Models
 {
     public class Order : IEntity
     {
-        [BsonId]
-        [BsonRepresentation(BsonType.ObjectId)]
+        [BsonRepresentation(BsonType.ObjectId)] 
         public string Id { get; set; }
         [Required] 
         public Bike BikeId { get; set; }

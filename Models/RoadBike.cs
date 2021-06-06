@@ -13,7 +13,5 @@ namespace BikeStore.Models
         }
         [Required]
         private string BrakeType { get; set; }
-
-
     }
 }

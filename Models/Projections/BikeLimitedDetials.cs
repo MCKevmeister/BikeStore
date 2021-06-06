@@ -5,7 +5,7 @@ namespace BikeStore.Models.Projections
 {
     public class BikeLimitedDetailsProjection
     {
-        [BsonId] 
+        [BsonRepresentation(BsonType.ObjectId)]
         public ObjectId BikeId { get; set; }
         public string Name { get; set; }
         public decimal Price { get; set; }

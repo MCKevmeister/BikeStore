@@ -6,8 +6,7 @@ namespace BikeStore.Models
 {
     public interface IEntity
     {
-        [BsonId]
-        [BsonRepresentation(BsonType.ObjectId)]
+        [BsonRepresentation(BsonType.ObjectId)] 
         string Id { get; set; }
     };
 }

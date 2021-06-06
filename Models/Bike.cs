@@ -19,8 +19,7 @@ namespace BikeStore.Models
             LastModified = new DateTime();
             StockAmount = stockAmount;
         }
-        [BsonId]
-        [BsonRepresentation(BsonType.ObjectId)]
+        [BsonRepresentation(BsonType.ObjectId)] 
         public string Id { get; set; }
         [Required]
         public string Name { get; set; }
