@@ -8,11 +8,7 @@ using MongoDB.Driver;
 
 namespace BikeStoreApi.Repositories
 {
-    public interface IRepository<TEntity>: IDisposable where TEntity : class
+    public interface IRepository: IDisposable
     {
-        Task<TEntity> GetByName(string name);
-        Task<IEnumerable<TEntity>> GetAll();
-        Task<TEntity> Create(string entityName, CancellationToken cancellationToken);
-        Task Delete(TEntity entity);
     }
 }

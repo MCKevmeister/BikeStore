@@ -7,12 +7,17 @@ using MongoDB.Driver;
 
 namespace BikeStoreApi.Repositories
 {
-    public class BikeRepository : Repository<Bike>, IBikeRepository
+    public class BikeRepository : Repository, IBikeRepository
     {
-        public BikeRepository(IMongoContext context) : base(context)
-        {
-        }
+        private IMongoCollection<Bike> Collection { get; }
+        private readonly IMongoContext _context;
 
+        protected BikeRepository(IMongoContext context, IMongoContext mongoContext)
+        {
+            _context = mongoContext;
+            Collection = context.GetCollection<Bike>(nameof(Bike));
+        }
+        
         public async Task<Bike> GetByName(string name)
         {
             var filter = Builders<Bike>.Filter.Eq("name", name);

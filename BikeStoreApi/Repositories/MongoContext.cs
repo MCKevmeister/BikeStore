@@ -34,7 +34,6 @@ namespace BikeStoreApi.Repositories
         }
         public async Task<int> CommitChanges()
         {
-
             using (Session = await MongoClient.StartSessionAsync())
             {
                 Session.StartTransaction();
