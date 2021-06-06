@@ -32,7 +32,7 @@ namespace BikeStoreApi
             services.AddSingleton<IBikeStoreDatabaseSettings>(x =>
                 x.GetRequiredService<IOptions<BikeStoreDatabaseSettings>>().Value);
             services.AddSingleton<IMongoContext, MongoContext>();
-            
+            services.AddSingleton<IUnitOfWork, UnitOfWork>();
             services.RegisterMongoDbRepositories();
             services.RegisterMongoDbServices();
             services.RegisterMongoDbClassMaps();
