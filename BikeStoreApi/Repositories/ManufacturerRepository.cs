@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Threading;
 using System.Threading.Tasks;
 using BikeStore.Models;
 using BikeStore.Models.Responses;
@@ -8,40 +7,43 @@ using MongoDB.Driver;
 
 namespace BikeStoreApi.Repositories
 {
-    public class ManufacturerRepository : Repository<Manufacturer>, IManufacturerRepository
+    public class ManufacturerRepository : IManufacturerRepository
     {
-        public ManufacturerRepository(IMongoContext context) : base(context)
+        private readonly IMongoCollection<Manufacturer> _collection;
+        private readonly IMongoContext _mongoContext;
+        public ManufacturerRepository(IMongoContext context)
         {
+            _mongoContext = context;
+            _collection = context.GetCollection<Manufacturer>(nameof(Manufacturer));
         }
 
-        public async Task<Manufacturer> Create(string manufacturerName ,CancellationToken cancellationToken)
+        public async Task<Manufacturer> Create(Manufacturer manufacturer)
         {
-            var newManufacturer = new Manufacturer(manufacturerName);
-            await Collection.InsertOneAsync(newManufacturer, null, cancellationToken);
-            var manufacturer = await GetByName(newManufacturer.Name);
-            return manufacturer;
+            await _collection.InsertOneAsync(manufacturer);
+            var createdManufacturer = await GetByName(manufacturer.Name);
+            return createdManufacturer;
         }
 
         public async Task<Manufacturer> GetByName(string name)
         {
             var filter = Builders<Manufacturer>.Filter.Eq("name", name);
-            return await Collection.FindAsync<Manufacturer>(filter).Result.FirstOrDefaultAsync();
+            return await _collection.FindAsync<Manufacturer>(filter).Result.FirstOrDefaultAsync();
         }
 
-        public async Task<IEnumerable<Manufacturer>> GetAll()
+        public async Task<List<Manufacturer>> GetAll()
         {
-            var manufacturers = await Collection.Find(Builders<Manufacturer>.Filter.Empty).ToListAsync();
+            var manufacturers = await _collection.Find(Builders<Manufacturer>.Filter.Empty).ToListAsync();
             return manufacturers;
         }
 
-        public async Task<ManufacturerResponse> Update(UpdateManufacturer updateManufacturer, CancellationToken cancellationToken = default)
+        public async Task<ManufacturerResponse> Update(UpdateManufacturer updateManufacturer)
         {
             try
             {
                 var filter = Builders<Manufacturer>.Filter.Eq("name", updateManufacturer.OldManufacturer.Name);
                 var update = Builders<Manufacturer>.Update.Set(m => m.Name, updateManufacturer.NewManufacturer.Name);
                 var updateOptions =  new UpdateOptions { IsUpsert = false};
-                var updatedResult = await Collection.UpdateOneAsync(filter, update, updateOptions, cancellationToken);
+                var updatedResult = await _collection.UpdateOneAsync(filter, update, updateOptions);
                 
                 return updatedResult.MatchedCount == 0
                     ? new ManufacturerResponse(false, "No manufacturer found with those details")
@@ -51,12 +53,16 @@ namespace BikeStoreApi.Repositories
             {
                 return new ManufacturerResponse(false, e.Message);
             }
-
         }
         
         public async Task Delete(Manufacturer manufacturer)
         {
-            await Collection.DeleteOneAsync(Builders<Manufacturer>.Filter.Where(m => m.Id == manufacturer.Id));
+            await _collection.DeleteOneAsync(Builders<Manufacturer>.Filter.Where(m => m.Id == manufacturer.Id));
+        }
+
+        public void Dispose()
+        {
+            _mongoContext?.Dispose();
         }
     }
 }
