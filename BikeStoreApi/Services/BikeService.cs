@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿/*using System.Collections.Generic;
 using System.Threading.Tasks;
 using BikeStore.Models;
 using BikeStoreApi.Repositories;
@@ -10,15 +10,18 @@ namespace BikeStoreApi.Services
 {
     public class BikeService : IBikeService
     {
-        private readonly IMongoCollection<Bike> _bikes;
+        //private readonly IMongoCollection<Bike> _bikes;
+        private readonly IBikeService _bikeService;
+        private static IBikeRepository _bikeRepository;
 
-        public BikeService(IMongoContext mongoContext)
+        public BikeService(IBikeRepository bikeRepository, IBikeService bikeService)
         {
-            _bikes = mongoContext.Database.GetCollection<Bike>(nameof(Bike));
+            _bikeService = bikeService;
+            _bikeRepository = bikeRepository;
         }
 
         public async Task<ActionResult<List<Bike>>> Get() =>
-            await _bikes.Find(bike => true).ToListAsync();
+            await _bikeRepository.Find(bike => true).ToListAsync();
 
         public async Task<Bike> Get(string id) =>
             await _bikes.Find(bike => bike.Id == id).FirstOrDefaultAsync();
@@ -38,4 +41,4 @@ namespace BikeStoreApi.Services
         public async Task<DeleteResult> Remove(string id) => 
             await _bikes.DeleteOneAsync(bike => bike.Id == id);
     }
-}
+}*/

@@ -9,7 +9,7 @@ namespace BikeStoreApi.Services
 {
     public interface IManufacturerService
     {
-        Task<List<Manufacturer>> GetAll();
+        Task<IEnumerable<Manufacturer>> GetAll();
         Task<Manufacturer> Get(Manufacturer manufacturer);
         Task<Manufacturer> Create(Manufacturer manufacturer);
         Task<ManufacturerResponse> Update(UpdateManufacturer updateManufacturer);

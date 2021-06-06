@@ -6,9 +6,8 @@ namespace BikeStoreApi.Repositories
 {
     public interface IMongoContext : IDisposable
     {
-        IMongoDatabase Database { get; }
+        void AddCommand(Func<Task> func);
+        Task<int> SaveChanges();
         IMongoCollection<T> GetCollection<T>(string name);
-        Task AddCommand(Func<Task> func);
-        Task<int> CommitChanges();
     }
 }

@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Threading;
 using System.Threading.Tasks;
 using BikeStore.Models;
 using BikeStore.Models.Responses;
 using BikeStoreApi.Repositories;
-using BikeStoreApi.Services;
+using BikeStoreApi.UnitOfWork;
 using Microsoft.AspNetCore.Mvc;
-using MongoDB.Driver;
 
 namespace BikeStoreApi.Controllers
 {
@@ -15,102 +13,88 @@ namespace BikeStoreApi.Controllers
     [ApiController]
     public class ManufacturerController : ControllerBase
     {
-        //private readonly IMongoContext _context;
         private readonly IManufacturerRepository _manufacturerRepository;
         private readonly IUnitOfWork _unitOfWork;
-        
+
         public ManufacturerController(IUnitOfWork unitOfWork, IManufacturerRepository manufacturerRepository)
         {
             _manufacturerRepository = manufacturerRepository;
             _unitOfWork = unitOfWork;
         }
 
-        /*[HttpGet(Name = "GetManufacturerAsync")]
-        public async Task<IActionResult> GetManufacturerAsync(Manufacturer manufacturer)
+        [HttpGet(Name = "GetManufacturerAsync")]
+        public async Task<IActionResult> GetManufacturer(string name)
         {
-            using var unitOfWork = new UnitOfWork(_context);
+            var newManufacturer = await _manufacturerRepository.Get(name);
+            if (newManufacturer == null)
             {
-                var service = new ManufacturerService(unitOfWork);
-                var newManufacturer = await service.Get(manufacturer);
-                var createdManufacturer = await unitOfWork.ManufacturerRepository.GetByName(newManufacturer.Name);
-                if (createdManufacturer == null)
-                {
-                    return BadRequest(new ArgumentException($"Can not find {manufacturer.Name}"));
-                }
-                return Ok(new ManufacturerResponse(createdManufacturer));
+                return BadRequest(new ArgumentException($"Can not find {name}"));
             }
-        }*/
+            return Ok(new ManufacturerResponse(true,"" ,newManufacturer));
+        }
 
         [HttpGet("GetAll")]
-        public async Task<List<Manufacturer>> GetAll()
+        public async Task<ActionResult<IEnumerable<Manufacturer>>> GetAll()
         {
             var manufacturers = await _manufacturerRepository.GetAll();
-            await _unitOfWork.Commit();
-            return manufacturers;
+            return Ok(manufacturers);
         }
-        
-        /*[HttpPost("Create")]
+
+        [HttpPost]
         public async Task<ActionResult<Manufacturer>> Create(Manufacturer manufacturer)
         {
-            using var unitOfWork = new UnitOfWork(_context);
+            var manufacturerCheck = await _manufacturerRepository.Get(manufacturer.Name);
+            if (manufacturerCheck != null)
+                return BadRequest(new ManufacturerResponse(false, $"{manufacturer.Name} already exists"));
+            var newManufacturer = await _manufacturerRepository.Create(manufacturer);
+            await _unitOfWork.Commit();
+            var newManufacturerCheck = await _manufacturerRepository.Get(manufacturer.Name);
+            if (newManufacturerCheck == null)
             {
-                var service = new ManufacturerService(unitOfWork);
-                var manufacturerCheck = await service.Get(manufacturer);
-                if (manufacturerCheck != null)
-                    return BadRequest(new ManufacturerResponse(false, $"{manufacturer.Name} already exists"));
-                var newManufacturer = await service.Create(manufacturer);
-                var newManufacturerCheck = await service.Get(manufacturer);
-                if (newManufacturerCheck == null) 
-                {
-                    return BadRequest(new ManufacturerResponse(false, $"{newManufacturer.Name} could not be created"));
-                }
-                return Ok(new ManufacturerResponse(true, $"{newManufacturer.Name} created", newManufacturer));
+                return BadRequest(new ManufacturerResponse(false, $"{newManufacturer.Name} could not be created"));
             }
+
+            return Ok(new ManufacturerResponse(true, $"{newManufacturer.Name} created", newManufacturer));
         }
 
         [HttpPut]
         public async Task<IActionResult> UpdateManufacturerAsync(UpdateManufacturer updateManufacturer)
         {
-            using var unitOfWork = new UnitOfWork(_context);
+            var oldManufacturerCheck = await _manufacturerRepository.Get(updateManufacturer.OldManufacturer.Name);
+            if (oldManufacturerCheck == null)
+                return NotFound(new ManufacturerResponse(false,
+                    updateManufacturer.OldManufacturer.Name + " doesn't exist"));
+            var newManufacturerCheck = await _manufacturerRepository.Get(updateManufacturer.NewManufacturer.Name);
+            if (newManufacturerCheck != null)
             {
-                var service = new ManufacturerService(unitOfWork);
-                var oldManufacturerCheck = await service.Get(updateManufacturer.OldManufacturer);
-                if (oldManufacturerCheck == null)
-                    return NotFound(new ManufacturerResponse(false, updateManufacturer.OldManufacturer.Name + " doesn't exist"));
-                var newManufacturerCheck = await service.Get(updateManufacturer.NewManufacturer);
-                if (newManufacturerCheck != null)
-                {
-                    return BadRequest(new ManufacturerResponse(false, updateManufacturer.NewManufacturer.Name + " already exists"));
-                }
-                var response = await service.Update(updateManufacturer);
-                if (response.ErrorMessage != null)
-                {
-                    return BadRequest(new ManufacturerResponse(false, response.ErrorMessage));
-                }
-                var updatedManufacturer =
-                    await service.Get(updateManufacturer.NewManufacturer);
-                return Ok(new ManufacturerResponse(updatedManufacturer));
+                return BadRequest(new ManufacturerResponse(false,
+                    updateManufacturer.NewManufacturer.Name + " already exists"));
             }
+            var response = await _manufacturerRepository.Update(updateManufacturer);
+            await _unitOfWork.Commit();
+            if (response.ErrorMessage != null)
+            {
+                return BadRequest(new ManufacturerResponse(false, response.ErrorMessage));
+            }
+            var updatedManufacturer =
+                await _manufacturerRepository.Get(updateManufacturer.NewManufacturer.Name);
+            return Ok(new ManufacturerResponse(true , updateManufacturer.NewManufacturer.Name + " has been updated", updatedManufacturer));
         }
-        
+
         [HttpDelete]
         public async Task<IActionResult> Delete(Manufacturer manufacturer)
         {
-            using var unitOfWork = new UnitOfWork(_context);
+            var manufacturerToDelete = await _manufacturerRepository.Get(manufacturer.Name);
+            if (manufacturerToDelete == null)
+                return BadRequest(new ManufacturerResponse(true, $"{manufacturer.Name} has been does not exist"));
+            await _manufacturerRepository.Delete(manufacturerToDelete);
+            await _unitOfWork.Commit();
+            var deletedManufacturer = await _manufacturerRepository.Get(manufacturer.Name);
+            if (deletedManufacturer == null)
             {
-                var service = new ManufacturerService(unitOfWork);
-                var manufacturerToDelete = await service.Get(manufacturer);
-                if (manufacturerToDelete == null)
-                    return BadRequest(new ManufacturerResponse(true, $"{manufacturer.Name} has been does not exist"));
-                await service.Remove(manufacturerToDelete);
-
-                var deletedManufacturer = await service.Get(manufacturer);
-                if (deletedManufacturer == null)
-                {
-                    return Ok(new ManufacturerResponse(true, $"{manufacturer.Name} has been deleted"));
-                }
-                return BadRequest(new ManufacturerResponse(false, $"{manufacturer.Name} was not deleted"));
+                return Ok(new ManufacturerResponse(true, $"{manufacturer.Name} has been deleted"));
             }
-        }*/
+            return BadRequest(new ManufacturerResponse(false, $"{manufacturer.Name} was not deleted"));
+        }
     }
 }

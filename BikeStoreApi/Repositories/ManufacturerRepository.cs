@@ -20,17 +20,17 @@ namespace BikeStoreApi.Repositories
         public async Task<Manufacturer> Create(Manufacturer manufacturer)
         {
             await _collection.InsertOneAsync(manufacturer);
-            var createdManufacturer = await GetByName(manufacturer.Name);
+            var createdManufacturer = await Get(manufacturer.Name);
             return createdManufacturer;
         }
 
-        public async Task<Manufacturer> GetByName(string name)
+        public async Task<Manufacturer> Get(string name)
         {
             var filter = Builders<Manufacturer>.Filter.Eq("name", name);
             return await _collection.FindAsync<Manufacturer>(filter).Result.FirstOrDefaultAsync();
         }
 
-        public async Task<List<Manufacturer>> GetAll()
+        public async Task<IEnumerable<Manufacturer>> GetAll()
         {
             var manufacturers = await _collection.Find(Builders<Manufacturer>.Filter.Empty).ToListAsync();
             return manufacturers;

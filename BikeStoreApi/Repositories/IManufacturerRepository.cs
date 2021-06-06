@@ -10,8 +10,8 @@ namespace BikeStoreApi.Repositories
 {
     public interface IManufacturerRepository : IRepository
     {
-        Task<Manufacturer> GetByName(string name);
-        Task<List<Manufacturer>> GetAll();
+        Task<Manufacturer> Get(string name);
+        Task<IEnumerable<Manufacturer>> GetAll();
         Task<Manufacturer> Create(Manufacturer manufacturer);
         Task<ManufacturerResponse> Update(UpdateManufacturer updateManufacturer);
         Task Delete(Manufacturer manufacturer);

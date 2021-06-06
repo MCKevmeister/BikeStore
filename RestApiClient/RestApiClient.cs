@@ -13,7 +13,7 @@ namespace BikeStore.RestApiClient
         public static async Task<List<Manufacturer>> GetManufacturerNamesAsync()
         {
             using var httpClient = new HttpClient();
-            var result = await httpClient.GetStringAsync($"{Url}/api/manufacturer/listnames");
+            var result = await httpClient.GetStringAsync($"{Url}/api/manufacturer");
             return JsonSerializer.Deserialize<List<Manufacturer>>(result);
         }
 

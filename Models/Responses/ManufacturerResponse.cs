@@ -15,7 +15,6 @@
             {
                 Manufacturer = manufacturer;
                 SuccessMessage = message;
-                
             }
             else ErrorMessage = message;
         }

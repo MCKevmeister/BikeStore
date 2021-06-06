@@ -27,27 +27,26 @@ namespace BikeStoreApi.Repositories
         {
             return Database.GetCollection<T>(name);
         }
-        public Task AddCommand(Func<Task> func)
+        public void AddCommand(Func<Task> func)
         {
             _commands.Add(func);
-            return Task.CompletedTask;
         }
-        public async Task<int> CommitChanges()
+        public async Task<int> SaveChanges()
         {
             using (Session = await MongoClient.StartSessionAsync())
             {
                 Session.StartTransaction();
                 var commandTasks = _commands.Select(c => c());
                 await Task.WhenAll(commandTasks);
-                await Session.CommitTransactionAsync(); 
+                await Session.CommitTransactionAsync();
             }
             return _commands.Count;
         }
+
         public void Dispose()
         {
             Session?.Dispose();
             GC.SuppressFinalize(this);
         }
-        
     }
 }

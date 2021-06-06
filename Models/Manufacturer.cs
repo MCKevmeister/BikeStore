@@ -14,6 +14,8 @@ namespace BikeStore.Models
 
         [BsonRepresentation(BsonType.ObjectId)] 
         public string Id { get; set; }
+        
+        [BsonElement("name")]
         [Required]
         public string Name { get; }
     }

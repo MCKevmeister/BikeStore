@@ -7,6 +7,7 @@ namespace BikeStoreApi.Repositories
 {
     public abstract class Repository : IRepository
     {
+        
         public void Dispose ()
         {
             GC.SuppressFinalize(this);

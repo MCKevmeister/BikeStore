@@ -1,6 +1,7 @@
 using System.IO;
 using BikeStore.Models;
 using BikeStoreApi.Repositories;
+using BikeStoreApi.UnitOfWork;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -32,7 +33,7 @@ namespace BikeStoreApi
             services.AddSingleton<IBikeStoreDatabaseSettings>(x =>
                 x.GetRequiredService<IOptions<BikeStoreDatabaseSettings>>().Value);
             services.AddSingleton<IMongoContext, MongoContext>();
-            services.AddSingleton<IUnitOfWork, UnitOfWork>();
+            services.AddSingleton<IUnitOfWork, UnitOfWork.UnitOfWork>();
             services.RegisterMongoDbRepositories();
             services.RegisterMongoDbServices();
             services.RegisterMongoDbClassMaps();
