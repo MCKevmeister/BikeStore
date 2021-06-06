@@ -8,12 +8,6 @@ namespace BikeStoreApi
 {
     public interface IUnitOfWork : IDisposable
     {
-        IManufacturerRepository ManufacturerRepository { get; }
-        IOrderRepository OrderRepository { get; } 
-        //IBikeRepository BikeRepository { get; }
         Task<bool> Commit();
-        Task<IClientSessionHandle> StartSessionAsync(ClientSessionOptions options = null,
-            CancellationToken cancellationToken = default(CancellationToken));
-        Task CommitTransactionAsync(CancellationToken cancellationToken = default(CancellationToken));
     }
 }
