@@ -6,7 +6,7 @@ using BikeStore.Models.Responses;
 
 namespace BikeStoreApi.Repositories
 {
-    public interface IBikeRepository : IRepository
+    public interface IBikeRepository : IRepository<Bike>
     {
         Task Update(UpdateBike updateBike, CancellationToken cancellationToken);
     }

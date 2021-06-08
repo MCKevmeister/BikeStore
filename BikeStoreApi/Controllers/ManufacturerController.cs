@@ -47,7 +47,7 @@ namespace BikeStoreApi.Controllers
             if (manufacturerCheck != null)
                 return BadRequest(new ManufacturerResponse(false, $"{manufacturer.Name} already exists"));
             var newManufacturer = await _manufacturerRepository.Create(manufacturer);
-            await _unitOfWork.Commit();
+            _unitOfWork.Commit();
             var newManufacturerCheck = await _manufacturerRepository.Get(manufacturer.Name);
             if (newManufacturerCheck == null)
             {
@@ -60,6 +60,8 @@ namespace BikeStoreApi.Controllers
         [HttpPut]
         public async Task<IActionResult> UpdateManufacturerAsync(UpdateManufacturer updateManufacturer)
         {
+            return null;
+            /*
             var oldManufacturerCheck = await _manufacturerRepository.Get(updateManufacturer.OldManufacturer.Name);
             if (oldManufacturerCheck == null)
                 return NotFound(new ManufacturerResponse(false,
@@ -71,14 +73,14 @@ namespace BikeStoreApi.Controllers
                     updateManufacturer.NewManufacturer.Name + " already exists"));
             }
             var response = await _manufacturerRepository.Update(updateManufacturer);
-            await _unitOfWork.Commit();
+            _unitOfWork.Commit();
             if (response.ErrorMessage != null)
             {
                 return BadRequest(new ManufacturerResponse(false, response.ErrorMessage));
             }
             var updatedManufacturer =
                 await _manufacturerRepository.Get(updateManufacturer.NewManufacturer.Name);
-            return Ok(new ManufacturerResponse(true , updateManufacturer.NewManufacturer.Name + " has been updated", updatedManufacturer));
+            return Ok(new ManufacturerResponse(true , updateManufacturer.NewManufacturer.Name + " has been updated", updatedManufacturer));*/
         }
 
         [HttpDelete]
@@ -88,7 +90,7 @@ namespace BikeStoreApi.Controllers
             if (manufacturerToDelete == null)
                 return BadRequest(new ManufacturerResponse(true, $"{manufacturer.Name} has been does not exist"));
             await _manufacturerRepository.Delete(manufacturerToDelete);
-            await _unitOfWork.Commit();
+            _unitOfWork.Commit();
             var deletedManufacturer = await _manufacturerRepository.Get(manufacturer.Name);
             if (deletedManufacturer == null)
             {

@@ -1,6 +1,8 @@
-﻿namespace BikeStoreApi.Repositories
+﻿using BikeStore.Models;
+
+namespace BikeStoreApi.Repositories
 {
-    public interface IOrderRepository : IRepository
+    public interface IOrderRepository : IRepository<Order>
     {
     }
 }

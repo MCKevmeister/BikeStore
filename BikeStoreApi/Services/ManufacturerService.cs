@@ -35,7 +35,8 @@ namespace BikeStoreApi.Services
         }
         public async Task<ManufacturerResponse> Update(UpdateManufacturer updateManufacturer)
         {
-            return await _manufacturerRepository.Update(updateManufacturer);
+            return null;
+            //return await _manufacturerRepository.Update(updateManufacturer);
         }
         public async Task Remove(Manufacturer manufacturer)
         {

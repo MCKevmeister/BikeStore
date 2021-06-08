@@ -35,10 +35,9 @@ namespace BikeStoreApi.Repositories
             var manufacturers = await _collection.Find(Builders<Manufacturer>.Filter.Empty).ToListAsync();
             return manufacturers;
         }
-
-        public async Task<ManufacturerResponse> Update(UpdateManufacturer updateManufacturer)
+        public async Task Update(Manufacturer entity)
         {
-            try
+            /*try
             {
                 var filter = Builders<Manufacturer>.Filter.Eq("name", updateManufacturer.OldManufacturer.Name);
                 var update = Builders<Manufacturer>.Update.Set(m => m.Name, updateManufacturer.NewManufacturer.Name);
@@ -52,9 +51,8 @@ namespace BikeStoreApi.Repositories
             catch (Exception e)
             {
                 return new ManufacturerResponse(false, e.Message);
-            }
+            }*/
         }
-        
         public async Task Delete(Manufacturer manufacturer)
         {
             await _collection.DeleteOneAsync(Builders<Manufacturer>.Filter.Where(m => m.Id == manufacturer.Id));

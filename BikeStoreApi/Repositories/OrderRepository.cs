@@ -1,4 +1,4 @@
-﻿namespace BikeStoreApi.Repositories
+﻿/*namespace BikeStoreApi.Repositories
 {
     public class OrderRepository : IOrderRepository
     {
@@ -14,4 +14,4 @@
             _context?.Dispose();
         }
     }
-}
+}*/

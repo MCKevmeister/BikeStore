@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿/*using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using BikeStore.Models;
@@ -7,7 +7,7 @@ using MongoDB.Driver;
 
 namespace BikeStoreApi.Repositories
 {
-    public class BikeRepository : Repository, IBikeRepository
+    public class BikeRepository : IRepository<Bike>, IBikeRepository
     {
         private IMongoCollection<Bike> Collection { get; }
         private readonly IMongoContext _context;
@@ -44,5 +44,10 @@ namespace BikeStoreApi.Repositories
         {
             throw new System.NotImplementedException();
         }
+
+        public void Dispose()
+        {
+            _context?.Dispose();
+        }
     }
-}
+}*/

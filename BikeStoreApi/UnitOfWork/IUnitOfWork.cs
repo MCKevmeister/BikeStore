@@ -1,13 +1,13 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using BikeStoreApi.Repositories;
 
 namespace BikeStoreApi.UnitOfWork
 {
-    public interface IUnitOfWork : IDisposable
+    public interface IUnitOfWork 
     {
-        //IManufacturerRepository ManufacturerRepository { get; }
-        //IOrderRepository OrderRepository { get; }
-        //IBikeRepository BikeRepository { get; }
-        Task<bool> Commit();
+        void BeginTransaction();
+        void SaveChanges();
+        bool Commit();
+        void Rollback();
+        IRepository<TEntity> Repository<TEntity>();
     }
 }

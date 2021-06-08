@@ -8,12 +8,7 @@ using MongoDB.Driver;
 
 namespace BikeStoreApi.Repositories
 {
-    public interface IManufacturerRepository : IRepository
+    public interface IManufacturerRepository : IRepository<Manufacturer>
     {
-        Task<Manufacturer> Get(string name);
-        Task<IEnumerable<Manufacturer>> GetAll();
-        Task<Manufacturer> Create(Manufacturer manufacturer);
-        Task<ManufacturerResponse> Update(UpdateManufacturer updateManufacturer);
-        Task Delete(Manufacturer manufacturer);
     }
 }
