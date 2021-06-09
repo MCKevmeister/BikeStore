@@ -16,24 +16,17 @@ namespace BikeStore.Models
             Price = price;
             Description = description;
             Weight = weight;
-            LastModified = new DateTime();
+            LastModified = lastModified;
             StockAmount = stockAmount;
         }
         [BsonRepresentation(BsonType.ObjectId)] 
         public string Id { get; set; }
-        [Required]
-        public string Name { get; set; }
-        [Required]
+        private string Name { get; set; }
         private string ManufacturerId { get; set; }
-        [Required]
         private decimal Price { get; set; }
-        [Required] 
         private string Description { get; set; }
-        [Required]
         private int Weight { get; set; }
-        [Required]
         private DateTime LastModified { get; set; }
-        [Required] 
         private int StockAmount { get; set; }
     }
 }
