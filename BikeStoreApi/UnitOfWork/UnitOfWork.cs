@@ -12,31 +12,6 @@ namespace BikeStoreApi.UnitOfWork
             _context = context;
         }
 
-        public void BeginTransaction()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void SaveChanges()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        bool IUnitOfWork.Commit()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void Rollback()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public IRepository<TEntity> Repository<TEntity>()
-        {
-            throw new System.NotImplementedException();
-        }
-
         public async Task<bool> Commit()
         {
             var changeAmount = await _context.SaveChanges();
