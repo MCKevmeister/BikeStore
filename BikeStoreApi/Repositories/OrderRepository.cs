@@ -1,17 +1,11 @@
-﻿/*namespace BikeStoreApi.Repositories
+﻿using BikeStore.Models;
+
+namespace BikeStoreApi.Repositories
 {
-    public class OrderRepository : IOrderRepository
+    public class OrderRepository : BaseRepository<Order>, IOrderRepository
     {
-        private readonly IMongoContext _context;
-
-        public OrderRepository(IMongoContext context)
+        public OrderRepository(IMongoContext context) : base(context)
         {
-            _context = context;
-        }
-
-        public void Dispose()
-        {
-            _context?.Dispose();
         }
     }
-}*/
+}

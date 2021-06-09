@@ -1,19 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Threading;
 using System.Threading.Tasks;
-using BikeStore.Models.Responses;
-using MongoDB.Bson;
-using MongoDB.Driver;
 
 namespace BikeStoreApi.Repositories
 {
-    public interface IRepository<TEntity>: IDisposable
+    public interface IRepository<TEntity>: IDisposable where TEntity : class
     {
-        Task<TEntity> Get(string name);
+        void Create(TEntity entity);
+        //Task<TEntity> Get(string id);
+        Task<TEntity> GetById(string id);
         Task<IEnumerable<TEntity>> GetAll();
-        Task<TEntity> Create(TEntity entity);
-        Task Update(TEntity entity);
-        Task Delete(TEntity entity);
+        void Update(TEntity entity, string idOld);
+        void Delete(string id);
     }
 }

@@ -1,13 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
-using BikeStore.Models;
-using BikeStore.Models.Responses;
+﻿using BikeStore.Models;
 
 namespace BikeStoreApi.Repositories
 {
     public interface IBikeRepository : IRepository<Bike>
     {
-        Task Update(UpdateBike updateBike, CancellationToken cancellationToken);
     }
 }
