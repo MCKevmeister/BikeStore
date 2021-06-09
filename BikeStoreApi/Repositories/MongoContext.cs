@@ -3,9 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BikeStore.Models;
-using Microsoft.Extensions.Configuration;
-using MongoDB.Bson;
-using MongoDB.Bson.Serialization.Conventions;
 using MongoDB.Driver;
 
 namespace BikeStoreApi.Repositories
@@ -13,7 +10,7 @@ namespace BikeStoreApi.Repositories
     public class MongoContext : IMongoContext
     {
         private IClientSessionHandle Session { get; set; }
-        public IMongoDatabase Database { get; set; }
+        private IMongoDatabase Database { get; set; }
         private IMongoClient MongoClient { get; set; }
         private readonly List<Func<Task>> _commands;
         
@@ -27,10 +24,12 @@ namespace BikeStoreApi.Repositories
         {
             return Database.GetCollection<T>(name);
         }
+
         public void AddCommand(Func<Task> func)
         {
             _commands.Add(func);
         }
+
         public async Task<int> SaveChanges()
         {
             using (Session = await MongoClient.StartSessionAsync())
@@ -40,9 +39,9 @@ namespace BikeStoreApi.Repositories
                 await Task.WhenAll(commandTasks);
                 await Session.CommitTransactionAsync();
             }
+
             return _commands.Count;
         }
-
         public void Dispose()
         {
             Session?.Dispose();
