@@ -12,6 +12,6 @@ namespace BikeStore.Models
             Motor = motor;
         }
         [Required] 
-        private string Motor { get; set; }
+        public string Motor { get; set; }
     }
 }

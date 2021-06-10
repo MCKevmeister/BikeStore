@@ -21,12 +21,13 @@ namespace BikeStore.Models
         }
         [BsonRepresentation(BsonType.ObjectId)] 
         public string Id { get; set; }
-        private string Name { get; set; }
-        private string ManufacturerId { get; set; }
-        private decimal Price { get; set; }
-        private string Description { get; set; }
-        private int Weight { get; set; }
-        private DateTime LastModified { get; set; }
-        private int StockAmount { get; set; }
+
+        public string Name { get; set; }
+        public string ManufacturerId { get; set; }
+        public decimal Price { get; set; }
+        public string Description { get; set; }
+        public int Weight { get; set; }
+        public DateTime LastModified { get; set; }
+        public int StockAmount { get; set; }
     }
 }
