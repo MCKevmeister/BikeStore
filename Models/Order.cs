@@ -9,15 +9,10 @@ namespace BikeStore.Models
     {
         [BsonRepresentation(BsonType.ObjectId)] 
         public string Id { get; set; }
-        [Required] 
-        public Bike BikeId { get; set; }
-        [Required] 
-        public char CustomerName { get; set; }
-        [Required] 
-        public char CustomerEmail { get; set; }
-        [Required]
-        public decimal TotalAmount { get; set; }
-        [Required] 
-        public DateTime OrderDate { get; set; }
+        [BsonElement("bike")] [Required] public string BikeId { get; set; }
+        [BsonElement("customerName")] [Required] public char CustomerName { get; set; }
+        [BsonElement("customerEmail")] [Required] public char CustomerEmail { get; set; }
+        [BsonElement("totalAmount")] [Required] public decimal TotalAmount { get; set; }
+        [BsonElement("orderDate")] [Required] public DateTime OrderDate { get; set; }
     }
 }

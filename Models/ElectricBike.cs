@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace BikeStore.Models
 {
@@ -11,7 +12,6 @@ namespace BikeStore.Models
         {
             Motor = motor;
         }
-        [Required] 
-        public string Motor { get; set; }
+        [BsonElement("motor")] [Required] public string Motor { get; set; }
     }
 }
