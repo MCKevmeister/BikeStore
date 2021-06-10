@@ -24,7 +24,8 @@ namespace BikeStoreApi.Repositories
         public static void RegisterMongoDbRepositories(this IServiceCollection servicesBuilder)
         {
             servicesBuilder.AddSingleton<IManufacturerRepository, ManufacturerRepository>();
-            servicesBuilder.AddSingleton<IBikeRepository, BikeRepository>();
+            servicesBuilder.AddSingleton<IRoadBikeRepository, RoadBikeRepository>();
+            servicesBuilder.AddSingleton<IElectricBikeRepository, ElectricBikeRepository>();
             servicesBuilder.AddSingleton<IOrderRepository, OrderRepository>();
         }
 
@@ -36,33 +37,23 @@ namespace BikeStoreApi.Repositories
                 map.SetIgnoreExtraElements(true);
                 map.MapIdMember(bike => bike.Id);
                 map.MapIdMember(x => x.Id);
+                map.MapMember(eBike => eBike.Name);
+                map.MapMember(eBike => eBike.ManufacturerId);
+                map.MapMember(eBike => eBike.Price);
+                map.MapMember(eBike => eBike.Description);
+                map.MapMember(eBike => eBike.Weight);
+                map.MapMember(eBike => eBike.LastModified);
+                map.MapMember(eBike => eBike.StockAmount);
             });
             BsonClassMap.RegisterClassMap<ElectricBike>(map => {
                 map.AutoMap();
                 map.SetIgnoreExtraElements(true);
-                map.MapIdMember(eBike => eBike.Id);
-                map.MapMember(eBike => eBike.Name);
-                map.MapMember(eBike => eBike.ManufacturerId);
-                map.MapMember(eBike => eBike.Price);
-                map.MapMember(eBike => eBike.Description);
-                map.MapMember(eBike => eBike.Weight);
-                map.MapMember(eBike => eBike.LastModified);
-                map.MapMember(eBike => eBike.StockAmount);
-                map.MapMember(eBike => eBike.Motor);
+                map.MapMember(bike => bike.Motor);
             });
             BsonClassMap.RegisterClassMap<RoadBike>(map => {
                 map.AutoMap();
-                map.SetIsRootClass(true);
                 map.SetIgnoreExtraElements(true);
-                map.MapIdMember(x => x.Id);
-                map.MapMember(eBike => eBike.Name);
-                map.MapMember(eBike => eBike.ManufacturerId);
-                map.MapMember(eBike => eBike.Price);
-                map.MapMember(eBike => eBike.Description);
-                map.MapMember(eBike => eBike.Weight);
-                map.MapMember(eBike => eBike.LastModified);
-                map.MapMember(eBike => eBike.StockAmount);
-                map.MapMember(eBike => eBike.BrakeType);
+                map.MapMember(bike => bike.BrakeType);
             });
             BsonClassMap.RegisterClassMap<Order>(map => {
                 map.AutoMap();
