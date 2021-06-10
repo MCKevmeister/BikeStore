@@ -30,35 +30,56 @@ namespace BikeStoreApi.Repositories
 
         public static void RegisterMongoDbClassMaps(this IServiceCollection servicesBuilder)
         {
-            /*BsonClassMap.RegisterClassMap<Bike>(map => {
+            BsonClassMap.RegisterClassMap<Bike>(map => {
                 map.AutoMap();
                 map.SetIsRootClass(true);
                 map.SetIgnoreExtraElements(true);
+                map.MapIdMember(bike => bike.Id);
                 map.MapIdMember(x => x.Id);
             });
             BsonClassMap.RegisterClassMap<ElectricBike>(map => {
                 map.AutoMap();
                 map.SetIgnoreExtraElements(true);
-                map.MapIdMember(x => x.Id);
+                map.MapIdMember(eBike => eBike.Id);
+                map.MapMember(eBike => eBike.Name);
+                map.MapMember(eBike => eBike.ManufacturerId);
+                map.MapMember(eBike => eBike.Price);
+                map.MapMember(eBike => eBike.Description);
+                map.MapMember(eBike => eBike.Weight);
+                map.MapMember(eBike => eBike.LastModified);
+                map.MapMember(eBike => eBike.StockAmount);
+                map.MapMember(eBike => eBike.Motor);
             });
             BsonClassMap.RegisterClassMap<RoadBike>(map => {
                 map.AutoMap();
                 map.SetIsRootClass(true);
                 map.SetIgnoreExtraElements(true);
                 map.MapIdMember(x => x.Id);
+                map.MapMember(eBike => eBike.Name);
+                map.MapMember(eBike => eBike.ManufacturerId);
+                map.MapMember(eBike => eBike.Price);
+                map.MapMember(eBike => eBike.Description);
+                map.MapMember(eBike => eBike.Weight);
+                map.MapMember(eBike => eBike.LastModified);
+                map.MapMember(eBike => eBike.StockAmount);
+                map.MapMember(eBike => eBike.BrakeType);
             });
             BsonClassMap.RegisterClassMap<Order>(map => {
                 map.AutoMap();
                 map.SetIsRootClass(true);
                 map.SetIgnoreExtraElements(true);
-                map.MapIdMember(x => x.Id);
-            });*/
+                map.MapIdMember(order => order.Id);
+                map.MapMember(order => order.BikeId);
+                map.MapMember(order => order.CustomerName);
+                map.MapMember(order => order.CustomerEmail);
+                map.MapMember(order => order.TotalAmount);
+                map.MapMember(order => order.OrderDate);
+            });
             BsonClassMap.RegisterClassMap<Manufacturer>(map => {
                 map.AutoMap();
                 map.SetIsRootClass(true);
                 map.SetIgnoreExtraElements(true);
                 map.MapIdMember(manufacturer => manufacturer.Id);
-                map.IdMemberMap.SetRepresentation(BsonType.ObjectId);
                 map.MapMember(manufacturer => manufacturer.Name).SetIsRequired(true);
             });
         }
