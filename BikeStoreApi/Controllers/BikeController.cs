@@ -1,14 +1,9 @@
-﻿/*
-using System;
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Mvc;
 using BikeStore.Models;
-using BikeStore.Models.Responses;
 using BikeStoreApi.Repositories;
-using BikeStoreApi.Services;
-using Microsoft.AspNetCore.Mvc;
-using MongoDB.Bson;
+using BikeStoreApi.UnitOfWork;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace BikeStoreApi.Controllers
 {
@@ -17,83 +12,70 @@ namespace BikeStoreApi.Controllers
     public class BikeController : ControllerBase
     {
         private readonly IBikeRepository _bikeRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public BikeController(IBikeRepository bikeRepository)
+        public BikeController(IUnitOfWork unitOfWork, IBikeRepository bikeRepository)
         {
+            _unitOfWork = unitOfWork;
             _bikeRepository = bikeRepository;
         }
-
-        [HttpGet("{name}", Name = "GetBikeAsync")]
-        public async Task<IActionResult> GetBikeAsync(string name, CancellationToken cancellationToken = default)
+        
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Bike>>> GetAll()
         {
-            var matchedBike = await _bikeRepository.GetByName(name);
-            if (matchedBike == null)
-                return BadRequest(new ArgumentException($"Can not find {name}"));
-            return Ok(new BikeResponse(matchedBike));
+            var bikes = await _bikeRepository.GetAll();
+            return Ok(bikes);
         }
-
-        [HttpGet("GetAll")]
-        public async Task<IEnumerable<Bike>> GetAll(CancellationToken cancellationToken = default) =>
-            await _bikeRepository.GetAll();
-
-        [HttpPost("Create")]
-        public async Task<ActionResult<Bike>> Create(string name, CancellationToken cancellationToken = default)
+        
+        [HttpGet("{id}", Name = "GetBikeAsync")]
+        public async Task<ActionResult<Bike>> Get(string id)
         {
-            var bike = await _bikeRepository.GetByName(name);
-
-            if (bike != null)
-                return BadRequest(new BikeResponse(false, $"{bike.Name} already exists"));
-            
-            var newBike = await _bikeRepository.Create(name, cancellationToken);
-
-            return Ok(new BikeResponse(true,$"{newBike.Name} created", newBike));
+            var bike = await _bikeRepository.GetById(id);
+            if (bike == null)
+            {
+                return BadRequest();
+            }
+            return Ok(bike);
         }
-
+        
+        [HttpPost]
+        public async Task<ActionResult<Bike>> Create(Bike bike)
+        {
+            _bikeRepository.Create(bike);
+            await _unitOfWork.Commit();
+            var newBike = await _bikeRepository.GetById(bike.Id);
+            if (newBike == null)
+            {
+                return BadRequest();
+            }
+            return Ok(newBike);
+        }
+        
         [HttpPut]
-        public async Task<IActionResult> UpdateBikeAsync(UpdateBike updateBike, CancellationToken cancellationToken = default)
+        public async Task<ActionResult<Bike>> UpdateBikeAsync(Bike bike)
         {
-            var oldBikeName = updateBike.OldBike.Name;
-            
-            var oldBikeCheck = await _bikeRepository.GetByName(oldBikeName);
-            
+            var oldBikeCheck = await _bikeRepository.GetById(bike.Id);
             if (oldBikeCheck == null)
                 return NotFound();
-
-            var newBikeCheck = await _bikeRepository.GetByName(oldBikeName);
-
-            if (newBikeCheck != null)
-            {
-                return BadRequest(new BikeResponse(false, updateBike.NewBike.Name + " already exists"));
-            }
-            
-            var response = await _bikeRepository.Update(updateBike , cancellationToken);
-            
-            if (response.ErrorMessage != null)
-                return BadRequest(new BikeResponse(false, response.ErrorMessage));
-            
-            var updatedBike = await _bikeRepository.GetByName(updateBike.NewBike.Name);
-            
-            return Ok(new BikeResponse(updatedBike));
+            _bikeRepository.Update(bike, bike.Id);
+            await _unitOfWork.Commit();
+            return Ok(bike);
         }
         
         [HttpDelete]
-        public async Task<IActionResult> Delete(string name, CancellationToken cancellationToken = default)
+        public async Task<IActionResult> Delete(string id)
         {
-            var bike = await _bikeRepository.GetByName(name);
-
-            if (bike == null) 
-                return NotFound();
-            await _bikeRepository.Delete(bike);
-
-            var deletedBike = await _bikeRepository.GetByName(name);
+            var bikeToDelete = await _bikeRepository.GetById(id);
+            if (bikeToDelete == null)
+                return BadRequest();
+            _bikeRepository.Delete(id);
+            await _unitOfWork.Commit();
+            var deletedBike = await _bikeRepository.GetById(id);
             if (deletedBike == null)
             {
-                return Ok(new BikeResponse(true, $"{name} has been deleted"));
+                return Ok();
             }
-
-            return BadRequest(new BikeResponse(false, $"{name} was not deleted"));
+            return BadRequest();
         }
-    }
+    }   
 }
-*/
-
