@@ -29,7 +29,7 @@ namespace BikeStoreApi.Repositories
         {
             _collection.InsertOneAsync(entity);
         }
-        public virtual async Task<IEnumerable<TEntity>> GetAll()
+        public virtual async Task<IList<TEntity>> GetAll()
         {
             return await _collection.FindAsync(Builders<TEntity>.Filter.Empty).Result.ToListAsync();
         }

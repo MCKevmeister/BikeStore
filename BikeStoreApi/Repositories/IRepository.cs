@@ -8,7 +8,7 @@ namespace BikeStoreApi.Repositories
     {
         void Create(TEntity entity);
         Task<TEntity> GetById(string id);
-        Task<IEnumerable<TEntity>> GetAll();
+        Task<IList<TEntity>> GetAll();
         void Update(TEntity entity, string idOld);
         void Delete(string id);
     }

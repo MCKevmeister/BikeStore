@@ -16,7 +16,7 @@ namespace BikeStore.RestApiClient
         {
             using var httpClient = new HttpClient();
             return JsonSerializer.Deserialize<List<Manufacturer>>(
-                await httpClient.GetStringAsync($"{Url}/api/manufacturer"));
+                await httpClient.GetStringAsync($"{Url}/api/manufacturer")); //Todo fix all the api routs
         }
         public static async Task<Manufacturer> GetManufacturerAsync(int id)
         {

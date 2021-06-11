@@ -22,13 +22,15 @@ namespace BikeStoreApi.Controllers
         }
         
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Manufacturer>>> GetAll()
+        [Route("api/Manufacturer/GetAll")]
+        public async Task<IList<Manufacturer>> GetAll()
         {
             var manufacturers = await _manufacturerRepository.GetAll();
-            return Ok(manufacturers);
+            return manufacturers;
         }
         
         [HttpGet("{id}", Name = "GetManufacturerAsync")]
+        [Route("api/Manufacturer/Get/{id}")]
         public async Task<ActionResult<Manufacturer>> Get(string id)
         {
             var manufacturer = await _manufacturerRepository.GetById(id);
@@ -40,7 +42,8 @@ namespace BikeStoreApi.Controllers
         }
         
         [HttpPost]
-        public async Task<ActionResult<Manufacturer>> Create(Manufacturer manufacturer)
+        [Route("api/Manufacturer/Create")]
+        public async Task<ActionResult<Manufacturer>> Create([FromBody]Manufacturer manufacturer)
         {
             _manufacturerRepository.Create(manufacturer);
             await _unitOfWork.Commit();
@@ -53,7 +56,8 @@ namespace BikeStoreApi.Controllers
         }
         
         [HttpPut]
-        public async Task<ActionResult<Manufacturer>> UpdateManufacturerAsync(Manufacturer manufacturer)
+        [Route("api/Manufacturer/Edit")]
+        public async Task<ActionResult<Manufacturer>> UpdateManufacturerAsync([FromBody]Manufacturer manufacturer)
         {
             var oldManufacturerCheck = await _manufacturerRepository.GetById(manufacturer.Id);
             if (oldManufacturerCheck == null) // and an or conditional check to make sure that the manufacturer isn't already in db, get all and check unique
@@ -65,6 +69,7 @@ namespace BikeStoreApi.Controllers
         }
         
         [HttpDelete]
+        [Route("api/Employee/Delete/{id}")]
         public async Task<IActionResult> Delete(string id)
         {
             var manufacturerToDelete = await _manufacturerRepository.GetById(id);

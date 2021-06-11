@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RestApiClient", "RestApiCli
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BikeStoreApi", "BikeStoreApi\BikeStoreApi.csproj", "{3DDC47A9-9332-4224-A099-71ED2F09A850}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApp", "WebApp\WebApp.csproj", "{940906CB-9DAB-45B3-96CB-8AA61A89DC53}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplication", "WebApplication\WebApplication.csproj", "{7C211474-FFCF-4970-B8C0-85A421F0E3B4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,10 +41,10 @@ Global
 		{3DDC47A9-9332-4224-A099-71ED2F09A850}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3DDC47A9-9332-4224-A099-71ED2F09A850}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3DDC47A9-9332-4224-A099-71ED2F09A850}.Release|Any CPU.Build.0 = Release|Any CPU
-		{940906CB-9DAB-45B3-96CB-8AA61A89DC53}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{940906CB-9DAB-45B3-96CB-8AA61A89DC53}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{940906CB-9DAB-45B3-96CB-8AA61A89DC53}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{940906CB-9DAB-45B3-96CB-8AA61A89DC53}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7C211474-FFCF-4970-B8C0-85A421F0E3B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C211474-FFCF-4970-B8C0-85A421F0E3B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C211474-FFCF-4970-B8C0-85A421F0E3B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C211474-FFCF-4970-B8C0-85A421F0E3B4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
