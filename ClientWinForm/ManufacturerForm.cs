@@ -10,7 +10,7 @@ namespace ClientWinForm
 {
     public partial class ManufacturerForm : Form
     {
-        private static List<Manufacturer> Manufacturers { get; set; }
+        private static IEnumerable<Manufacturer> Manufacturers { get; set; }
 
         public async Task<ManufacturerForm> BuildManufacturerForm()
         {
