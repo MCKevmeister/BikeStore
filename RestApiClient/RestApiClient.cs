@@ -60,12 +60,7 @@ namespace BikeStore.RestApiClient
             return JsonSerializer.Deserialize<List<Order>>(
                 await httpClient.GetStringAsync($"{Url}/api/order"));
         }
-        /*public static async Task<IEnumerable<Order>> ListOrdersAsync()
-        {
-            using var httpClient = new HttpClient();
-            var result = await httpClient.GetStringAsync($"{Url}/api/order/list");
-            return JsonSerializer.Deserialize<List<Order>>(result);
-        }*/
+        
         public static async Task<Order> GetOrderAsync(int id)
         {
             using var httpClient = new HttpClient();
@@ -108,12 +103,7 @@ namespace BikeStore.RestApiClient
             return JsonSerializer.Deserialize<List<ElectricBike>>(
                 await httpClient.GetStringAsync($"{Url}/api/electricbike"));
         }
-        /*public static async Task<IEnumerable<ElectricBike>> ListElectricBikesAsync()
-        {
-            using var httpClient = new HttpClient();
-            var result = await httpClient.GetStringAsync($"{Url}/api/electricbike/list");
-            return JsonSerializer.Deserialize<List<ElectricBike>>(result);
-        }*/
+        
         public static async Task<ElectricBike> GetElectricBikeAsync(int id)
         {
             using var httpClient = new HttpClient();
