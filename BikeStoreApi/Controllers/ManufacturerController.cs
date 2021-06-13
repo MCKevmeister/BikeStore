@@ -8,8 +8,8 @@ using BikeStore.Models.Responses;
 
 namespace BikeStoreApi.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
+    [Route("api/Manufacturer")]
     public class ManufacturerController : ControllerBase
     {
         private readonly IManufacturerRepository _manufacturerRepository;
@@ -21,16 +21,14 @@ namespace BikeStoreApi.Controllers
             _manufacturerRepository = manufacturerRepository;
         }
         
-        [HttpGet]
-        [Route("api/Manufacturer/GetAll")]
-        public async Task<IList<Manufacturer>> GetAll()
+        [HttpGet("GetAll")]
+        public async Task<IEnumerable<Manufacturer>> GetAll()
         {
             var manufacturers = await _manufacturerRepository.GetAll();
             return manufacturers;
         }
         
-        [HttpGet("{id}", Name = "GetManufacturerAsync")]
-        [Route("api/Manufacturer/Get/{id}")]
+        [HttpGet("Get/{id}")]
         public async Task<ActionResult<Manufacturer>> Get(string id)
         {
             var manufacturer = await _manufacturerRepository.GetById(id);
@@ -41,8 +39,7 @@ namespace BikeStoreApi.Controllers
             return Ok(manufacturer);
         }
         
-        [HttpPost]
-        [Route("api/Manufacturer/Create")]
+        [HttpPost("Create")]
         public async Task<ActionResult<Manufacturer>> Create([FromBody]Manufacturer manufacturer)
         {
             _manufacturerRepository.Create(manufacturer);
@@ -55,8 +52,7 @@ namespace BikeStoreApi.Controllers
             return Ok(newManufacturer);
         }
         
-        [HttpPut]
-        [Route("api/Manufacturer/Edit")]
+        [HttpPut("Edit")]
         public async Task<ActionResult<Manufacturer>> UpdateManufacturerAsync([FromBody]Manufacturer manufacturer)
         {
             var oldManufacturerCheck = await _manufacturerRepository.GetById(manufacturer.Id);
@@ -68,8 +64,7 @@ namespace BikeStoreApi.Controllers
             return Ok(manufacturer);
         }
         
-        [HttpDelete]
-        [Route("api/Employee/Delete/{id}")]
+        [HttpDelete("Delete/{id}")]
         public async Task<IActionResult> Delete(string id)
         {
             var manufacturerToDelete = await _manufacturerRepository.GetById(id);

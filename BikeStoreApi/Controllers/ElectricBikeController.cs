@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BikeStoreApi.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/ElectricBike")]
     [ApiController]
     public class ElectricBikeController : ControllerBase
     {
@@ -20,14 +20,14 @@ namespace BikeStoreApi.Controllers
             _electricBikeRepository = electricBikeRepository;
         }
         
-        [HttpGet]
+        [HttpGet("GetAll")]
         public async Task<ActionResult<IEnumerable<ElectricBike>>> GetAll()
         {
             var electricBikes = await _electricBikeRepository.GetAll();
             return Ok(electricBikes);
         }
         
-        [HttpGet("{id}", Name = "GetElectricBikeAsync")]
+        [HttpGet("Get/{id}")]
         public async Task<ActionResult<ElectricBike>> Get(string id)
         {
             var electricBike = await _electricBikeRepository.GetById(id);
@@ -38,7 +38,7 @@ namespace BikeStoreApi.Controllers
             return Ok(electricBike);
         }
         
-        [HttpPost]
+        [HttpPost("Create")]
         public async Task<ActionResult<ElectricBike>> Create(ElectricBike electricBike)
         {
             _electricBikeRepository.Create(electricBike);
@@ -51,7 +51,7 @@ namespace BikeStoreApi.Controllers
             return Ok(newElectricBike);
         }
         
-        [HttpPut]
+        [HttpPut("Edit")]
         public async Task<ActionResult<ElectricBike>> UpdateElectricBikeAsync(ElectricBike electricBike)
         {
             var oldElectricBikeCheck = await _electricBikeRepository.GetById(electricBike.Id);
@@ -62,7 +62,7 @@ namespace BikeStoreApi.Controllers
             return Ok(electricBike);
         }
         
-        [HttpDelete]
+        [HttpDelete("Delete/{id}")]
         public async Task<IActionResult> Delete(string id)
         {
             var electricBikeToDelete = await _electricBikeRepository.GetById(id);

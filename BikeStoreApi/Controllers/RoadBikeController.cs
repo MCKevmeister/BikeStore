@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BikeStoreApi.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/RoadBike")]
     [ApiController]
     public class RoadBikeController : ControllerBase
     {
@@ -20,14 +20,14 @@ namespace BikeStoreApi.Controllers
             _roadBikeRepository = roadBikeRepository;
         }
         
-        [HttpGet]
+        [HttpGet("GetAll")]
         public async Task<ActionResult<IEnumerable<RoadBike>>> GetAll()
         {
             var roadBikes = await _roadBikeRepository.GetAll();
             return Ok(roadBikes);
         }
         
-        [HttpGet("{id}", Name = "GetRoadBikeAsync")]
+        [HttpGet("Get/{id}")]
         public async Task<ActionResult<RoadBike>> Get(string id)
         {
             var roadBike = await _roadBikeRepository.GetById(id);
@@ -38,7 +38,7 @@ namespace BikeStoreApi.Controllers
             return Ok(roadBike);
         }
         
-        [HttpPost]
+        [HttpPost("Create")]
         public async Task<ActionResult<RoadBike>> Create(RoadBike roadBike)
         {
             _roadBikeRepository.Create(roadBike);
@@ -51,7 +51,7 @@ namespace BikeStoreApi.Controllers
             return Ok(newRoadBike);
         }
         
-        [HttpPut]
+        [HttpPut("Edit")]
         public async Task<ActionResult<RoadBike>> UpdateRoadBikeAsync(RoadBike roadBike)
         {
             var oldRoadBikeCheck = await _roadBikeRepository.GetById(roadBike.Id);
@@ -62,7 +62,7 @@ namespace BikeStoreApi.Controllers
             return Ok(roadBike);
         }
         
-        [HttpDelete]
+        [HttpDelete("Delete/{id}")]
         public async Task<IActionResult> Delete(string id)
         {
             var roadBikeToDelete = await _roadBikeRepository.GetById(id);
