@@ -16,15 +16,14 @@ namespace BikeStore.RestApiClient
         {
             using var httpClient = new HttpClient();
             return JsonSerializer.Deserialize<List<Manufacturer>>(
-                await httpClient.GetStringAsync($"{Url}/api/manufacturer")); //Todo fix all the api routs
+                await httpClient.GetStringAsync($"{Url}/api/manufacturer/GetAll"));
         }
         public static async Task<Manufacturer> GetManufacturerAsync(int id)
         {
             using var httpClient = new HttpClient();
             return JsonSerializer.Deserialize<Manufacturer>(
-                await httpClient.GetStringAsync($"{Url}/api/manufacturer" + id));
+                await httpClient.GetStringAsync($"{Url}/api/manufacturer/" + id));
         }
-
         private static async Task<int> AddOrUpdateManufacturerAsync(Manufacturer manufacturer, string url, string request)
         {
             using var requestMessage = new HttpRequestMessage(new HttpMethod(request), url);
@@ -47,27 +46,21 @@ namespace BikeStore.RestApiClient
         public static async Task DeleteManufacturerAsync(int id)
         {
             using var httpClient = new HttpClient();
-            var responseMessage = await httpClient.DeleteAsync($"{Url}/api/manufacturer");
+            var responseMessage = await httpClient.DeleteAsync($"{Url}/api/manufacturer/" + id);
             responseMessage.EnsureSuccessStatusCode();
         }
-        
-        
-        
-        
         public static async Task<IEnumerable<Order>> GetOrderNamesAsync()
         {
             using var httpClient = new HttpClient();
             return JsonSerializer.Deserialize<List<Order>>(
-                await httpClient.GetStringAsync($"{Url}/api/order"));
+                await httpClient.GetStringAsync($"{Url}/api/order/GetAll"));
         }
-        
         public static async Task<Order> GetOrderAsync(int id)
         {
             using var httpClient = new HttpClient();
             return JsonSerializer.Deserialize<Order>(
-                await httpClient.GetStringAsync($"{Url}/api/order" + id));
+                await httpClient.GetStringAsync($"{Url}/api/order/" + id));
         }
-
         private static async Task<int> AddOrUpdateOrderAsync(Order order, string url, string request)
         {
             using var requestMessage = new HttpRequestMessage(new HttpMethod(request), url);
@@ -90,27 +83,21 @@ namespace BikeStore.RestApiClient
         public static async Task DeleteOrderAsync(int id)
         {
             using var httpClient = new HttpClient();
-            var responseMessage = await httpClient.DeleteAsync($"{Url}/api/order");
+            var responseMessage = await httpClient.DeleteAsync($"{Url}/api/order/" + id);
             responseMessage.EnsureSuccessStatusCode();
         }
-
-        
-        
-        
         public static async Task<IEnumerable<ElectricBike>> GetElectricBikeNamesAsync()
         {
             using var httpClient = new HttpClient();
             return JsonSerializer.Deserialize<List<ElectricBike>>(
-                await httpClient.GetStringAsync($"{Url}/api/electricbike"));
+                await httpClient.GetStringAsync($"{Url}/api/electricbike/GetAll"));
         }
-        
         public static async Task<ElectricBike> GetElectricBikeAsync(int id)
         {
             using var httpClient = new HttpClient();
             return JsonSerializer.Deserialize<ElectricBike>(
-                await httpClient.GetStringAsync($"{Url}/api/electricbike" + id));
+                await httpClient.GetStringAsync($"{Url}/api/electricbike/" + id));
         }
-
         private static async Task<int> AddOrUpdateElectricBikeAsync(ElectricBike electricBike, string url, string request)
         {
             using var requestMessage = new HttpRequestMessage(new HttpMethod(request), url);
@@ -133,31 +120,20 @@ namespace BikeStore.RestApiClient
         public static async Task DeleteElectricBikeAsync(int id)
         {
             using var httpClient = new HttpClient();
-            var responseMessage = await httpClient.DeleteAsync($"{Url}/api/electricbike");
+            var responseMessage = await httpClient.DeleteAsync($"{Url}/api/electricbike/" + id);
             responseMessage.EnsureSuccessStatusCode();
         }
-
-
-
-        
-        
         public static async Task<IEnumerable<RoadBike>> GetRoadBikeNamesAsync()
         {
             using var httpClient = new HttpClient();
             return JsonSerializer.Deserialize<List<RoadBike>>(
-                await httpClient.GetStringAsync($"{Url}/api/roadbike"));
+                await httpClient.GetStringAsync($"{Url}/api/roadbike/GetAll"));
         }
-        /*public static async Task<IEnumerable<RoadBike>> ListRoadBikesAsync()
-        {
-            using var httpClient = new HttpClient();
-            var result = await httpClient.GetStringAsync($"{Url}/api/roadbike/list");
-            return JsonSerializer.Deserialize<List<RoadBike>>(result);
-        }*/
         public static async Task<RoadBike> GetRoadBikeAsync(int id)
         {
             using var httpClient = new HttpClient();
             return JsonSerializer.Deserialize<RoadBike>(
-                await httpClient.GetStringAsync($"{Url}/api/roadbike" + id));
+                await httpClient.GetStringAsync($"{Url}/api/roadbike/" + id));
         }
 
         private static async Task<int> AddOrUpdateRoadBikeAsync(RoadBike roadBike, string url, string request)
@@ -182,7 +158,7 @@ namespace BikeStore.RestApiClient
         public static async Task DeleteRoadBikeAsync(int id)
         {
             using var httpClient = new HttpClient();
-            var responseMessage = await httpClient.DeleteAsync($"{Url}/api/roadbike");
+            var responseMessage = await httpClient.DeleteAsync($"{Url}/api/roadbike/" + id);
             responseMessage.EnsureSuccessStatusCode();
         }
     }
