@@ -16,7 +16,7 @@ namespace ClientWinForm
     public partial class MainForm : Form
     {
         private ManufacturerForm _manufacturerForm;
-        
+
         public MainForm()
         {
             InitializeComponent();
@@ -24,21 +24,11 @@ namespace ClientWinForm
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            //MessageBox.Show(ex.Message, @"File Save Error");
             UpdateForm();
         }
 
         private void UpdateForm()
         {
-            
-        // categoryListView.View = View.Details;
-            // categoryListView.Columns.Add("Name", -2);
-            //
-            // ListViewItem item1 = new("Electric Bike");
-            // ListViewItem item2 = new("Mountain Bike");
-            // ListViewItem item3 = new("Kids Bike");
-            //
-            // categoryListView.Items.AddRange(new[] { item1, item2, item3 });
         }
         private void categoryButton_Click(object sender, EventArgs e)
         {
@@ -46,11 +36,10 @@ namespace ClientWinForm
             categoryForm.Show();
         }
 
-        private void manufacturerButton_Click(object sender, EventArgs e)
+        private async Task manufacturerButton_Click(object sender, EventArgs e)
         {
-            var newForm = _manufacturerForm.BuildManufacturerForm();
-            var manufacturerForm = newForm.Result;
-            manufacturerForm.Show();
+            _manufacturerForm = await _manufacturerForm.BuildManufacturerForm();
+            _manufacturerForm.Show();
         }
 
         private void closeButton_Click(object sender, EventArgs e)

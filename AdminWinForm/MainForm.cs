@@ -1,13 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using BikeStore.Models;
 
 namespace AdminWinForm
 {
@@ -46,7 +38,7 @@ namespace AdminWinForm
 
         private void UpdateDisplay()
         {
-
+            //view all bikes
         }
 
         private void categoryButton_Click(object sender, EventArgs e)
