@@ -1,73 +1,46 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Net.Http;
-using System.Net.Http.Json;
+using System.Text.Json;
 using BikeStore.Models;
-using Microsoft.AspNetCore.Components;
 
 namespace WebApplication.Pages
 {
     public class IndexModel : PageModel
     {
-        [Inject]
-        protected HttpClient Http { get; set; }
-        public List<Manufacturer> Manufacturers { get; private set; }
-        public string ErrorString { get; set; }
-        protected string ModalTitle { get; set; }
+        private readonly IHttpClientFactory _clientFactory;
+        public IEnumerable<Manufacturer> Manufacturers;
+        public  string ErrorString { get; set; }
 
-        private Boolean _isDelete = false;
-        private Boolean _isAdd = false;
-        
-        protected string SearchString { get; set; }
-        
-        protected async Task OnInitAsync()
+        public IndexModel(IHttpClientFactory clientFactory)
         {
-            await GetManufacturers();
+            _clientFactory = clientFactory;
         }
-        
-        private async Task GetManufacturers()
+
+        public async Task GetManufacturers()
         {
-            var res = await Http.GetAsync("api/Manufacturer/GetAll");
-            if (res.IsSuccessStatusCode)
+            var request = new HttpRequestMessage(HttpMethod.Get, "https://localhost:5001/api/Manufacturer/GetAll");
+            var client = _clientFactory.CreateClient();
+            var response = await client.SendAsync(request);
+            if (response.IsSuccessStatusCode)
             {
-                Manufacturers = await res.Content.ReadFromJsonAsync<List<Manufacturer>>();
-                ErrorString = null;
+                await using var responseStream = await response.Content.ReadAsStreamAsync();
+                Manufacturers = await JsonSerializer.DeserializeAsync<IEnumerable<Manufacturer>>(responseStream);
             }
             else
             {
-                ErrorString = $"There was an error getting the manufacturers: {res.ReasonPhrase}";
+                ErrorString = $"There was an error getting the manufacturers: {response.ReasonPhrase}";
             }
-                
-            /*manufacturers = await _manufacturerController.GetAll() as List<Manufacturer>;
-            return manufacturers;*/
-            
-            /*var mornicThing = await Http.GetAsync($"{Url}/api/manufacturer");
-            return JsonSerializer.Deserialize<List<Manufacturer>>(mornicThing.Content.CopyTo(this.manufacturers));  GetStringAsync());
-            var res = GetManufacturerNamesAsync();
-            
-            HttpResponseMessage res = await Http.GetAsync("api/Manufacturer/GetAll");
-            res.EnsureSuccessStatusCode();
-            var responseText = await res.Content.ReadAsStreamAsync(<Manufacturer>); ReadAsStringAsync();
-            Manufacturer manufacturer = res.Content.ReadAsStreamAsync();
-            Manufacturer manufacturer = await res.Content.ReadAsAsync(typeof(Manufacturer));
-            yourTypeInstance = await res.Content.ReadAsStream<Manufacturer>();
-            var bf = new BinaryFormatter();
-            object manufacturer = bf.Deserialize(responseText);
-            return object;
-            object yourTypeInstance = await response.Content.ReadAsAsync(typeof(YourType));
-            
-            return manufacturer;
-            return data;*/
         }
+    }
 
-        /*protected void AddEmp()
-        {
-            emp = new Employee();
-            this.ModalTitle = "Add Employee";
-            this.isAdd = true;
-        }*/
+    /*protected void AddEmp()
+    {
+        emp = new Employee();
+        this.ModalTitle = "Add Employee";
+        this.isAdd = true;
+    }*/
 
         /*protected async Task EditEmployee(string ID)
         {
@@ -104,10 +77,9 @@ namespace WebApplication.Pages
             this.isDelete = false;
             await GetEmployee();
         }*/
-        protected void closeModal()
+        /*protected void CloseModal()
         {
             this._isAdd = false;
             this._isDelete = false;
-        }
+        }*/
     }
-}

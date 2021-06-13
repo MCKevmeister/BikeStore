@@ -1,12 +1,15 @@
 ﻿@page
 @using System.Net.Http
+@using System.Text.Json
+@using BikeStore.Models
 @model IndexModel
+@inject HttpClient _http
 
 @{
     ViewData["Title"] = "Home page";
+    await Model.GetManufacturers();
 }
-<h3>Blazor .NET with CRUD operations using MongoDB</h3><br />
-
+<h3>Manufactureres in the store</h3><br />
 <br /><br />
 @if (string.IsNullOrWhiteSpace(@Model.ErrorString) == false)
 {
@@ -20,24 +23,42 @@ else
 {
     <table class='table'>
         <thead>
-            <tr>
-                <th>Name</th>
-            </tr>
+        <tr>
+            <th>Name</th>
+        </tr>
         </thead>
         <tbody>
-            @foreach (var manufacturer in Model.Manufacturers)
-            {
-                <tr>
-                    <td>@manufacturer.Name</td>
-                    <td>
-                        <button class="btn btn-info" @*onclick="@(async () => await EditEmployee(@emp.Id))"*@>See Bikes</button>
-                        @*<button class="btn btn-danger" onclick="@(async () => await DeleteConfirm(@emp.Id))">Delete</button>*@
-                    </td>
-                </tr>
-            }
+        @foreach (var manufacturer in Model.Manufacturers)
+        {
+            <tr>
+                <td>@manufacturer.Name</td>
+                <td>
+                    <button class="btn btn-info" @*onclick="@(async () => await EditEmployee(@emp.Id))"*@>See Bikes</button>
+                    @*<button class="btn btn-danger" onclick="@(async () => await DeleteConfirm(@emp.Id))">Delete</button>*@
+                </td>
+            </tr>
+        }
         </tbody>
     </table>
+}
+    
+@*@code {
 
+    private async Task GetManufacturers()
+    {
+        var request = new HttpRequestMessage(HttpMethod.Get, "http://localhost:5000/api/Manufacturer/GetAll");
+        var response = await _http.SendAsync(request);
+        if (response.IsSuccessStatusCode)
+        {
+            await using var responseStream = await response.Content.ReadAsStreamAsync();
+            Model.Manufacturers = await JsonSerializer.DeserializeAsync<IEnumerable<Manufacturer>>(responseStream);
+        }
+        else
+        {
+            Model.ErrorString = $"There was an error getting the manufacturers: {response.ReasonPhrase}";
+        }
+    }
+}*@
     @*if (isAdd)
     {
         <div class="modal" tabindex="-1" style="display:block" role="dialog">
@@ -124,4 +145,4 @@ else
             </div>
         </div>
     }*@
-}  
+
