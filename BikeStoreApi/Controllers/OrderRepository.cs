@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BikeStoreApi.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/Order")]
     [ApiController]
     public class OrderController : ControllerBase
     {
@@ -20,14 +20,14 @@ namespace BikeStoreApi.Controllers
             _orderRepository = orderRepository;
         }
         
-        [HttpGet]
+        [HttpGet("GetAll")]
         public async Task<ActionResult<IEnumerable<Order>>> GetAll()
         {
             var orders = await _orderRepository.GetAll();
             return Ok(orders);
         }
         
-        [HttpGet("{id}", Name = "GetOrderAsync")]
+        [HttpGet("Get/{id}")]
         public async Task<ActionResult<Order>> Get(string id)
         {
             var order = await _orderRepository.GetById(id);
@@ -38,7 +38,7 @@ namespace BikeStoreApi.Controllers
             return Ok(order);
         }
         
-        [HttpPost]
+        [HttpPost("Create")]
         public async Task<ActionResult<Order>> Create(Order order)
         {
             _orderRepository.Create(order);
@@ -51,7 +51,7 @@ namespace BikeStoreApi.Controllers
             return Ok(newOrder);
         }
         
-        [HttpPut]
+        [HttpPut("Edit")]
         public async Task<ActionResult<Order>> UpdateOrderAsync(Order order)
         {
             var oldOrderCheck = await _orderRepository.GetById(order.Id);
@@ -62,7 +62,7 @@ namespace BikeStoreApi.Controllers
             return Ok(order);
         }
         
-        [HttpDelete]
+        [HttpDelete("Delete/{id}")]
         public async Task<IActionResult> Delete(string id)
         {
             var orderToDelete = await _orderRepository.GetById(id);
