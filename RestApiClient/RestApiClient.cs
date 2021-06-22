@@ -18,7 +18,7 @@ namespace BikeStore.RestApiClient
             return JsonSerializer.Deserialize<List<Manufacturer>>(
                 await httpClient.GetStringAsync($"{Url}/api/manufacturer/GetAll"));
         }
-        public static async Task<Manufacturer> GetManufacturerAsync(int id)
+        public static async Task<Manufacturer> GetManufacturerAsync(string id)
         {
             using var httpClient = new HttpClient();
             return JsonSerializer.Deserialize<Manufacturer>(
@@ -49,7 +49,7 @@ namespace BikeStore.RestApiClient
             var responseMessage = await httpClient.DeleteAsync($"{Url}/api/manufacturer/" + id);
             responseMessage.EnsureSuccessStatusCode();
         }
-        public static async Task<IEnumerable<Order>> GetOrderNamesAsync()
+        public static async Task<IEnumerable<Order>> GetOrdersAsync()
         {
             using var httpClient = new HttpClient();
             return JsonSerializer.Deserialize<List<Order>>(
@@ -86,7 +86,7 @@ namespace BikeStore.RestApiClient
             var responseMessage = await httpClient.DeleteAsync($"{Url}/api/order/" + id);
             responseMessage.EnsureSuccessStatusCode();
         }
-        public static async Task<IEnumerable<ElectricBike>> GetElectricBikeNamesAsync()
+        public static async Task<IEnumerable<ElectricBike>> GetElectricBikesAsync()
         {
             using var httpClient = new HttpClient();
             return JsonSerializer.Deserialize<List<ElectricBike>>(
@@ -123,7 +123,7 @@ namespace BikeStore.RestApiClient
             var responseMessage = await httpClient.DeleteAsync($"{Url}/api/electricbike/" + id);
             responseMessage.EnsureSuccessStatusCode();
         }
-        public static async Task<IEnumerable<RoadBike>> GetRoadBikeNamesAsync()
+        public static async Task<IEnumerable<RoadBike>> GetRoadBikesAsync()
         {
             using var httpClient = new HttpClient();
             return JsonSerializer.Deserialize<List<RoadBike>>(
