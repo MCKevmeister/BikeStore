@@ -1,9 +1,5 @@
 ﻿@page
-@using System.Net.Http
-@using System.Text.Json
-@using BikeStore.Models
 @model IndexModel
-@inject HttpClient _http
 
 @{
     ViewData["Title"] = "Home page";
@@ -33,7 +29,7 @@ else
             <tr>
                 <td>@manufacturer.Name</td>
                 <td>
-                    <button class="btn btn-info" @*onclick="@(async () => await EditEmployee(@emp.Id))"*@>See Bikes</button>
+                    <button class="btn btn-info"@* onclick="@(async () => await EditEmployee(@emp.Id)"*@)>See Bikes</button>
                     @*<button class="btn btn-danger" onclick="@(async () => await DeleteConfirm(@emp.Id))">Delete</button>*@
                 </td>
             </tr>
@@ -41,25 +37,9 @@ else
         </tbody>
     </table>
 }
-    
-@*@code {
 
-    private async Task GetManufacturers()
-    {
-        var request = new HttpRequestMessage(HttpMethod.Get, "http://localhost:5000/api/Manufacturer/GetAll");
-        var response = await _http.SendAsync(request);
-        if (response.IsSuccessStatusCode)
-        {
-            await using var responseStream = await response.Content.ReadAsStreamAsync();
-            Model.Manufacturers = await JsonSerializer.DeserializeAsync<IEnumerable<Manufacturer>>(responseStream);
-        }
-        else
-        {
-            Model.ErrorString = $"There was an error getting the manufacturers: {response.ReasonPhrase}";
-        }
-    }
-}*@
-    @*if (isAdd)
+
+@*if (isAdd)
     {
         <div class="modal" tabindex="-1" style="display:block" role="dialog">
             <div class="modal-dialog">

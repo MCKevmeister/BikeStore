@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Net.Http;
 using System.Text.Json;
 using BikeStore.Models;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace WebApplication.Pages
 {
@@ -20,6 +21,7 @@ namespace WebApplication.Pages
 
         public async Task GetManufacturers()
         {
+            //Manufacturers = await _manufacturerRepository.GetAll()
             var request = new HttpRequestMessage(HttpMethod.Get, "https://localhost:5001/api/Manufacturer/GetAll");
             var client = _clientFactory.CreateClient();
             var response = await client.SendAsync(request);
