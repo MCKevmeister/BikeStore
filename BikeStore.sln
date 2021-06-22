@@ -5,8 +5,6 @@ VisualStudioVersion = 16.0.31129.286
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Models", "Models\Models.csproj", "{33D6BA5E-E50E-4A24-A371-2A0079EE38A6}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdminWinForm", "AdminWinForm\AdminWinForm.csproj", "{D4F6EF2D-DE04-48A7-BF93-0B44B639DBBD}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClientWinForm", "ClientWinForm\ClientWinForm.csproj", "{FC6BE373-7BDF-4300-9B95-E8216644D7A5}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RestApiClient", "RestApiClient\RestApiClient.csproj", "{AE11C2E5-FEA4-4844-91F8-FEF9689B1301}"
@@ -15,9 +13,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BikeStoreApi", "BikeStoreAp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApplication", "WebApplication\WebApplication.csproj", "{7C211474-FFCF-4970-B8C0-85A421F0E3B4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplication2", "WebApplication2\WebApplication2.csproj", "{F32FC9E4-76BF-47D3-AD8A-F233ACA4839E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApplication2", "WebApplication2\WebApplication2.csproj", "{F32FC9E4-76BF-47D3-AD8A-F233ACA4839E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewAdminApp", "NewAdminApp\NewAdminApp.csproj", "{EBA28144-4120-4132-AD76-847947E8B14C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewAdminApp", "NewAdminApp\NewAdminApp.csproj", "{EBA28144-4120-4132-AD76-847947E8B14C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,10 +27,6 @@ Global
 		{33D6BA5E-E50E-4A24-A371-2A0079EE38A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{33D6BA5E-E50E-4A24-A371-2A0079EE38A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{33D6BA5E-E50E-4A24-A371-2A0079EE38A6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D4F6EF2D-DE04-48A7-BF93-0B44B639DBBD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D4F6EF2D-DE04-48A7-BF93-0B44B639DBBD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D4F6EF2D-DE04-48A7-BF93-0B44B639DBBD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D4F6EF2D-DE04-48A7-BF93-0B44B639DBBD}.Release|Any CPU.Build.0 = Release|Any CPU
 		{FC6BE373-7BDF-4300-9B95-E8216644D7A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{FC6BE373-7BDF-4300-9B95-E8216644D7A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FC6BE373-7BDF-4300-9B95-E8216644D7A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
