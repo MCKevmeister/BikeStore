@@ -1,59 +1,53 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 using System.Windows.Forms;
+using BikeStore.Models;
+using BikeStore.RestApiClient;
 
 namespace AdminWinForm
 {
     public partial class OrderForm : Form
     {
+        private static IEnumerable<Order> Orders { get; set; }
+        private decimal totalValueAllOrders { get; set; }
         public OrderForm()
         {
             InitializeComponent();
+            UpdateForm();
+        }
+        
+        private void UpdateForm()
+        {
+            ordersDataGridView.MultiSelect = false;
+            ordersDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            ordersDataGridView.AutoGenerateColumns = false;
+            Orders = RestClient.GetOrdersAsync().Result;
+            ordersDataGridView.DataSource = null;
+            ordersDataGridView.DataSource = Orders;
+            totalValueAllOrders = 0;
+            foreach(var order in Orders)
+            {
+                totalValueAllOrders += order.TotalAmount;
+            }
+            totalValueLabel.Text = $"Total Vlaue of Orders: {totalValueAllOrders}";
         }
 
-        private void OrderForm_Load(object sender, EventArgs e)
+        private async void deleteOrderButton_Click(object sender, EventArgs e)
         {
-            orderListView.View = View.Details;
-            orderListView.Columns.Add("Order Number", -2, HorizontalAlignment.Left);
-            orderListView.Columns.Add("Date", -2, HorizontalAlignment.Left);
-            orderListView.Columns.Add("Name", -2, HorizontalAlignment.Left);
-            orderListView.Columns.Add("Email", -2, HorizontalAlignment.Left);
-            orderListView.Columns.Add("Item", -2, HorizontalAlignment.Left);
-            orderListView.Columns.Add("Quantity", -2, HorizontalAlignment.Left);
-            orderListView.Columns.Add("Total Amount", -2, HorizontalAlignment.Left);
-
-            ListViewItem item1 = new("1121");
-            item1.SubItems.Add("4/4/2021");
-            item1.SubItems.Add("Mark");
-            item1.SubItems.Add("markchristison@gmail.com");
-            item1.SubItems.Add("Merida eSpresso 500 EQ");
-            item1.SubItems.Add("1");
-            item1.SubItems.Add("$4900.00");
-            item1.SubItems.Add("Completed");
-            ListViewItem item2 = new("1212");
-            item2.SubItems.Add("5/4/2021");
-            item2.SubItems.Add("John");
-            item2.SubItems.Add("johnsptens@gmail.com");
-            item2.SubItems.Add("Velectrix Urban Hybrid Electric Bike Blue");
-            item2.SubItems.Add("1");
-            item2.SubItems.Add("$5,250.00");
-            item2.SubItems.Add("Pending");
-            ListViewItem item3 = new("4532");
-            item3.SubItems.Add("2/4/2021");
-            item3.SubItems.Add("Stephen");
-            item3.SubItems.Add("steve@gmail.com");
-            item3.SubItems.Add("Norco Sight VLT C3 Electric All-Mountain Bike");
-            item3.SubItems.Add("1");
-            item3.SubItems.Add("$8,899");
-            item3.SubItems.Add("Deleted");
-
-            orderListView.Items.AddRange(new[] { item1, item2, item3 });
+            int Id = (int)ordersDataGridView.SelectedRows[0].Cells[0].Value;
+            DialogResult dialogResult = MessageBox.Show(@"Are you sure you want to delete this order?", "caption", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                await RestClient.DeleteOrderAsync(Id);
+                UpdateForm();
+            }
+        }
+        private void mainMenuButton_Click(object sender, EventArgs e)
+        {
+            MainForm mainForm = new();
+            mainForm.Show();
+            Hide();
         }
     }
 }

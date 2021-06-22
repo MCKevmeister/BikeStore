@@ -10,12 +10,16 @@ using System.Windows.Forms;
 
 namespace AdminWinForm
 {
-    public partial class ItemForm : Form
+    public partial class EditRoadBikeForm : EditItemDetails
     {
-        public ItemForm()
+        public EditRoadBikeForm()
         {
             InitializeComponent();
         }
 
+        private void saveRoadBikeButton_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

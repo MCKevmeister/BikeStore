@@ -30,12 +30,11 @@ namespace AdminWinForm
         private void InitializeComponent()
         {
             this.closeButton = new System.Windows.Forms.Button();
-            this.viewItemButton = new System.Windows.Forms.Button();
-            this.itemListView = new System.Windows.Forms.ListView();
-            this.viewOrdersButton = new System.Windows.Forms.Button();
-            this.addItemButton = new System.Windows.Forms.Button();
+            this.viewElectricBikeStock = new System.Windows.Forms.Button();
+            this.viewRoadBikeStock = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.MainLabel = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // closeButton
@@ -46,45 +45,27 @@ namespace AdminWinForm
             this.closeButton.TabIndex = 6;
             this.closeButton.Text = "Close";
             this.closeButton.UseVisualStyleBackColor = true;
+            this.closeButton.Click += new System.EventHandler(this.closeButton_Click);
             // 
-            // viewItemButton
+            // viewElectricBikeStock
             // 
-            this.viewItemButton.Location = new System.Drawing.Point(25, 292);
-            this.viewItemButton.Name = "viewItemButton";
-            this.viewItemButton.Size = new System.Drawing.Size(171, 43);
-            this.viewItemButton.TabIndex = 8;
-            this.viewItemButton.Text = "View Item";
-            this.viewItemButton.UseVisualStyleBackColor = true;
-            this.viewItemButton.Click += new System.EventHandler(this.categoryButton_Click);
+            this.viewElectricBikeStock.Location = new System.Drawing.Point(25, 125);
+            this.viewElectricBikeStock.Name = "viewElectricBikeStock";
+            this.viewElectricBikeStock.Size = new System.Drawing.Size(171, 43);
+            this.viewElectricBikeStock.TabIndex = 8;
+            this.viewElectricBikeStock.Text = "Electric Bike Stock";
+            this.viewElectricBikeStock.UseVisualStyleBackColor = true;
+            this.viewElectricBikeStock.Click += new System.EventHandler(this.viewElectricBikeStock_Click);
             // 
-            // itemListView
+            // viewRoadBikeStock
             // 
-            this.itemListView.HideSelection = false;
-            this.itemListView.Location = new System.Drawing.Point(12, 76);
-            this.itemListView.Name = "itemListView";
-            this.itemListView.Size = new System.Drawing.Size(730, 210);
-            this.itemListView.TabIndex = 5;
-            this.itemListView.UseCompatibleStateImageBehavior = false;
-            // 
-            // viewOrdersButton
-            // 
-            this.viewOrdersButton.Location = new System.Drawing.Point(202, 292);
-            this.viewOrdersButton.Name = "viewOrdersButton";
-            this.viewOrdersButton.Size = new System.Drawing.Size(171, 43);
-            this.viewOrdersButton.TabIndex = 8;
-            this.viewOrdersButton.Text = "View Orders";
-            this.viewOrdersButton.UseVisualStyleBackColor = true;
-            this.viewOrdersButton.Click += new System.EventHandler(this.viewOrdersButton_Click);
-            // 
-            // addItemButton
-            // 
-            this.addItemButton.Location = new System.Drawing.Point(25, 341);
-            this.addItemButton.Name = "addItemButton";
-            this.addItemButton.Size = new System.Drawing.Size(171, 43);
-            this.addItemButton.TabIndex = 11;
-            this.addItemButton.Text = "Add Item";
-            this.addItemButton.UseVisualStyleBackColor = true;
-            this.addItemButton.Click += new System.EventHandler(this.addItemButton_Click);
+            this.viewRoadBikeStock.Location = new System.Drawing.Point(25, 206);
+            this.viewRoadBikeStock.Name = "viewRoadBikeStock";
+            this.viewRoadBikeStock.Size = new System.Drawing.Size(171, 43);
+            this.viewRoadBikeStock.TabIndex = 8;
+            this.viewRoadBikeStock.Text = "Road Bike Stock";
+            this.viewRoadBikeStock.UseVisualStyleBackColor = true;
+            this.viewRoadBikeStock.Click += new System.EventHandler(this.viewRoadBikeStock_Click);
             // 
             // label1
             // 
@@ -102,21 +83,30 @@ namespace AdminWinForm
             this.MainLabel.Name = "MainLabel";
             this.MainLabel.Size = new System.Drawing.Size(800, 73);
             this.MainLabel.TabIndex = 9;
-            this.MainLabel.Text = "Current Stock";
+            this.MainLabel.Text = "Bike Store Administration";
             this.MainLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(25, 295);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(171, 43);
+            this.button1.TabIndex = 8;
+            this.button1.Text = "View Orders";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.viewOrdersButton_Click);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.addItemButton);
             this.Controls.Add(this.MainLabel);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.closeButton);
-            this.Controls.Add(this.viewOrdersButton);
-            this.Controls.Add(this.viewItemButton);
-            this.Controls.Add(this.itemListView);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.viewRoadBikeStock);
+            this.Controls.Add(this.viewElectricBikeStock);
             this.Name = "MainForm";
             this.Text = "Bike Store Admin";
             this.ResumeLayout(false);
@@ -125,13 +115,11 @@ namespace AdminWinForm
 
         #endregion
         private System.Windows.Forms.Button closeButton;
-        private System.Windows.Forms.Button viewItemButton;
-        private System.Windows.Forms.ListView itemListView;
+        private System.Windows.Forms.Button viewElectricBikeStock;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button addItemButton;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label MainLabel;
-        private System.Windows.Forms.Button viewOrdersButton;
+        private System.Windows.Forms.Button viewRoadBikeStock;
     }
 }
 
