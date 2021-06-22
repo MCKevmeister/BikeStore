@@ -36,8 +36,6 @@ namespace BikeStoreApi
             services.AddSingleton<IUnitOfWork, UnitOfWork.UnitOfWork>();
             services.RegisterMongoDbRepositories();
             services.RegisterMongoDbClassMaps();
-            
-
             services.AddSwaggerDocument();
             services.AddSwaggerGen(c =>
             {

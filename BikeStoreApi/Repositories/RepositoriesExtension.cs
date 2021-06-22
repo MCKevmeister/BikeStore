@@ -61,6 +61,7 @@ namespace BikeStoreApi.Repositories
                 map.SetIgnoreExtraElements(true);
                 map.MapIdMember(order => order.Id);
                 map.MapMember(order => order.BikeId);
+                map.MapMember(order => order.BikeAmount);
                 map.MapMember(order => order.CustomerName);
                 map.MapMember(order => order.CustomerEmail);
                 map.MapMember(order => order.TotalAmount);
