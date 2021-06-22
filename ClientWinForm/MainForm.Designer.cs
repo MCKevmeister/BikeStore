@@ -89,7 +89,6 @@ namespace ClientWinForm
             this.manufacturerButton.TabIndex = 1;
             this.manufacturerButton.Text = "View Manufacturers";
             this.manufacturerButton.UseVisualStyleBackColor = true;
-            this.manufacturerButton.Click += new System.EventHandler(this.manufacturerButton_Click);
             // 
             // MainForm
             // 
