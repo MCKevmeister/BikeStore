@@ -13,17 +13,15 @@ namespace NewAdminApp
         public OrderForm()
         {
             InitializeComponent();
+            ordersDataGridView.DataSource = Orders;
             ordersDataGridView.MultiSelect = false;
             ordersDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             ordersDataGridView.AutoGenerateColumns = false;
-            UpdateForm();
         }
-        
         private async void UpdateForm()
         {
+            Orders = null;
             Orders = await RestClient.GetOrdersAsync();
-            ordersDataGridView.DataSource = null;
-            ordersDataGridView.DataSource = Orders;
             TotalValueAllOrders = 0;
             foreach(var order in Orders)
             {
@@ -31,11 +29,10 @@ namespace NewAdminApp
             }
             totalValueLabel.Text = $@"Total Value of Orders: {TotalValueAllOrders}";
         }
-
         private async void deleteOrderButton_Click(object sender, EventArgs e)
         {
             var id = (int)ordersDataGridView.SelectedRows[0].Cells[0].Value;
-            DialogResult dialogResult = MessageBox.Show(@"Are you sure you want to delete this order?", @"caption",MessageBoxButtons.YesNo);
+            var dialogResult = MessageBox.Show(@"Are you sure you want to delete this order?", @"caption",MessageBoxButtons.YesNo);
             if (dialogResult != DialogResult.Yes) return;
             await RestClient.DeleteOrderAsync(id);
             UpdateForm();
@@ -45,6 +42,10 @@ namespace NewAdminApp
             MainForm mainForm = new();
             mainForm.Show();
             Hide();
+        }
+        private void updateFormButton_Click(object sender, EventArgs e)
+        {
+            UpdateForm();
         }
     }
 }

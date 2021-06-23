@@ -42,8 +42,8 @@ namespace NewAdminApp
             this.stockTextBox = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.manufacturerSelector = new System.Windows.Forms.DomainUpDown();
             this.exitButton = new System.Windows.Forms.Button();
+            this.manufacturerTextBox = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // label1
@@ -102,7 +102,7 @@ namespace NewAdminApp
             // 
             this.priceTextBox.Location = new System.Drawing.Point(156, 269);
             this.priceTextBox.Name = "priceTextBox";
-            this.priceTextBox.Size = new System.Drawing.Size(150, 27);
+            this.priceTextBox.Size = new System.Drawing.Size(233, 27);
             this.priceTextBox.TabIndex = 7;
             // 
             // label3
@@ -118,7 +118,7 @@ namespace NewAdminApp
             // 
             this.stockTextBox.Location = new System.Drawing.Point(156, 302);
             this.stockTextBox.Name = "stockTextBox";
-            this.stockTextBox.Size = new System.Drawing.Size(150, 27);
+            this.stockTextBox.Size = new System.Drawing.Size(233, 27);
             this.stockTextBox.TabIndex = 9;
             // 
             // label4
@@ -139,13 +139,6 @@ namespace NewAdminApp
             this.label5.TabIndex = 10;
             this.label5.Text = "Manufacturer:";
             // 
-            // manufacturerSelector
-            // 
-            this.manufacturerSelector.Location = new System.Drawing.Point(156, 336);
-            this.manufacturerSelector.Name = "manufacturerSelector";
-            this.manufacturerSelector.Size = new System.Drawing.Size(150, 27);
-            this.manufacturerSelector.TabIndex = 12;
-            // 
             // exitButton
             // 
             this.exitButton.Location = new System.Drawing.Point(28, 523);
@@ -157,13 +150,20 @@ namespace NewAdminApp
             this.exitButton.UseVisualStyleBackColor = true;
             this.exitButton.Click += new System.EventHandler(this.exitButton_Click);
             // 
+            // manufacturerTextBox
+            // 
+            this.manufacturerTextBox.Location = new System.Drawing.Point(156, 335);
+            this.manufacturerTextBox.Name = "manufacturerTextBox";
+            this.manufacturerTextBox.Size = new System.Drawing.Size(233, 27);
+            this.manufacturerTextBox.TabIndex = 16;
+            // 
             // EditItemDetails
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 574);
+            this.Controls.Add(this.manufacturerTextBox);
             this.Controls.Add(this.exitButton);
-            this.Controls.Add(this.manufacturerSelector);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.stockTextBox);
             this.Controls.Add(this.label4);
@@ -185,17 +185,17 @@ namespace NewAdminApp
         #endregion
 
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox itemNameTextBox;
+        protected System.Windows.Forms.TextBox itemNameTextBox;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.RichTextBox descriptionTextBox;
+        protected System.Windows.Forms.RichTextBox descriptionTextBox;
         private System.Windows.Forms.MaskedTextBox maskedTextBox1;
         private System.Windows.Forms.Label MainLabel;
-        private System.Windows.Forms.TextBox priceTextBox;
+        protected System.Windows.Forms.TextBox priceTextBox;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox stockTextBox;
+        protected System.Windows.Forms.TextBox stockTextBox;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.DomainUpDown manufacturerSelector;
         private System.Windows.Forms.Button exitButton;
+        private System.Windows.Forms.TextBox manufacturerTextBox;
     }
 }

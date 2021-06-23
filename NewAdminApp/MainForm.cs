@@ -12,7 +12,7 @@ namespace NewAdminApp
         private void viewElectricBikeStock_Click(object sender, EventArgs e)
         {
             ElectricBikeForm electricBikeStock = new();
-            electricBikeStock.Show();
+            electricBikeStock.Show(); 
             Hide();
         }
         private void viewRoadBikeStock_Click(object sender, EventArgs e)

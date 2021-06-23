@@ -42,6 +42,7 @@ namespace NewAdminApp
             this.Bike_Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Amount = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Total_Amount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.updateFormButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.ordersDataGridView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -79,9 +80,9 @@ namespace NewAdminApp
             this.totalValueLabel.AutoSize = true;
             this.totalValueLabel.Location = new System.Drawing.Point(773, 302);
             this.totalValueLabel.Name = "totalValueLabel";
-            this.totalValueLabel.Size = new System.Drawing.Size(210, 20);
+            this.totalValueLabel.Size = new System.Drawing.Size(155, 20);
             this.totalValueLabel.TabIndex = 20;
-            this.totalValueLabel.Text = "Total Value of Orders:  $19,049";
+            this.totalValueLabel.Text = "Total Value of Orders: ";
             // 
             // deleteOrderButton
             // 
@@ -160,11 +161,22 @@ namespace NewAdminApp
             this.Total_Amount.Name = "Total_Amount";
             this.Total_Amount.Width = 125;
             // 
+            // updateFormButton
+            // 
+            this.updateFormButton.Location = new System.Drawing.Point(429, 302);
+            this.updateFormButton.Name = "updateFormButton";
+            this.updateFormButton.Size = new System.Drawing.Size(171, 43);
+            this.updateFormButton.TabIndex = 22;
+            this.updateFormButton.Text = "Update Form";
+            this.updateFormButton.UseVisualStyleBackColor = true;
+            this.updateFormButton.Click += new System.EventHandler(this.updateFormButton_Click);
+            // 
             // OrderForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1238, 450);
+            this.Controls.Add(this.updateFormButton);
             this.Controls.Add(this.ordersDataGridView);
             this.Controls.Add(this.totalValueLabel);
             this.Controls.Add(this.deleteOrderButton);
@@ -193,5 +205,6 @@ namespace NewAdminApp
         private System.Windows.Forms.DataGridViewTextBoxColumn Bike_Id;
         private System.Windows.Forms.DataGridViewTextBoxColumn Amount;
         private System.Windows.Forms.DataGridViewTextBoxColumn Total_Amount;
+        private System.Windows.Forms.Button updateFormButton;
     }
 }

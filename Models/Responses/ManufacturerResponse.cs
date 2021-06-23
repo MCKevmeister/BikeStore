@@ -21,7 +21,7 @@
 
         private bool Success { get; set; }
         private string SuccessMessage { get; set; }
-        public string ErrorMessage { get; set; }
+        private string ErrorMessage { get; set; }
         private Manufacturer Manufacturer { get; set; }
     }
 }

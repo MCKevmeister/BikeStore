@@ -37,6 +37,7 @@ namespace NewAdminApp
             this.BikeName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Price = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Stock = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.updateButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.roadBikeDataGridView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -117,11 +118,23 @@ namespace NewAdminApp
             this.Stock.Name = "Stock";
             this.Stock.Width = 125;
             // 
+            // updateButton
+            // 
+            this.updateButton.Location = new System.Drawing.Point(229, 358);
+            this.updateButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.updateButton.Name = "updateButton";
+            this.updateButton.Size = new System.Drawing.Size(171, 42);
+            this.updateButton.TabIndex = 18;
+            this.updateButton.Text = "Update Form";
+            this.updateButton.UseVisualStyleBackColor = true;
+            this.updateButton.Click += new System.EventHandler(this.updateButton_Click);
+            // 
             // RoadBikeForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1030, 539);
+            this.Controls.Add(this.updateButton);
             this.Controls.Add(this.roadBikeDataGridView);
             this.Controls.Add(this.titleLabel);
             this.Controls.Add(this.menuButton);
@@ -143,5 +156,6 @@ namespace NewAdminApp
         private System.Windows.Forms.DataGridViewTextBoxColumn BikeName;
         private System.Windows.Forms.DataGridViewTextBoxColumn Price;
         private System.Windows.Forms.DataGridViewTextBoxColumn Stock;
+        private System.Windows.Forms.Button updateButton;
     }
 }

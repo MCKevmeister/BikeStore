@@ -1,38 +1,45 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Windows.Forms;
-using BikeStore.Models;
 using BikeStore.RestApiClient;
 
 namespace NewAdminApp
 {
     public partial class ElectricBikeForm : Form
     {
-        private static IEnumerable<ElectricBike> ElectricBikes { get; set; }
-        private Manufacturer ManufacturerName { get; set; }
+        private static BindingSource _electricBikes;
         public ElectricBikeForm()
         {
             InitializeComponent();
-            electricBikeDataGridView.DataSource = null;
+            electricBikeDataGridView.DataSource = _electricBikes;
             electricBikeDataGridView.MultiSelect = false;
             electricBikeDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            electricBikeDataGridView.AutoGenerateColumns = false;
+            electricBikeDataGridView.AutoGenerateColumns = true;
         }
         private async void UpdateForm()
         {
             electricBikeDataGridView.DataSource = null;
-            ElectricBikes = await RestClient.GetElectricBikesAsync();
-            electricBikeDataGridView.DataSource = ElectricBikes;
+            _electricBikes = new BindingSource {await RestClient.GetElectricBikesAsync()};
+            electricBikeDataGridView.DataSource = _electricBikes;
+            var bindingManagerBase = electricBikeDataGridView.DataBindings.BindableComponent.BindingContext[_electricBikes];
         }
-        private void viewItemButton_Click(object sender, EventArgs e)
+        private async void viewItemButton_Click(object sender, EventArgs e)
         {
-            //var selectedRow = electricBikesDataGridView.SelectedRows;
+            var id = (int)electricBikeDataGridView.SelectedRows[0].Cells[0].Value;
+            var selectedBike = await RestClient.GetElectricBikeAsync(id);
+            var electricBikeForm = new EditElectricBikeForm(selectedBike);
+            electricBikeForm.Show();
+            Hide();
         }
         private void menuButton_Click(object sender, EventArgs e)
         {
             var menu = new MainForm();
             menu.Show();
             Hide();
+        }
+
+        private void updateButton_Click(object sender, EventArgs e)
+        {
+            UpdateForm();
         }
     }
 }
