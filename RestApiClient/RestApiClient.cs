@@ -11,7 +11,7 @@ namespace BikeStore.RestApiClient
 {
     public static class RestClient
     {
-        private const string Url = "http://localhost:8080";
+        private const string Url = "http://localhost:5000";
         public static async Task<IEnumerable<Manufacturer>> GetManufacturerNamesAsync()
         {
             using var httpClient = new HttpClient();
